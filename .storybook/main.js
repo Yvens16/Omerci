@@ -1,11 +1,9 @@
 module.exports = {
-  "stories": [
-    "../stories/**/*.stories.mdx",
-    "../stories/**/*.stories.@(js|jsx|ts|tsx)"
-  ],
+  stories: ['../components/**/*.stories.tsx'],
   "addons": [
     "@storybook/addon-links",
     "@storybook/addon-essentials"
   ],
-  "framework": "@storybook/react"
+  "framework": "@storybook/react",
+  staticDirs: ['../public'],
 }
