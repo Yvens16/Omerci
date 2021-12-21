@@ -24,7 +24,9 @@ module.exports = {
       spacing: {
         '8t': '8px',
         '16t': '16px',
-        '10t': '10px'
+        '10t': '10px',
+        '12t': '12px',
+        '20t': '20px',
       },
       margin: {
         '12t': '12px',

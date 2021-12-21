@@ -15,30 +15,30 @@ const Template: ComponentStory<typeof Button> = (args) => <Button {...args}>
 </Button>
 
 export const Primary = Template.bind({});
-Primary.args = {  myClass:'bg-primary text-white', type:'primary', handleClick: () => console.log('primary button'), children: <span className=''>Primary</span>}
+Primary.args = {  myClass:'', type:'primary', handleClick: () => console.log('primary button'), children: <span className=''>Primary</span>}
 
 export const PrimaryBig = Template.bind({});
-PrimaryBig.args = {  myClass:'bg-primary text-white px-6 py-3', type:'primary', handleClick: () => console.log('primary button'), children: <span className=''>Primary</span>}
+PrimaryBig.args = {  myClass:'', type:'primary', size:'big', handleClick: () => console.log('primary button'), children: <span className=''>Primary</span>}
 
 export const PrimaryWithIcon = Template.bind({});
-PrimaryWithIcon.args = { myClass:'bg-primary text-white', type:'primary', handleClick: () => console.log('primary button'), children: <>
+PrimaryWithIcon.args = { myClass:'', type:'primary', handleClick: () => console.log('primary button'), children: <>
 <BrandIcon className='fill-white mr-2'/>
 <span className=''>Primary Icon</span>
 </>}
 
 export const IconButton = Template.bind({});
-IconButton.args = { myClass:'bg-primary text-white', type:'primary', handleClick: () => console.log('primary button'), children: <>
+IconButton.args = { myClass:'', type:'primary', handleClick: () => console.log('primary button'), children: <>
 <BrandIcon className='fill-white'/>
 </>}
 
 export const SecondaryButton = Template.bind({});
-SecondaryButton.args = {  myClass:'bg-secondary_fill text-primary', type:'secondary', handleClick: () => console.log('secondary button'), children: <span className=''>Secondary</span>}
+SecondaryButton.args = {  myClass:'', type:'secondary', handleClick: () => console.log('secondary button'), children: <span className=''>Secondary</span>}
 
 export const SecondaryBig = Template.bind({});
-SecondaryBig.args = {  myClass:'px-6 py-3', type:'secondary', handleClick: () => console.log('secondary button'), children: <span className=''>Secondary</span>}
+SecondaryBig.args = {  myClass:'', type:'secondary', size:'big', handleClick: () => console.log('secondary button'), children: <span className=''>Secondary</span>}
 
 export const SecondaryWithIcon = Template.bind({});
-SecondaryWithIcon.args = {  myClass:'bg-secondary_fill text-primary', type:'secondary', handleClick: () => console.log('secondary button'), children: <><BrandIcon className='fill-primary mr-2'/><span className=''>Secondary</span></>}
+SecondaryWithIcon.args = {  myClass:'', type:'secondary', handleClick: () => console.log('secondary button'), children: <><BrandIcon className='fill-primary mr-2'/><span className=''>Secondary</span></>}
 
 export const SecondaryIconButton = Template.bind({});
 SecondaryIconButton.args = { myClass:'', type:'secondary', handleClick: () => console.log('secondary Icon'), children: <>
@@ -47,6 +47,9 @@ SecondaryIconButton.args = { myClass:'', type:'secondary', handleClick: () => co
 
 export const ThirdButton = Template.bind({});
 ThirdButton.args = {  myClass:'', type:'third', handleClick: () => console.log('primary button'), children: <span className=''>Third</span>}
+
+export const ThirdBig = Template.bind({});
+ThirdBig.args = {  myClass:'', type:'third', size:'big', handleClick: () => console.log('primary button'), children: <span className=''>Third</span>}
 
 export const ThirdWithIcon = Template.bind({});
 ThirdWithIcon.args = {  myClass:'', type:'third', handleClick: () => console.log('primary button'), children: <>

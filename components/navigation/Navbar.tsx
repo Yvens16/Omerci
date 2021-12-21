@@ -21,7 +21,7 @@ const Navbar = ({ }) => {
                 <li className='hover:text-primary'><Link href='/'>F.A.Q</Link></li>
                 <li className='hover:text-primary'><Link href='/'>À propos</Link></li>
               </ul>
-              <Button myClass='' type='primary' handleClick={() => console.log('bye')}>Connexion</Button>
+              <Button myClass='' type='primary' size='' handleClick={() => console.log('bye')}>Connexion</Button>
             </div> : null}
         </div>
         <div className='hidden lg:flex lg:justify-between lg:items-center'>
@@ -29,7 +29,7 @@ const Navbar = ({ }) => {
           <span className='hover:text-primary mx-12t'><Link href='/'>Prix</Link></span>
           <span className='hover:text-primary mx-12t'><Link href='/'>F.A.Q</Link></span>
           <span className='hover:text-primary mx-12t'><Link href='/'>À propos</Link></span>
-          <Button myClass='ml-36t mr-12t' type='primary' handleClick={() => console.log('bye')}>Connexion</Button>
+          <Button myClass='ml-36t mr-12t' type='primary' size='' handleClick={() => console.log('bye')}>Connexion</Button>
         </div>
       </nav>
     </>
