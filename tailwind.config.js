@@ -4,8 +4,12 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    fontSize: {
+      'base': ['14px', '24px'],
+      'mid': '16px',
+    },
     fontFamily: {
-      'body': 'Poppins',
+      'poppins': 'Poppins',
     },
     colors: {
       white: '#fff',
@@ -16,7 +20,18 @@ module.exports = {
       third_hover: '#F7F7F8',
       danger: '#DB524E',
     },
-    extend: {},
+    extend: {
+      spacing: {
+        '8t': '8px',
+        '16t': '16px',
+        '10t': '10px'
+      },
+      margin: {
+        '12t': '12px',
+        '24t': '24px',
+        '36t': '36px',
+      },
+    },
   },
   plugins: [],
 }

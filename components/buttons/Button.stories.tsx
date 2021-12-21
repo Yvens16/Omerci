@@ -1,7 +1,7 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 import Button from './Button'
-import BrandIcon from '../../public/icons/Alarm.svg'
+import BrandIcon from '../../public/icons/basic/alarm.svg'
 
 const story = {
   title:'Button',
