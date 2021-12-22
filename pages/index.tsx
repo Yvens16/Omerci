@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Button from '../components/buttons/Button';
 import BrandIcon from '../public/icons/basic/alarm.svg'
 import NavBar from '../components/navigation/Navbar';
+import Input from '../components/inputs/Input';
 
 const Home: NextPage = () => {
   return (
@@ -15,12 +16,13 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* <NavBar/> */}
-      <Button myClass={''} type='primary' size='' handleClick={() => console.log('hi')}>
+      {/* <Button myClass={''} type='primary' size='' handleClick={() => console.log('hi')}>
         <>
           <BrandIcon className='fill-white mr-2'/>
           <span className=''>Delete</span>
         </>
-      </Button>
+      </Button> */}
+      <Input label='Hello' placeholder='bonjour' infoMessage='' handleChange={() => console.log('Hello')}/>
     </div>
   )
 }
