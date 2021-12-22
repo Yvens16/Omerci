@@ -3,7 +3,7 @@ import React from 'react'
 // type MyFunctionType = (name: string) => number; here using the "type" keyword *
 interface ButtonParams {
   myClass: string;
-  children: any,
+  children: React.ReactNode,
   handleClick(): any,
   type: string,
   size: string,
