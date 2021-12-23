@@ -1,8 +1,6 @@
-import Recat from 'react';
+import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 import Navbar from './Navbar';
-import Menu from '../../public/icons/menu/hamburger.svg';
-import Cross from '../../public/icons/menu/close_big.svg';
 
 
 const story = {

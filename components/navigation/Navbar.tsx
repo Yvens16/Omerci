@@ -9,7 +9,7 @@ const Navbar = ({ }) => {
   const [isNavOpen, setNavOpen] = useState(false);
   return (
     <>
-      <nav className='flex justify-between items-center px-16t py-8t lg:py-10t relative'>
+      <nav className='flex justify-between items-center px-16t py-8t lg:py-10t relative bg-white'>
         <span>LOGO</span>
         <div className='lg:hidden'>
           {isNavOpen ? <Cross onClick={() => setNavOpen(!isNavOpen)} /> : <Menu onClick={() => setNavOpen(!isNavOpen)} />}
