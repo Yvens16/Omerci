@@ -48,7 +48,7 @@ export default function useFirebaseAuth() {
         link = 'http://localhost:3000/login';
         break;
       case 'preview':
-        link = 'https://omerci.vercel.app/login';
+        link = `${process.env.VERCEL_URL}/login`;
         break;
       case 'production':
         // TODO change to prod domain and add the domain in firebase settings too: https://console.firebase.google.com/project/omerci/authentication/providers
