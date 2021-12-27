@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* html,
+body {
+	@apply h-full;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+} */
+
+/* #__next {
+	@apply flex flex-col min-h-full;
+} */

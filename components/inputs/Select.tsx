@@ -9,7 +9,7 @@ interface SelectParams {
 
 const Select = ({ optionList, getSelectedValue }: SelectParams) => {
   const [isOpen, setOpen] = useState(false);
-  const [selectedValue, setSelectedValue] = useState('Text select');
+  const [selectedValue, setSelectedValue] = useState(optionList[0]);
   const selectRef = useRef<HTMLDivElement>(null);
   const handleChoice = (option: string) => {
     setSelectedValue(option);

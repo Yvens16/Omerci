@@ -44,6 +44,7 @@ module.exports = {
         '16t': '16px',
         '12t': '12px',
         '24t': '24px',
+        '32t': '32px',
         '36t': '36px',
       },
       borderRadius: {
