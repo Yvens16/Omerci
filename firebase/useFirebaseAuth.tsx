@@ -48,7 +48,7 @@ export default function useFirebaseAuth() {
         link = 'http://localhost:3000/login';
         break;
       case 'preview':
-        link = `${process.env.VERCEL_URL}/login`;
+        link = `${process.env.NEXT_PUBLIC_VERCEL_URL}/login`;
         break;
       case 'production':
         // TODO change to prod domain and add the domain in firebase settings too: https://console.firebase.google.com/project/omerci/authentication/providers
@@ -59,6 +59,7 @@ export default function useFirebaseAuth() {
   }
 
   const magicSignInUp = (email: string) => {
+    console.log('####', getEnv());
     const actionCodeSettings = {
       // URL you want to redirect back to. The domain (www.example.com) for this
       // URL must be in the authorized domains list in the Firebase Console.
