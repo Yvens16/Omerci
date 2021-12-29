@@ -232,7 +232,7 @@ const Login: NextPage = () => {
       {loading ? <h1>It is loading</h1> :
         <div
           className='mt-[40px] lg:mt-[140px] text-base text-center flex flex-col p-24t border border-solid border-secondary_fill rounded-12t bg-white w-11/12 mx-16t md:mx-auto my-36t md:w-[462px]'>
-          {components[3]}
+          {components[step]}
         </div>
       }
       <Modal closeModal={closeModal} show={show}>
