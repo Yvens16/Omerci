@@ -33,11 +33,12 @@ const Button = ({myClass, children, handleClick, type, size}: ButtonParams) => {
   return (
   <button 
     className={
-      `${myClass}
+      `
       ${classToUse}
-      text-mid
+      ${myClass.includes('nav') ? '' : 'text-mid'}
       ${size === 'big' ? 'py-12t px-20t': 'px-16t py-8t'}
       ${size === 'big' && type === 'third' ? 'font-semibold	': ''}
+      ${myClass}
       `}
         onClick={handleClick}
       >

@@ -8,31 +8,29 @@ import Cross from '../../public/icons/menu/close_big.svg';
 const Navbar = ({ }) => {
   const [isNavOpen, setNavOpen] = useState(false);
   return (
-    <>
-      <nav className='flex justify-between items-center px-16t py-8t lg:py-10t relative bg-white'>
+    <nav className='bg-white'>
+      <div className='flex justify-between items-center px-16t py-8t lg:py-10t relative lg:h-[73px] max-w-content mx-auto'>
         <span>LOGO</span>
         <div className='lg:hidden'>
           {isNavOpen ? <Cross onClick={() => setNavOpen(!isNavOpen)} /> : <Menu onClick={() => setNavOpen(!isNavOpen)} />}
           {isNavOpen
             ? <div className='bg-white p-16t absolute top-full right-0 flex flex-col'>
-              <ul>
-                <li className='hover:text-primary'><Link href='/'>Comment ça marche</Link></li>
-                <li className='hover:text-primary'><Link href='/'>Prix</Link></li>
-                <li className='hover:text-primary'><Link href='/'>F.A.Q</Link></li>
-                <li className='hover:text-primary'><Link href='/'>À propos</Link></li>
-              </ul>
-              <Button myClass='' type='primary' size='' handleClick={() => console.log('bye')}>Connexion</Button>
+              <Button myClass='nav font-base mt-8t' type='third' size='' handleClick={() => console.log('button1')}><Link href='/'>Comment ça marche</Link></Button>
+              <Button myClass='nav font-base mt-8t' type='third' size='' handleClick={() => console.log('button2')}><Link href='/'>Prix</Link></Button>
+              <Button myClass='nav font-base mt-8t' type='third' size='' handleClick={() => console.log('button3')}><Link href='/'>F.A.Q</Link></Button>
+              <Button myClass='nav font-base mt-8t' type='third' size='' handleClick={() => console.log('button4')}><Link href='/'>À propos</Link></Button>
+              <Button myClass='mt-8t' type='primary' size='' handleClick={() => console.log('bye')}>Connexion</Button>
             </div> : null}
         </div>
         <div className='hidden lg:flex lg:justify-between lg:items-center'>
-          <span className='hover:text-primary mx-12t'><Link href='/'>Comment ça marche</Link></span>
-          <span className='hover:text-primary mx-12t'><Link href='/'>Prix</Link></span>
-          <span className='hover:text-primary mx-12t'><Link href='/'>F.A.Q</Link></span>
-          <span className='hover:text-primary mx-12t'><Link href='/'>À propos</Link></span>
+          <Button myClass='nav font-base' type='third' size='' handleClick={() => console.log('button1')}><Link href='/'>Comment ça marche</Link></Button>
+          <Button myClass='nav font-base' type='third' size='' handleClick={() => console.log('button2')}><Link href='/'>Prix</Link></Button>
+          <Button myClass='nav font-base' type='third' size='' handleClick={() => console.log('button3')}><Link href='/'>F.A.Q</Link></Button>
+          <Button myClass='nav font-base' type='third' size='' handleClick={() => console.log('button4')}><Link href='/'>À propos</Link></Button>
           <Button myClass='ml-36t mr-12t' type='primary' size='' handleClick={() => console.log('bye')}>Connexion</Button>
         </div>
-      </nav>
-    </>
+      </div>
+    </nav>
   );
 }
 

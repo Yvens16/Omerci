@@ -4,6 +4,9 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    maxWidth: {
+      'content': '1240px'
+    },
     fontSize: {
       'base': ['14px', '24px'],
       '18t': '18px',
@@ -36,7 +39,8 @@ module.exports = {
         '10t': '10px',
         '12t': '12px',
         '20t': '20px',
-        '24t': '24px'
+        '24t': '24px',
+        '28t': '28px',
       },
       margin: {
         '4t': '4px',

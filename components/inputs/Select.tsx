@@ -33,13 +33,13 @@ const Select = ({ optionList, getSelectedValue }: SelectParams) => {
         className={`relative flex justify-between items start p-8t my-8t border border-solid ${isOpen ? 'border-primary' : 'border-input_default'} rounded-8t`}>
         <span className={`${isOpen ? 'text-primary' : ''}`}>{selectedValue}</span>
         {isOpen
-          ? <CaretUp className='fill-primary absolute top-1/2 right-0 -translate-y-1/2' />
-          : <CaretDown className='absolute top-1/2 right-0 -translate-y-1/2' />}
+          ? <CaretUp className='fill-primary absolute top-1/2 right-[8px] -translate-y-1/2' />
+          : <CaretDown className='absolute top-1/2 right-[8px] -translate-y-1/2' />}
       </div>
       {isOpen
         ? <div
           ref={selectRef}
-          className="flex flex-col items-start justify-between p-16t my-8t rounded-12t border border-solid border-primary">
+          className="flex flex-col text-left justify-between p-16t my-8t rounded-12t border border-solid border-primary">
           {optionList
             ? optionList.map((val, idx) => (
               <span className='p-10t hover:bg-secondary_fill' onClick={() => handleChoice(val)} key={idx}>{val}</span>

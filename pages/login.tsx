@@ -21,12 +21,13 @@ interface EnterEmailParams {
 const EnterEmail = ({ handleEmail, handleLogin, emailErrorMsg }: EnterEmailParams) => {
   return (<>
     <h1 className='text-title font-semibold text-black leading-[33px]'>Connexion ou inscription</h1>
-    <p className='text-third my-16t'>Tapez votre email pour vous inscrire ou vous connecter</p>
+    <p className='hidden xl:block text-third mt-[16px] mb-[20px]'>Tapez votre email pour vous inscrire ou vous <br /> connecter</p>
+    <p className='xl:hidden text-third mt-16t mb-[20px]'>Tapez votre email pour vous inscrire ou vous connecter</p>
     <Input label='' placeholder='ici-votre@email.com' infoMessage={emailErrorMsg} handleChange={handleEmail} />
-    <div className='bg-default_bg p-16t my-16t rounded-8t'>
+    <div className='bg-default_bg p-16t mt-16t mb-32t rounded-8t'>
       <p className='text-black_login mx-8t'>By signing up, you agree to our <span className='underline'><Link href='/login'>terms of service and privicy policy</Link></span></p>
     </div>
-    <Button handleClick={handleLogin} type='primary' myClass='' size=''>
+    <Button handleClick={handleLogin} type='primary' myClass='' size='big'>
       Suivant
     </Button>
   </>);
@@ -40,12 +41,14 @@ interface EmailSentParams {
 
 const EmailSent = ({ email, showModal, getBack }: EmailSentParams) => {
   return <>
-    <div onClick={getBack} className='flex items-center text-mid p-8t text-[#6A6774] my-16t cursor-pointer'>
-      <ArrowLeft className='fill-[#6A6774]' />
-      <span>Retour</span>
+    <div>
+      <Button myClass='' handleClick={getBack} size='' type='third'>
+        <ArrowLeft className='fill-[#6A6774]' />
+        <span>Retour</span>
+      </Button>
+      <p className='my-16t text-black_login'>Un email avec un lien de connexion à été envoyé à l'adresse {email}</p>
     </div>
-    <p className='my-16t text-black_login'>Un email avec un lien de connexion à été envoyé à l'adresse {email}</p>
-    <div className='flex justify-center my-[27px]'>
+    <div className='flex justify-center mt-[24px] mb-16t'>
       <LetterIllustration />
     </div>
     <span onClick={showModal} className='underline text-black_login cursor-pointer'>Vous n'avez pas reçu d'email ?</span>
@@ -64,15 +67,19 @@ interface SignUpParams {
 const SignUp = ({ handleName, handleSurname, handleHowDoyouKnowUs, handleRegisterInfo, nameEmpty, surnameEmpty }: SignUpParams) => {
   const options = ['Linkedin', 'Facebook', 'Google', 'Bouche à oreille', 'Autre']
   return <>
-    <p className='text-black font-semibold text-18t'>👋 Bienvenue !</p>
-    <p className='text-black my-16t'>Dites nous en un peu plus sur vous</p>
-    <Input label='Votre nom' placeholder='Dupont' infoMessage={nameEmpty} handleChange={handleName} />
-    <Input label='Votre prénom' placeholder='Jean' infoMessage={surnameEmpty} handleChange={handleSurname} />
+    <p className='text-black font-semibold text-18t text-left'><span className='mr-8t'>👋</span>  Bienvenue !</p>
+    <p className='text-black my-16t text-left'>Dites nous en un peu plus sur vous</p>
     <div>
-      <span className='my-4t text-black'>Comment nous avez vous connu ?</span>
+      <Input label='Votre nom' placeholder='Dupont' infoMessage={nameEmpty} handleChange={handleName} />
+    </div>
+    <div className='mt-16t'>
+      <Input label='Votre prénom' placeholder='Jean' infoMessage={surnameEmpty} handleChange={handleSurname} />
+    </div>
+    <div className='mt-16t'>
+      <p className='my-4t text-black text-left'>Comment nous avez vous connu ?</p>
       <Select optionList={options} getSelectedValue={handleHowDoyouKnowUs} />
     </div>
-    <Button handleClick={handleRegisterInfo} type='primary' myClass='' size=''>
+    <Button handleClick={handleRegisterInfo} type='primary' myClass='mt-32t' size='big'>
       Suivant
     </Button>
   </>
@@ -97,7 +104,7 @@ const AlreadyHasAccount = ({ surname, name, email }: AlreadyHasAccountParams) =>
       </div>
     </div>
     <Link href='/login' passHref>
-      <Button handleClick={() => console.log('Hello')} type='primary' myClass='' size=''>
+      <Button handleClick={() => console.log('Hello')} type='primary' myClass='mt-16t' size='big'>
         C'est parti !
       </Button>
     </Link>
@@ -105,7 +112,7 @@ const AlreadyHasAccount = ({ surname, name, email }: AlreadyHasAccountParams) =>
 }
 
 const Login: NextPage = () => {
-  const [email, setEmail] = useState<string>('votre@email.com');
+  const [email, setEmail] = useState<string>('fadel2603@gmail.com');
   const [emailErrorMsg, setEmailErrorMsg] = useState<string>("");
   const [show, setShow] = useState<boolean>(false);
   const [emailShow, setEmailShow] = useState<boolean>(false);
@@ -209,7 +216,7 @@ const Login: NextPage = () => {
       } else {
         setEmailShow(true);
       }
-    } else if(!window.location.href.includes('mode=signIn')) {
+    } else if (!window.location.href.includes('mode=signIn')) {
       setStep(0);
     }
   }, [afterGettingLink, authUser, getUserInfo, loading])
@@ -224,21 +231,21 @@ const Login: NextPage = () => {
     <>
       {loading ? <h1>It is loading</h1> :
         <div
-          className='text-base text-center flex flex-col p-24t border border-solid border-secondary_fill rounded-12t bg-white w-11/12 mx-auto my-36t lg:w-1/3'>
-          {components[step]}
+          className='mt-[40px] lg:mt-[140px] text-base text-center flex flex-col p-24t border border-solid border-secondary_fill rounded-12t bg-white w-11/12 mx-16t md:mx-auto my-36t md:w-[462px]'>
+          {components[3]}
         </div>
       }
       <Modal closeModal={closeModal} show={show}>
         <div className='flex flex-col text-center'>
           <div className='flex flex-col items-center'>
-            <SendIcon className='my-16t' />
+            <SendIcon className='my-24t' />
           </div>
-          <p className='text-title my-16t'>Essayer ceci</p>
-          <div className='my-16t  text-third'>
-            <p className='my-4t'>Nous vous conseillons d’abord d’attendre un peu (cela peut prendre <span className='font-extrabold'>jusqu’a 3 min</span>).</p>
-            <p className='my-4t'>N’hesitez pas également à regarder dans <span className='font-extrabold'>vos spams</span></p>
-            <p className='my-4t'>
-              Enfin, si le problème n’est toujours pas résolu, cliquez sur le bouton ci-dessous pour que l’on vous <span className='font-extrabold'>renvoi un email de connexion </span></p>
+          <h2 className='text-title font-semibold my-16t'>Essayer ceci</h2>
+          <div className='mt-16t mb-[40px] text-third'>
+            <p className='my-8t'>Nous vous conseillons d’abord d’attendre un peu (cela peut prendre <span className='font-semibold'>jusqu’a 3 min</span>).</p>
+            <p className='my-8t'>N’hesitez pas également à regarder dans <span className='font-semibold'>vos spams</span></p>
+            <p className='my-8t'>
+              Enfin, si le problème n’est toujours pas résolu, cliquez sur le bouton ci-dessous pour que l’on vous <span className='font-semibold'>renvoi un email de connexion </span></p>
           </div>
           <Button handleClick={handleLogin} type='primary' myClass='' size=''>
             Me renvoyer un email
