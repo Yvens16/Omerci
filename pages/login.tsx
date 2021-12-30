@@ -192,6 +192,7 @@ const Login: NextPage = () => {
           })
         }
       }
+      setEmailShow(false);
     });
   }
   useLayoutEffect(() => {
@@ -254,10 +255,11 @@ const Login: NextPage = () => {
       </Modal>
       <Modal closeModal={closeEmailModal} show={emailShow}>
         <div className='flex flex-col text-center'>
-          <p className='text-mid my-16t'>Entrez votre email pour vous connecter</p>
+        <h3 className='text-black font-semibold text-18t text-center'><span className='mr-8t'>👋</span>Oups, il semblerait que vous ayez changé d'appareil !</h3>
+          <p className='text-base text-black_login mt-16t mb-[28px]'>Pour des raisons de sécurité, veuillez reconfirmer votre adresse email</p>
           <Input label='' placeholder='ici-votre@email.com' infoMessage={emailErrorMsg} handleChange={handleEmail} />
-          <Button handleClick={handleAlienDeviceLogin} type='primary' myClass='my-16t' size=''>
-            Me connecter
+          <Button handleClick={handleAlienDeviceLogin} type='primary' myClass='mb-16t mt-32t' size='big'>
+            Suivant
           </Button>
         </div>
       </Modal>
