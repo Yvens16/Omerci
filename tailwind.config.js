@@ -19,8 +19,7 @@ module.exports = {
     },
     colors: {
       white: '#fff',
-      black: '#000000',
-      black_login: '#181624',
+      black: '#181624',
       primary: "#6E41E2",
       primary_hover: "#421BA7",
       secondary_fill: '#EFEDFA',
@@ -34,6 +33,7 @@ module.exports = {
     },
     extend: {
       spacing: {
+        '4t': '4px',
         '8t': '8px',
         '16t': '16px',
         '10t': '10px',
@@ -50,6 +50,9 @@ module.exports = {
         '24t': '24px',
         '32t': '32px',
         '36t': '36px',
+        '40t': '40px',
+        '48t': '48px',
+        '56t': '56px',
       },
       borderRadius: {
         '4t': '4px',

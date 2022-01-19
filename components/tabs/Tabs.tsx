@@ -15,7 +15,7 @@ const Tabs = ({ tabs, whichIndex }: TabProps) => {
     tabs.map((link, index) => (
       <div className={
         `text-mid cursor-pointer font-medium	
-          ${activeIndex == index ? 'text-black_login border-b-2 border-primary' : 'text-[#8F8D9A]' }
+          ${activeIndex == index ? 'text-black border-b-2 border-primary' : 'text-[#8F8D9A]' }
         `}
       key={index} onClick={() => getActiveIndex(index)}>{link}</div>
     ))

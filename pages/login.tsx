@@ -25,7 +25,7 @@ const EnterEmail = ({ handleEmail, handleLogin, emailErrorMsg }: EnterEmailParam
     <p className='xl:hidden text-third mt-16t mb-[20px]'>Tapez votre email pour vous inscrire ou vous connecter</p>
     <Input label='' placeholder='ici-votre@email.com' infoMessage={emailErrorMsg} handleChange={handleEmail} />
     <div className='bg-default_bg p-16t mt-16t mb-32t rounded-8t'>
-      <p className='text-black_login mx-8t'>By signing up, you agree to our <span className='underline'><Link href='/login'>terms of service and privicy policy</Link></span></p>
+      <p className='text-black mx-8t'>By signing up, you agree to our <span className='underline'><Link href='/login'>terms of service and privicy policy</Link></span></p>
     </div>
     <Button handleClick={handleLogin} type='primary' myClass='' size='big'>
       Suivant
@@ -46,12 +46,12 @@ const EmailSent = ({ email, showModal, getBack }: EmailSentParams) => {
         <ArrowLeft className='fill-[#6A6774]' />
         <span>Retour</span>
       </Button>
-      <p className='my-16t text-black_login'>Un email avec un lien de connexion à été envoyé à l'adresse {email}</p>
+      <p className='my-16t text-black'>Un email avec un lien de connexion à été envoyé à l'adresse {email}</p>
     </div>
     <div className='flex justify-center mt-[24px] mb-16t'>
       <LetterIllustration />
     </div>
-    <span onClick={showModal} className='underline text-black_login cursor-pointer'>Vous n'avez pas reçu d'email ?</span>
+    <span onClick={showModal} className='underline text-black cursor-pointer'>Vous n'avez pas reçu d'email ?</span>
   </>;
 }
 
@@ -93,13 +93,13 @@ interface AlreadyHasAccountParams {
 
 const AlreadyHasAccount = ({ surname, name, email }: AlreadyHasAccountParams) => {
   return <>
-    <p className='text-18t text-semibold text-black_login text-center my-16t'>🎉 Content de vous revoir, {surname} !</p>
+    <p className='text-18t text-semibold text-black text-center my-16t'>🎉 Content de vous revoir, {surname} !</p>
     <div className='bg-default_bg p-16t my-16t rounded-8t flex justify-start items-center'>
       <div className="mx-8t">
         <Ghost />
       </div>
       <div className="flex flex-col items-start">
-        <p className="font-medium text-mid text-black_login">{surname} {name}</p>
+        <p className="font-medium text-mid text-black">{surname} {name}</p>
         <p className="text-third">{email}</p>
       </div>
     </div>
@@ -256,7 +256,7 @@ const Login: NextPage = () => {
       <Modal closeModal={closeEmailModal} show={emailShow}>
         <div className='flex flex-col text-center'>
         <h3 className='text-black font-semibold text-18t text-center'><span className='mr-8t'>👋</span>Oups, il semblerait que vous ayez changé d'appareil !</h3>
-          <p className='text-base text-black_login mt-16t mb-[28px]'>Pour des raisons de sécurité, veuillez reconfirmer votre adresse email</p>
+          <p className='text-base text-black mt-16t mb-[28px]'>Pour des raisons de sécurité, veuillez reconfirmer votre adresse email</p>
           <Input label='' placeholder='ici-votre@email.com' infoMessage={emailErrorMsg} handleChange={handleEmail} />
           <Button handleClick={handleAlienDeviceLogin} type='primary' myClass='mb-16t mt-32t' size='big'>
             Suivant

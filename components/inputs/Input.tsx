@@ -4,15 +4,19 @@ interface InputParams {
   label: string,
   placeholder: string,
   handleChange(e: any): void,
+  name: string,
   infoMessage: string,
+  value?: string,
 };
 
 
-const Input = ({label, placeholder, handleChange, infoMessage}: InputParams) => {
+const Input = ({label, placeholder, handleChange, infoMessage, name, value}: InputParams) => {
   return (
     <div className='flex flex-col font-base'>
       {label ? <span className='text-left'>{label}</span> : null}
       <input
+        name={name || ''}
+        value={value}
         className={`rounded-8t font-normal py-8t px-8t flex items-start border border-solid border-input_default
         focus:outline-none focus:border-solid focus:border focus:border-primary
         placholder-input_placeholder my-4t
