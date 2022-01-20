@@ -196,14 +196,15 @@ const Login: NextPage = () => {
     });
   }
   useLayoutEffect(() => {
-    console.log('1111', process.env.NEXT_PUBLIC_VERCEL_ENV)
     if (!authUser && window.location.href.includes('mode=signIn')) {
       let email: string = window.localStorage.getItem('emailForSignIn') as string;
       if (email) {
         afterGettingLink().then((rel: any) => {
           if (rel) {
+            console.log('rel:', rel)
             if (rel.isNewUser) {
               setStep(2)
+              setEmail(rel.email);
             } else {
               getUserInfo(rel.uid).then((data) => {
                 setEmail(data.email);
