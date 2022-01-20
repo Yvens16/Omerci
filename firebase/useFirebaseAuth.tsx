@@ -106,12 +106,12 @@ export default function useFirebaseAuth() {
       // Get the email if available. This should be available if the user completes
       // the flow on the same device where they started it.
       let email: string = window.localStorage.getItem('emailForSignIn') as string;
-      if (!email) {
-        // TODO check for email in Login component and ask for email if not present
-        // User opened the link on a different device. To prevent session fixation
-        // attacks, ask the user to provide the associated email again. For example:
-        email = window.prompt('Please provide your email for confirmation') as string;
-      }
+      // if (!email) {
+      //   // TODO check for email in Login component and ask for email if not present
+      //   // User opened the link on a different device. To prevent session fixation
+      //   // attacks, ask the user to provide the associated email again. For example:
+      //   email = window.prompt('Please provide your email for confirmation') as string;
+      // }
       // The client SDK will parse the code from the link for you.
       return signInWithEmailLink(auth, email, window.location.href)
         .then((result: any) => {
@@ -133,6 +133,7 @@ export default function useFirebaseAuth() {
             isAnonymous,
             emailVerified,
             uid,
+            email
           };
           return resultToReturn;
         })
