@@ -4,12 +4,11 @@ import Check from '../../public/icons/basic/check_big.svg';
 interface CheckboxParams {
   labelText: string,
   type: string,
-  customClass: string,
   handleCheck: (e: React.ChangeEvent<HTMLInputElement>) => void,
   name: string,
   isCheck: boolean,
 }
-const Checkbox = ({labelText, type, customClass, handleCheck, name, isCheck}: CheckboxParams) => {
+const Checkbox = ({labelText, type, handleCheck, name, isCheck}: CheckboxParams) => {
   return (
     <div className='flex items-center' >
       <input type="checkbox" name={name} onChange={handleCheck} id={name} className='opacity-0 absolute h-8 w-8'/>
@@ -18,7 +17,7 @@ const Checkbox = ({labelText, type, customClass, handleCheck, name, isCheck}: Ch
         ? type === 'circle' ? <Dot className='fill-primary'/> : <Check className='fill-white'/>
         :null}
       </div>
-    {labelText ? <label htmlFor={name} className={`select-none mx-8t ${customClass}`}>{labelText}</label> : null}
+    {labelText ? <label htmlFor={name} className={`select-none mx-8t`}>{labelText}</label> : null}
     </div>
   );
 }

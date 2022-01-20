@@ -8,7 +8,8 @@ const AuthUserContext = createContext({
   magicSignInUp: async (email: string) => {},
   signOutAccount: async () => {},
   signOut: async () => {},
-  afterGettingLink: async () => {}
+  afterGettingLink: async () => {},
+  updateAuthDisplayName: async () => Promise,
 })
 
 interface ChildrenParams {

@@ -23,7 +23,7 @@ const EnterEmail = ({ handleEmail, handleLogin, emailErrorMsg }: EnterEmailParam
     <h1 className='text-title font-semibold text-black leading-[33px]'>Connexion ou inscription</h1>
     <p className='hidden xl:block text-third mt-[16px] mb-[20px]'>Tapez votre email pour vous inscrire ou vous <br /> connecter</p>
     <p className='xl:hidden text-third mt-16t mb-[20px]'>Tapez votre email pour vous inscrire ou vous connecter</p>
-    <Input label='' placeholder='ici-votre@email.com' infoMessage={emailErrorMsg} handleChange={handleEmail} />
+    <Input name='email' label='' placeholder='ici-votre@email.com' infoMessage={emailErrorMsg} handleChange={handleEmail} />
     <div className='bg-default_bg p-16t mt-16t mb-32t rounded-8t'>
       <p className='text-black mx-8t'>By signing up, you agree to our <span className='underline'><Link href='/login'>terms of service and privicy policy</Link></span></p>
     </div>
@@ -70,10 +70,10 @@ const SignUp = ({ handleName, handleSurname, handleHowDoyouKnowUs, handleRegiste
     <p className='text-black font-semibold text-18t text-left'><span className='mr-8t'>👋</span>  Bienvenue !</p>
     <p className='text-black my-16t text-left'>Dites nous en un peu plus sur vous</p>
     <div>
-      <Input label='Votre nom' placeholder='Dupont' infoMessage={nameEmpty} handleChange={handleName} />
+      <Input name='name' label='Votre nom' placeholder='Dupont' infoMessage={nameEmpty} handleChange={handleName} />
     </div>
     <div className='mt-16t'>
-      <Input label='Votre prénom' placeholder='Jean' infoMessage={surnameEmpty} handleChange={handleSurname} />
+      <Input name='surname' label='Votre prénom' placeholder='Jean' infoMessage={surnameEmpty} handleChange={handleSurname} />
     </div>
     <div className='mt-16t'>
       <p className='my-4t text-black text-left'>Comment nous avez vous connu ?</p>
@@ -174,6 +174,7 @@ const Login: NextPage = () => {
     } else {
       const uid = authUser && authUser['uid'] ? authUser['uid'] : '';
       addUserInfo({ uid, firstName: surname, lastName: name, howDoYouKnowUs: howDoyouKnowUs, email });
+      //TODO: redirect to my cards page
     }
   }
 
@@ -196,7 +197,6 @@ const Login: NextPage = () => {
     });
   }
   useLayoutEffect(() => {
-    console.log('1111', process.env.NEXT_PUBLIC_VERCEL_ENV)
     if (!authUser && window.location.href.includes('mode=signIn')) {
       let email: string = window.localStorage.getItem('emailForSignIn') as string;
       if (email) {
@@ -257,7 +257,7 @@ const Login: NextPage = () => {
         <div className='flex flex-col text-center'>
         <h3 className='text-black font-semibold text-18t text-center'><span className='mr-8t'>👋</span>Oups, il semblerait que vous ayez changé d'appareil !</h3>
           <p className='text-base text-black mt-16t mb-[28px]'>Pour des raisons de sécurité, veuillez reconfirmer votre adresse email</p>
-          <Input label='' placeholder='ici-votre@email.com' infoMessage={emailErrorMsg} handleChange={handleEmail} />
+          <Input name='email2' label='' placeholder='ici-votre@email.com' infoMessage={emailErrorMsg} handleChange={handleEmail} />
           <Button handleClick={handleAlienDeviceLogin} type='primary' myClass='mb-16t mt-32t' size='big'>
             Suivant
           </Button>

@@ -41,6 +41,7 @@ module.exports = {
         '20t': '20px',
         '24t': '24px',
         '28t': '28px',
+        '32t': '32px',
       },
       margin: {
         '4t': '4px',

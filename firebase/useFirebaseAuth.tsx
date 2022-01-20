@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import firebaseApp from './index';
-import { getAuth, sendSignInLinkToEmail, onAuthStateChanged, isSignInWithEmailLink, signOut, signInAnonymously, signInWithEmailLink } from 'firebase/auth';
+import { getAuth, sendSignInLinkToEmail, onAuthStateChanged, isSignInWithEmailLink, signOut, signInAnonymously, signInWithEmailLink, updateProfile } from 'firebase/auth';
 
 interface authUserParams {
   uid: string | null,
@@ -10,14 +10,16 @@ interface authUserParams {
   isAnonymous: boolean,
   emailVerified: boolean,
 }
-const formatAuthUser = (user: authUserParams) => ({
+const formatAuthUser = (user: authUserParams) => {
+  console.log('BEFORE FormatUser', user);
+  return {
   uid: user.uid,
   name: user.name,
   email: user.email,
   photoUrl: user.photoUrl,
   isAnonymous: user.isAnonymous,
   emailVerified: user.emailVerified,
-})
+}}
 
 export default function useFirebaseAuth() {
   const [authUser, setAuthUser] = useState<authUserParams | null>(null);
@@ -59,7 +61,6 @@ export default function useFirebaseAuth() {
   }
 
   const magicSignInUp = (email: string) => {
-    console.log('####', getEnv());
     const actionCodeSettings = {
       // URL you want to redirect back to. The domain (www.example.com) for this
       // URL must be in the authorized domains list in the Firebase Console.
@@ -162,6 +163,22 @@ export default function useFirebaseAuth() {
     signOut(auth).then(clear);
   }
 
+  interface IupdateName {
+    firstName: string,
+    lastName: string,
+  }
+  const updateAuthDisplayName = async ({firstName, lastName}: IupdateName) => {
+    const auth = getAuth(firebaseApp);
+    try {
+      if (auth && auth.currentUser)
+      await updateProfile(auth.currentUser, {displayName: `${firstName} ${lastName}`});
+      console.log('updateAuthDisplayName: Profile updated');
+    } catch(e) {
+      //TODO: Snackbar for eroor to user
+      console.log("Eroor on updateAuthDisplayName", e);
+    }
+  }
+
   useEffect(() => {
     const auth = getAuth();
     const unsuscribe = onAuthStateChanged(auth, authStateChanged);
@@ -178,5 +195,6 @@ export default function useFirebaseAuth() {
     signOutAccount,
     signOut,
     afterGettingLink,
+    updateAuthDisplayName
   };
 }
