@@ -113,6 +113,8 @@ const CreateCard: NextPage = () => {
   const [whyValues, setWhyValues] = useState(initialWhyValues);
   const [isDisabled, setDisabled] = useState(true);
 
+  const { createNewCard } = useFirestoreDb();
+
   const { authUser } = useAuth();
   console.log('authUser:', authUser)
 
@@ -120,9 +122,14 @@ const CreateCard: NextPage = () => {
     setWhyValues(initialWhyValues);
     // TODO: Re routing to mes cartes, page pas encore crée
   };
-  const validateCreation = () => {
-    // TODO: Re routing to la carte en question 
-    // TODO: Crée la carte en base de données
+  const validateCreation = async () => {
+    const { name, title, hasCagnotte, isPremium, team } = whyValues;
+    const userId = authUser && authUser['uid'] ? authUser['uid'] : '';
+    const recipientName = name;
+    const teamName = team;
+    await createNewCard({ userId, recipientName, title, hasCagnotte, isPremium, teamName });
+    setWhyValues(initialWhyValues);
+    // TODO: Re routing to la carte en question     
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -162,9 +169,7 @@ const CreateCard: NextPage = () => {
           <Button isDisabled={isDisabled} type='secondary' myClass='flex-1 mr-16t' handleClick={cancelCreation} size='big'>
             Annuler
           </Button>
-          <Button isDisabled={isDisabled} myClass={'flex-1 '} handleClick={function () {
-            throw new Error('Function not implemented.');
-          }} type='primary' size={'big'}>Créer la carte</Button>
+          <Button isDisabled={isDisabled} myClass={'flex-1 '} handleClick={validateCreation} type='primary' size={'big'}>Créer la carte</Button>
         </div>
       </div>
     </div>

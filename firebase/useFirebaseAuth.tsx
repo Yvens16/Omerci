@@ -4,7 +4,7 @@ import { getAuth, sendSignInLinkToEmail, onAuthStateChanged, isSignInWithEmailLi
 
 interface authUserParams {
   uid: string | null,
-  name: string | null,
+  displayName: string | null,
   email: string | null,
   photoUrl: string | null,
   isAnonymous: boolean,
@@ -14,15 +14,25 @@ const formatAuthUser = (user: authUserParams) => {
   console.log('BEFORE FormatUser', user);
   return {
   uid: user.uid,
-  name: user.name,
+  firstName: user?.displayName?.split(' ')[0],
+  lastName: user?.displayName?.split(' ')[1],
   email: user.email,
   photoUrl: user.photoUrl,
   isAnonymous: user.isAnonymous,
   emailVerified: user.emailVerified,
 }}
+interface IformatedUser {
+  uid: string | null,
+  firstName: string | undefined,
+  lastName: string | undefined,
+  email: string | null,
+  photoUrl: string | null,
+  isAnonymous: boolean,
+  emailVerified: boolean,
+}
 
 export default function useFirebaseAuth() {
-  const [authUser, setAuthUser] = useState<authUserParams | null>(null);
+  const [authUser, setAuthUser] = useState<IformatedUser | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
   const authStateChanged = async (authState: any) => {

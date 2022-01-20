@@ -1,7 +1,7 @@
 import React from 'react';
 import firebaseApp from './index';
 import useFirebaseAuth from '../firebase/useFirebaseAuth';
-import { getFirestore, setDoc, doc, getDoc, serverTimestamp } from "firebase/firestore";
+import { getFirestore, setDoc, doc, getDoc, serverTimestamp, addDoc, collection } from "firebase/firestore";
 
 export default function useFirestore() {
   const { updateAuthDisplayName } = useFirebaseAuth();
@@ -59,7 +59,7 @@ export default function useFirestore() {
   const createNewCard = async ({userId, recipientName, title, hasCagnotte, isPremium, teamName}: ICreateNewCard) => {
     const db = getFirestore(firebaseApp);
     try {
-      await setDoc(doc(db, 'cards'), {
+      await addDoc(collection(db, 'cards'), {
         creatorId: userId,
         recipientName,
         title,
@@ -68,6 +68,7 @@ export default function useFirestore() {
         teamName,
         creationDate: serverTimestamp(),
       })
+      console.log("CreateNewCard: Creation sucessfull");
     } catch (e) {
       console.log("Error in createNewCard", e);
     }

@@ -202,7 +202,6 @@ const Login: NextPage = () => {
       if (email) {
         afterGettingLink().then((rel: any) => {
           if (rel) {
-            console.log('rel:', rel)
             if (rel.isNewUser) {
               setStep(2)
               setEmail(rel.email);
