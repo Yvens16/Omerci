@@ -18,7 +18,7 @@ const Home: NextPage = () => {
           <span className=''>Delete</span>
         </>
       </Button> */}
-      <Input label='Hello' placeholder='bonjour' infoMessage='' handleChange={() => console.log('Hello')}/>
+      {/* <Input name=''label='Hello' placeholder='bonjour' infoMessage='' handleChange={() => console.log('Hello')}/> */}
     </>
   )
 }

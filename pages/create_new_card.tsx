@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React, { useEffect, useState } from 'react';
 import Input from '@components/inputs/Input';
 import Checkbox from '@components/inputs/Checkbox';
