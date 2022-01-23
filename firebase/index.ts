@@ -1,4 +1,4 @@
-import { initializeApp } from "firebase/app";
+import { initializeApp, getApps, getApp, FirebaseApp } from "firebase/app";
 import 'firebase/auth'
 
 
@@ -12,7 +12,8 @@ const firebaseCredentials = {
   measurementId:process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 }
 
-const firebaseApp = initializeApp(firebaseCredentials);
-
+let firebaseApp: FirebaseApp;
+if (!getApps().length) firebaseApp = initializeApp(firebaseCredentials);
+else firebaseApp = getApp();
 
 export default firebaseApp;

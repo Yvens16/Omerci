@@ -1,4 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import Input from '@components/inputs/Input';
+import Checkbox from '@components/inputs/Checkbox';
+import type { NextPage } from 'next';
+import Button from '@components/buttons/Button';
+import Modal from '@components/modal/InfoModal';
 
 import { useAuth } from '../context/AuthUserContext';
 import { useFirestoreDb } from '../context/FirestoreContext';
@@ -9,12 +14,8 @@ import QuestionMark from '../public/icons/basic/help_circle.svg';
 import Clock from '../public/icons/basic/clock.svg';
 import CreditCard from '../public/icons/basic/credit_card.svg';
 import MoneyBag from '../public/icons/misc/money_bag.svg';
+import CircleCheck from '../public/icons/basic/circle_check.svg';
 
-
-import Input from '@components/inputs/Input';
-import Checkbox from '@components/inputs/Checkbox';
-import type { NextPage } from 'next';
-import Button from '@components/buttons/Button';
 
 const Header = ({ cancelCreation }: { cancelCreation: () => void }) => (
   <div className='flex mb-48t lg:max-w-content lg:mx-auto lg:py-24t'>
@@ -22,7 +23,7 @@ const Header = ({ cancelCreation }: { cancelCreation: () => void }) => (
       <ChevronLeft className='fill-primary mr-16t' />
     </div>
     <div onClick={cancelCreation} className='hidden lg:flex lg:absolute lg:px-10t cursor-pointer'>
-        <LeftArrow className='fill-primary'/>
+      <LeftArrow className='fill-primary' />
       <span className='text-primary xl:text-mid xl:font-semibold'>Retour à l'accueil</span>
     </div>
     <div className='lg:max-w-[687px] lg:mx-auto flex-1'>
@@ -38,11 +39,13 @@ type WhyThisCard = {
     name: string,
     title: string,
     hasCagnotte: boolean,
-    isPremium: boolean
-  }
+    isPremium: boolean,
+  },
+  toggleCagnotteModal:  (whenOpeningOnly:boolean) => void,
+  togglePremiumModal: (whenOpeningOnly:boolean) => void,
 };
 
-const WhyThisCard = ({ handleChange, values }: WhyThisCard) => (
+const WhyThisCard = ({ handleChange, values, togglePremiumModal,toggleCagnotteModal }: WhyThisCard) => (
   <div className='lg:flex lg:items-baseline'>
     <div className='lg:basis-1/4 lg:mr-16t'>
       <h4 className='font-semibold text-black text-mid'>Pour qui faites vous cette carte ?</h4>
@@ -56,11 +59,11 @@ const WhyThisCard = ({ handleChange, values }: WhyThisCard) => (
       </div>
       <div className='flex my-8t p-4t'>
         <Checkbox isCheck={values.hasCagnotte} name='hasCagnotte' handleCheck={handleChange} labelText='Ajouter une cagnotte en ligne' type={''} />
-        <QuestionMark className='fill-[#6EDB8D]' />
+        <QuestionMark onClick={() => toggleCagnotteModal(true)} className='fill-[#6EDB8D]' />
       </div>
       <div className='flex bg-secondary_fill w-max rounded-4t p-4t'>
         <Checkbox isCheck={values.isPremium} name='isPremium' handleCheck={handleChange} labelText='Passer premium !' type={''} />
-        <QuestionMark className='fill-primary' />
+        <QuestionMark onClick={() => togglePremiumModal(true)} className='fill-primary' />
       </div>
     </div>
   </div>
@@ -150,6 +153,16 @@ const CreateCard: NextPage = () => {
     }
     disabledButtons();
   }, [whyValues]);
+  const [isPremiumModalOpen, setPremiumModal] = useState(false);
+  const [isCagnotteModalOpen, setCagnotteModal] = useState(false);
+  const togglePremiumModal = (whenOpeningOnly?: boolean) => {
+    if (whenOpeningOnly) setPremiumModal(true);
+    else setPremiumModal(false);
+  }
+  const toggleCagnotteModal = (whenOpeningOnly?: boolean) => {
+    if (whenOpeningOnly) setCagnotteModal(true);
+    else setCagnotteModal(false);
+  }
   return (
     <div className='bg-white h-screen lg:bg-default_bg'>
       <div className='pt-[32px] lg:pt-0 lg:mx-0 mx-16t'>
@@ -158,7 +171,7 @@ const CreateCard: NextPage = () => {
         </div>
         <div className='lg:bg-white lg:max-w-[687px] lg:mx-auto'>
           <div className='lg:p-32t'>
-            <WhyThisCard values={whyValues} handleChange={handleChange} />
+            <WhyThisCard togglePremiumModal={togglePremiumModal} toggleCagnotteModal={toggleCagnotteModal} values={whyValues} handleChange={handleChange} />
             <FromWho values={whyValues} handleChange={handleChange} />
           </div>
         </div>
@@ -172,6 +185,32 @@ const CreateCard: NextPage = () => {
           <Button isDisabled={isDisabled} myClass={'flex-1 '} handleClick={validateCreation} type='primary' size={'big'}>Créer la carte</Button>
         </div>
       </div>
+      <Modal show={isPremiumModalOpen} titleHtml={<>Passer à l'espace <br /> premium</>} closeModal={togglePremiumModal}>
+        <div className='text-black '>
+          <p className='mb-24t'>Faite en sorte que votre collaborateur se sente vraiment spécial ! Activez les fonctionnalité premium !</p>
+          <div className='flex justify-start'><div className='mr-10t'>
+            <CircleCheck className='fill-primary' />
+          </div> <span> Des <span className='font-semibold'>arrières plans exclusifs</span></span></div>
+          <div className='flex justify-start my-24t'><div className='mr-10t'>
+            <CircleCheck className='fill-primary' />
+          </div> <span> Personalisation de la <span className='font-semibold'>police</span></span></div>
+          <div className='flex justify-start'><div className='mr-10t'>
+            <CircleCheck className='fill-primary' />
+          </div> <span> Possibilité d'ajouter<span className='font-semibold'> des messages vocaux</span></span></div>
+          <div className='flex justify-start my-24t'><div className='mr-10t'>
+            <CircleCheck className='fill-primary' />
+          </div> <span >Augmentation de la taille limite de la cagnotte - <span className='font-semibold'> jusqu'a 600€</span></span></div>
+          <div className='flex jsutify-start'> <span>Le tout pour <span className='font-semibold'>8,99€</span> </span></div>
+          <p className='my-24t'>Vous pouvez ajouter la fonctionnalité maintenant ou plus tard.</p>
+        </div>
+      </Modal>
+      <Modal show={isCagnotteModalOpen} titleHtml={<>Collecter de l'argent pour <br /> une cagnotte</>} closeModal={toggleCagnotteModal}>
+        <div className='text-black '>
+          <p className='mb-24t'>Chaque participant à votre carte aura la possibilité de participer financièrement à une cagnotte!</p>
+          <p>La quantité réunie pourra être tanrsformé en carte de notre partenaire <span className='text-primary underline'>Weedoogift</span> et être utilisée dans plus de 3000 enseignes partenaire</p>
+          <p className='my-24t'>Il y a une limite maximum de 300€. Passez à la version premium pour augmenter la capacité.</p>
+        </div>
+      </Modal>
     </div>
   );
 }

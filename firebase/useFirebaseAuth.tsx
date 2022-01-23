@@ -11,7 +11,6 @@ interface authUserParams {
   emailVerified: boolean,
 }
 const formatAuthUser = (user: authUserParams) => {
-  console.log('BEFORE FormatUser', user);
   return {
   uid: user.uid,
   firstName: user?.displayName?.split(' ')[0],
@@ -191,7 +190,7 @@ export default function useFirebaseAuth() {
   }
 
   useEffect(() => {
-    const auth = getAuth();
+    const auth = getAuth(firebaseApp);
     const unsuscribe = onAuthStateChanged(auth, authStateChanged);
     return () => {
       unsuscribe();
