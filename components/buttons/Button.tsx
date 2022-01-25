@@ -18,7 +18,7 @@ const Button = ({myClass, children, handleClick, type, size, isDisabled}: Button
   let classToUse = '';
   let primiryClass = 'bg-primary text-white flex justify-center items-center rounded-md hover:bg-primary_hover md:w-auto';
   let secondaryClass = 'bg-secondary_fill text-primary flex justify-center items-center rounded-md border border-solid border-transparent hover:border-solid hover:border hover:border-primary md:w-auto'
-  let thirdClass = 'bg-white flex justify-center items-center rounded-md hover:bg-third_hover md:w-auto text-third';
+  let thirdClass = 'bg-white flex justify-center items-center rounded-md hover:bg-third_hover md:w-auto';
 
   switch(type) {
     case 'primary':

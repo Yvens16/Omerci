@@ -89,14 +89,14 @@ const FromWho = ({ values, handleChange }: IFromWho) => (
 );
 
 const Info = ({ }) => (
-  <div className='flex flex-col bg-default_bg lg:bg-white p-16t my-24t lg:mb-48t rounded-8t text-black font-light'>
+  <div className='flex flex-col bg-default_bg lg:bg-white lg:rounded-8t p-16t my-24t lg:mb-48t text-black font-light'>
     <div className="flex flex-row items-center">
       <div>
         <Clock className='fill-primary mr-8t' />
       </div>
       <div className=''>
         <span>Créer le maintenant, </span>
-        <span className='text-primary'>payez plus tard</span>
+        <span className='text-primary font-normal'>payez plus tard</span>
       </div>
     </div>
     <div className="flex my-8t items-center">
@@ -104,7 +104,7 @@ const Info = ({ }) => (
         <CreditCard className='fill-primary' />
       </div>
       <div className='ml-8t'>
-        Envoyez votre superbe carte à son destinataire pour seulement <span className='text-primary'>4,99</span>
+        Envoyez votre superbe carte à son destinataire pour seulement <span className='text-primary font-normal'>4,99 €</span>
       </div>
     </div>
     <div className="flex items-center">
@@ -178,7 +178,7 @@ const CreateCard: NextPage = () => {
             <FromWho values={whyValues} handleChange={handleChange} />
           </div>
         </div>
-        <div className='lg:max-w-[687px] lg:mx-auto bg-white'>
+        <div className='lg:max-w-[687px] lg:mx-auto bg-white rounded-8t'>
           <Info />
         </div>
         <div className='flex justify-center lg:max-w-[687px] lg:mx-auto lg:mt-24t'>
@@ -188,6 +188,7 @@ const CreateCard: NextPage = () => {
           <Button isDisabled={isDisabled} myClass={'flex-1 h-[40px] '} handleClick={validateCreation} type='primary' size={'big'}>Créer la carte</Button>
         </div>
       </div>
+
       <Modal show={isPremiumModalOpen} titleHtml={<>Passer à l'espace <br /> premium</>} closeModal={togglePremiumModal}>
         <div className='text-black'>
           <p className='mb-24t'>Faite en sorte que votre collaborateur se sente vraiment spécial ! Activez les fonctionnalité premium !</p>
