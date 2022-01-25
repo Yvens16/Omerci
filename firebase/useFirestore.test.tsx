@@ -1,8 +1,10 @@
-// import React from 'react';
-// import useFirestore from './useFirestore';
-// import { renderHook, act } from '@testing-library/react-hooks';
+import { getDoc, setDoc, doc, getFirestore } from 'firebase/firestore';
+import React from 'react';
+import useFirestore from './useFirestore';
+import { renderHook, act } from '@testing-library/react-hooks';
 // import * as firestore from 'firebase/firestore';
-// import * as firebase from 'firebase/app';
+import firebaseApp from './index';
+import * as firebase from 'firebase/app';
 // // import { initializeApp } from "firebase/app";
 // // import { getDoc, getFirestore, doc } from 'firebase/firestore';
 
@@ -28,7 +30,7 @@
 //         doc: jest.fn()
 //       }
 //     });
-    
+
 //     jest.mock('firebase/app', () => {
 //       return {
 //         initializeApp: jest.fn(),
@@ -67,3 +69,20 @@
 //     expect(firestore.getDoc).toHaveBeenCalled();
 //   })
 // });
+const db = getFirestore(firebaseApp);
+test('test firebase emulator', async () => {
+  const { result, waitForNextUpdate } = renderHook(() => useFirestore());
+  await waitForNextUpdate();
+  await act(async() => {
+    result.current.addUserInfo({ uid: "azer", firstName: "firstName", lastName: "lastName", howDoYouKnowUs: "howDoYouKnowUs", email: "email" });
+  })
+})
+// const docRef = doc(db, "users", "uid");
+// const docSnap = await getDoc(docRef);
+// expect(docSnap.data()).toBe({
+//   email: "email",
+//   firstName: "firstName",
+//   howDoYouKnowUs: "howDoYouKnowUs",
+//   lastName: "lastName",
+//   uid: "uid"
+// })

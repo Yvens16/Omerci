@@ -144,6 +144,7 @@ export default function useFirebaseAuth() {
             uid,
             email
           };
+          console.log('resultToReturn:', resultToReturn)
           return resultToReturn;
         })
         .catch((error) => {
@@ -182,7 +183,7 @@ export default function useFirebaseAuth() {
     try {
       if (auth && auth.currentUser)
       await updateProfile(auth.currentUser, {displayName: `${firstName} ${lastName}`});
-      console.log('updateAuthDisplayName: Profile updated');
+      // console.log('updateAuthDisplayName: Profile updated');
     } catch(e) {
       //TODO: Snackbar for eroor to user
       console.log("Eroor on updateAuthDisplayName", e);

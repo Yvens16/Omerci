@@ -14,6 +14,7 @@ export default function useFirestore() {
   }
 
   const addUserInfo = async ({uid, firstName, lastName, howDoYouKnowUs, email}:IaddUserInfo) => {
+    console.log('uid:', uid)
     const db = getFirestore(firebaseApp);
     try {
       await setDoc(doc(db, 'users', uid), {
@@ -68,8 +69,10 @@ export default function useFirestore() {
         creationDate: serverTimestamp(),
       })
       console.log("CreateNewCard: Creation sucessfull");
+      return;
     } catch (e) {
       console.log("Error in createNewCard", e);
+      return;
     }
   }
 
