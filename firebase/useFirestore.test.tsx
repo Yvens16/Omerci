@@ -1,4 +1,4 @@
-// import React from 'react';
+import React from 'react';
 // import useFirestore from './useFirestore';
 // import { renderHook, act } from '@testing-library/react-hooks';
 // import * as firestore from 'firebase/firestore';
@@ -19,6 +19,9 @@
 // // jest.spyOn(firestore, 'getDoc').mockImplementation((({name: "Yvens"}) as unknown) as any);
 // // const mockFirestore = firebase as jest.Mocked<typeof firebase>;
 
+test('test hello', () => {
+
+})
 // describe('Test on useFirestore hook', () => {
 //   it('should see the test', async () => {
 //     jest.mock('firebase/firestore', () => {
