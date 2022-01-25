@@ -8,7 +8,7 @@ import Cross from '../../public/icons/menu/close_big.svg';
 const Navbar = ({ }) => {
   const [isNavOpen, setNavOpen] = useState(false);
   return (
-    <nav className='bg-white'>
+    <nav className='bg-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.03)] lg:drop-shadow-none'>
       <div className='flex justify-between items-center px-16t py-8t lg:py-10t relative lg:h-[73px] max-w-content mx-auto'>
         <span>LOGO</span>
         <div className='lg:hidden'>

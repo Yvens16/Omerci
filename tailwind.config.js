@@ -12,7 +12,8 @@ module.exports = {
       '18t': '18px',
       '12t': '12px',
       'mid': '16px',
-      'title': '22px'
+      'title': '22px',
+      'big': '28px',
     },
     fontFamily: {
       'poppins': 'Poppins',
@@ -20,7 +21,7 @@ module.exports = {
     colors: {
       white: '#fff',
       black: '#000000',
-      black_login: '#181624',
+      black: '#181624',
       primary: "#6E41E2",
       primary_hover: "#421BA7",
       secondary_fill: '#EFEDFA',
@@ -31,6 +32,9 @@ module.exports = {
       input_placeholder: '#A2A5A9',
       default_bg:'#F9F9FB',
       modal: 'rgba(24, 22, 36, 0.47)',
+      gradient1: "#6E41E2",
+      gradient2: "#9B41E2",
+      header: "#E5E5E5",
     },
     extend: {
       spacing: {
@@ -41,6 +45,7 @@ module.exports = {
         '20t': '20px',
         '24t': '24px',
         '28t': '28px',
+        '32t': '32px',
       },
       margin: {
         '4t': '4px',
@@ -50,6 +55,7 @@ module.exports = {
         '24t': '24px',
         '32t': '32px',
         '36t': '36px',
+        '48t': '48px',
       },
       borderRadius: {
         '4t': '4px',
