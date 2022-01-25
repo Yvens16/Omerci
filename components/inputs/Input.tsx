@@ -7,13 +7,14 @@ interface InputParams {
   name: string,
   infoMessage: string,
   value?: string,
+  labelClass?: string,
 };
 
 
-const Input = ({label, placeholder, handleChange, infoMessage, name, value}: InputParams) => {
+const Input = ({label, labelClass, placeholder, handleChange, infoMessage, name, value}: InputParams) => {
   return (
     <div className='flex flex-col font-base'>
-      {label ? <span className='text-left'>{label}</span> : null}
+      {label ? <span className={`text-left text-black ${labelClass}`}>{label}</span> : null}
       <input
         name={name || ''}
         value={value}

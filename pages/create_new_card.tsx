@@ -9,7 +9,7 @@ import Modal from '@components/modal/InfoModal';
 import { useAuth } from '../context/AuthUserContext';
 import { useFirestoreDb } from '../context/FirestoreContext';
 
-import ChevronLeft from '../public/icons/arrow/chevron_left.svg'
+import ChevronLeft from '../public/icons/arrow/chevron_custom_left.svg'
 import LeftArrow from '../public/icons/arrow/short_left.svg';
 import QuestionMark from '../public/icons/basic/help_circle.svg';
 import Clock from '../public/icons/basic/clock.svg';
@@ -19,11 +19,11 @@ import CircleCheck from '../public/icons/basic/circle_check.svg';
 
 
 const Header = ({ cancelCreation }: { cancelCreation: () => void }) => (
-  <div className='flex mb-32t lg:max-w-content lg:mx-auto lg:pt-24t lg:pb-32t'>
+  <div className='flex mb-32t md:text-center xl:text-left lg:max-w-content lg:mx-auto lg:pt-24t lg:pb-32t'>
     <div onClick={cancelCreation} className='lg:hidden'>
-      <ChevronLeft className='fill-primary mr-16t' />
+      <ChevronLeft className='fill-primary stroke-primary mr-16t' />
     </div>
-    <Button handleClick={cancelCreation} myClass='hidden lg:flex lg:absolute lg:px-10t cursor-pointer pt-0' type='third' size=''>
+    <Button handleClick={cancelCreation} myClass='xl:-translate-y-[20%] hidden lg:flex lg:absolute lg:px-10t cursor-pointer' type='third' size=''>
       <>
         <LeftArrow className='fill-primary' />
         <span className='text-primary xl:text-mid xl:font-medium'>Retour à l'accueil</span>
@@ -51,14 +51,14 @@ type WhyThisCard = {
 const WhyThisCard = ({ handleChange, values, togglePremiumModal,toggleCagnotteModal }: WhyThisCard) => (
   <div className='lg:flex lg:items-baseline justify-between'>
     <div className='lg:basis-1/4 lg:mr-16t'>
-      <h4 className='font-semibold text-black text-mid lg:max-w-[140px]'>Pour qui est cette carte ?</h4>
+      <h4 className='font-medium text-black text-mid lg:max-w-[140px]'>Pour qui est cette carte ?</h4>
     </div>
     <div className='lg:basis-3/4  lg:max-w-[420px]'>
       <div className='my-8t'>
-        <Input name='name' value={values.name} label='Nom du destinataire' placeholder='Jean Dupont' handleChange={handleChange} infoMessage='' />
+        <Input name='name' value={values.name} label='Nom du destinataire' labelClass='font-light' placeholder='Jean Dupont' handleChange={handleChange} infoMessage='' />
       </div>
       <div>
-        <Input name='title' value={values.title} label='Donnez un titre à votre carte' placeholder='Merci pour tout Thomas !' handleChange={handleChange} infoMessage='' />
+        <Input name='title' value={values.title} label='Donnez un titre à votre carte' labelClass='font-light' placeholder='Merci pour tout Thomas !' handleChange={handleChange} infoMessage='' />
       </div>
       <div className='flex my-8t p-4t '>
         <Checkbox isCheck={values.hasCagnotte} name='hasCagnotte' handleCheck={handleChange} labelText='Ajouter une cagnotte en ligne' type={''} />
@@ -81,15 +81,15 @@ interface IFromWho {
 
 const FromWho = ({ values, handleChange }: IFromWho) => (
   <div className='mt-48t mb-24t lg:flex justify-between'>
-    <h4 className='font-semibold text-black text-mid mb-16t lg:basis-1/4 lg:mr-16t lg:max-w-[140px]'>De la part de... ?</h4>
+    <h4 className='font-medium text-black text-mid mb-16t lg:basis-1/4 lg:mr-16t lg:max-w-[140px]'>De la part de... ?</h4>
     <div className='lg:basis-3/4 lg:max-w-[420px]'>
-      <Input name='team' value={values.team} label="Nom de groupe ou d'équipe" placeholder="Toute l'équipe compta !" handleChange={handleChange} infoMessage='' />
+      <Input name='team' value={values.team} label="Nom de groupe ou d'équipe" labelClass='font-light' placeholder="Toute l'équipe compta !" handleChange={handleChange} infoMessage='' />
     </div>
   </div>
 );
 
 const Info = ({ }) => (
-  <div className='flex flex-col bg-default_bg lg:bg-white p-16t my-24t lg:mb-48t rounded-8t'>
+  <div className='flex flex-col bg-default_bg lg:bg-white p-16t my-24t lg:mb-48t rounded-8t text-black font-light'>
     <div className="flex flex-row items-center">
       <div>
         <Clock className='fill-primary mr-8t' />
@@ -167,7 +167,7 @@ const CreateCard: NextPage = () => {
     else setCagnotteModal(false);
   }
   return (
-    <div className='bg-white lg:bg-default_bg'>
+    <div className='bg-white lg:bg-default_bg pb-[15%]'>
       <div className='pt-[32px] lg:pt-0 lg:mx-0 mx-16t'>
         <div className='lg:bg-white'>
           <Header cancelCreation={cancelCreation} />
