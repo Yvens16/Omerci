@@ -2702,3 +2702,216 @@ java.lang.IllegalArgumentException: Invalid app id: dev~fakePorjectId
 [debug] [2022-01-26T15:41:19.931Z] Jan 26, 2022 4:41:19 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected non-HTTP/2 connection.
  {"metadata":{"emulator":{"name":"firestore"},"message":"Jan 26, 2022 4:41:19 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-01-26T15:42:19.993Z] Jan 26, 2022 4:42:19 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jan 26, 2022 4:42:19 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-01-26T15:42:21.535Z] Jan 26, 2022 4:42:21 PM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError
+INFO: operation failed: Invalid app id: dev~fakePorjectId
+java.lang.IllegalArgumentException: Invalid app id: dev~fakePorjectId
+	at com.google.cloud.datastore.core.names.ProjectIds.parseAppId(ProjectIds.java:163)
+	at com.google.cloud.datastore.core.rep.DatabaseRef.createForApp(DatabaseRef.java:195)
+	at com.google.cloud.datastore.core.firestorev1.converter.FirestoreV1ResourceRefToRepConverter.parseDatabaseRef(FirestoreV1ResourceRefToRepConverter.java:253)
+	at com.google.cloud.datastore.core.firestorev1.converter.FirestoreV1ResourceRefToRepConverter.convertDatabaseRefHelper(FirestoreV1ResourceRefToRepConverter.java:164)
+	at com.google.cloud.datastore.core.firestorev1.converter.FirestoreV1ResourceRefToRepConverter.convertDatabaseRefServiceRelative(FirestoreV1ResourceRefToRepConverter.java:156)
+	at com.google.cloud.datastore.emulator.impl.util.FirestoreEmulatorConverters.toDatabaseRef(FirestoreEmulatorConverters.java:504)
+	at com.google.cloud.datastore.emulator.impl.CloudFirestoreV1Router.databaseRefFromContext(CloudFirestoreV1Router.java:263)
+	at com.google.cloud.datastore.emulator.impl.CloudFirestoreV1Router.writeStream(CloudFirestoreV1Router.java:158)
+	at com.google.cloud.datastore.emulator.firestore.v1.FirestoreV1GrpcAdapter.bidi(FirestoreV1GrpcAdapter.java:89)
+	at com.google.cloud.datastore.emulator.firestore.v1.FirestoreV1GrpcAdapter.access$300(FirestoreV1GrpcAdapter.java:39)
+	at com.google.cloud.datastore.emulator.firestore.v1.FirestoreV1GrpcAdapter$1.write(FirestoreV1GrpcAdapter.java:177)
+	at com.google.firestore.v1.FirestoreGrpc$MethodHandlers.invoke(FirestoreGrpc.java:1262)
+	at io.grpc.stub.ServerCalls$StreamingServerCallHandler.startCall(ServerCalls.java:228)
+	at io.grpc.Contexts.interceptCall(Contexts.java:52)
+	at com.google.cloud.datastore.emulator.firestore.CloudFirestore$FirebaseAuthInterceptor.interceptCall(CloudFirestore.java:234)
+	at io.grpc.ServerInterceptors$InterceptCallHandler.startCall(ServerInterceptors.java:244)
+	at io.grpc.Contexts.interceptCall(Contexts.java:52)
+	at com.google.cloud.datastore.emulator.firestore.CloudFirestore$FirebaseDatabaseRefInterceptor.interceptCall(CloudFirestore.java:249)
+	at io.grpc.ServerInterceptors$InterceptCallHandler.startCall(ServerInterceptors.java:244)
+	at io.grpc.internal.ServerImpl$ServerTransportListenerImpl.startWrappedCall(ServerImpl.java:703)
+	at io.grpc.internal.ServerImpl$ServerTransportListenerImpl.access$2200(ServerImpl.java:406)
+	at io.grpc.internal.ServerImpl$ServerTransportListenerImpl$1HandleServerCall.runInternal(ServerImpl.java:615)
+	at io.grpc.internal.ServerImpl$ServerTransportListenerImpl$1HandleServerCall.runInContext(ServerImpl.java:603)
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:133)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jan 26, 2022 4:42:21 PM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError\nINFO: operation failed: Invalid app id: dev~fakePorjectId\njava.lang.IllegalArgumentException: Invalid app id: dev~fakePorjectId\n\tat com.google.cloud.datastore.core.names.ProjectIds.parseAppId(ProjectIds.java:163)\n\tat com.google.cloud.datastore.core.rep.DatabaseRef.createForApp(DatabaseRef.java:195)\n\tat com.google.cloud.datastore.core.firestorev1.converter.FirestoreV1ResourceRefToRepConverter.parseDatabaseRef(FirestoreV1ResourceRefToRepConverter.java:253)\n\tat com.google.cloud.datastore.core.firestorev1.converter.FirestoreV1ResourceRefToRepConverter.convertDatabaseRefHelper(FirestoreV1ResourceRefToRepConverter.java:164)\n\tat com.google.cloud.datastore.core.firestorev1.converter.FirestoreV1ResourceRefToRepConverter.convertDatabaseRefServiceRelative(FirestoreV1ResourceRefToRepConverter.java:156)\n\tat com.google.cloud.datastore.emulator.impl.util.FirestoreEmulatorConverters.toDatabaseRef(FirestoreEmulatorConverters.java:504)\n\tat com.google.cloud.datastore.emulator.impl.CloudFirestoreV1Router.databaseRefFromContext(CloudFirestoreV1Router.java:263)\n\tat com.google.cloud.datastore.emulator.impl.CloudFirestoreV1Router.writeStream(CloudFirestoreV1Router.java:158)\n\tat com.google.cloud.datastore.emulator.firestore.v1.FirestoreV1GrpcAdapter.bidi(FirestoreV1GrpcAdapter.java:89)\n\tat com.google.cloud.datastore.emulator.firestore.v1.FirestoreV1GrpcAdapter.access$300(FirestoreV1GrpcAdapter.java:39)\n\tat com.google.cloud.datastore.emulator.firestore.v1.FirestoreV1GrpcAdapter$1.write(FirestoreV1GrpcAdapter.java:177)\n\tat com.google.firestore.v1.FirestoreGrpc$MethodHandlers.invoke(FirestoreGrpc.java:1262)\n\tat io.grpc.stub.ServerCalls$StreamingServerCallHandler.startCall(ServerCalls.java:228)\n\tat io.grpc.Contexts.interceptCall(Contexts.java:52)\n\tat com.google.cloud.datastore.emulator.firestore.CloudFirestore$FirebaseAuthInterceptor.interceptCall(CloudFirestore.java:234)\n\tat io.grpc.ServerInterceptors$InterceptCallHandler.startCall(ServerInterceptors.java:244)\n\tat io.grpc.Contexts.interceptCall(Contexts.java:52)\n\tat com.google.cloud.datastore.emulator.firestore.CloudFirestore$FirebaseDatabaseRefInterceptor.interceptCall(CloudFirestore.java:249)\n\tat io.grpc.ServerInterceptors$InterceptCallHandler.startCall(ServerInterceptors.java:244)\n\tat io.grpc.internal.ServerImpl$ServerTransportListenerImpl.startWrappedCall(ServerImpl.java:703)\n\tat io.grpc.internal.ServerImpl$ServerTransportListenerImpl.access$2200(ServerImpl.java:406)\n\tat io.grpc.internal.ServerImpl$ServerTransportListenerImpl$1HandleServerCall.runInternal(ServerImpl.java:615)\n\tat io.grpc.internal.ServerImpl$ServerTransportListenerImpl$1HandleServerCall.runInContext(ServerImpl.java:603)\n\tat io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)\n\tat io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:133)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)\n\tat java.base/java.lang.Thread.run(Thread.java:833)\n\n"}}
+[debug] [2022-01-26T15:43:20.129Z] Jan 26, 2022 4:43:20 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jan 26, 2022 4:43:20 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-01-26T15:43:22.852Z] Jan 26, 2022 4:43:22 PM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError
+INFO: operation failed: Invalid app id: dev~fakePorjectId
+java.lang.IllegalArgumentException: Invalid app id: dev~fakePorjectId
+	at com.google.cloud.datastore.core.names.ProjectIds.parseAppId(ProjectIds.java:163)
+	at com.google.cloud.datastore.core.rep.DatabaseRef.createForApp(DatabaseRef.java:195)
+	at com.google.cloud.datastore.core.firestorev1.converter.FirestoreV1ResourceRefToRepConverter.parseDatabaseRef(FirestoreV1ResourceRefToRepConverter.java:253)
+	at com.google.cloud.datastore.core.firestorev1.converter.FirestoreV1ResourceRefToRepConverter.convertDatabaseRefHelper(FirestoreV1ResourceRefToRepConverter.java:164)
+	at com.google.cloud.datastore.core.firestorev1.converter.FirestoreV1ResourceRefToRepConverter.convertDatabaseRefServiceRelative(FirestoreV1ResourceRefToRepConverter.java:156)
+	at com.google.cloud.datastore.emulator.impl.util.FirestoreEmulatorConverters.toDatabaseRef(FirestoreEmulatorConverters.java:504)
+	at com.google.cloud.datastore.emulator.impl.CloudFirestoreV1Router.databaseRefFromContext(CloudFirestoreV1Router.java:263)
+	at com.google.cloud.datastore.emulator.impl.CloudFirestoreV1Router.writeStream(CloudFirestoreV1Router.java:158)
+	at com.google.cloud.datastore.emulator.firestore.v1.FirestoreV1GrpcAdapter.bidi(FirestoreV1GrpcAdapter.java:89)
+	at com.google.cloud.datastore.emulator.firestore.v1.FirestoreV1GrpcAdapter.access$300(FirestoreV1GrpcAdapter.java:39)
+	at com.google.cloud.datastore.emulator.firestore.v1.FirestoreV1GrpcAdapter$1.write(FirestoreV1GrpcAdapter.java:177)
+	at com.google.firestore.v1.FirestoreGrpc$MethodHandlers.invoke(FirestoreGrpc.java:1262)
+	at io.grpc.stub.ServerCalls$StreamingServerCallHandler.startCall(ServerCalls.java:228)
+	at io.grpc.Contexts.interceptCall(Contexts.java:52)
+	at com.google.cloud.datastore.emulator.firestore.CloudFirestore$FirebaseAuthInterceptor.interceptCall(CloudFirestore.java:234)
+	at io.grpc.ServerInterceptors$InterceptCallHandler.startCall(ServerInterceptors.java:244)
+	at io.grpc.Contexts.interceptCall(Contexts.java:52)
+	at com.google.cloud.datastore.emulator.firestore.CloudFirestore$FirebaseDatabaseRefInterceptor.interceptCall(CloudFirestore.java:249)
+	at io.grpc.ServerInterceptors$InterceptCallHandler.startCall(ServerInterceptors.java:244)
+	at io.grpc.internal.ServerImpl$ServerTransportListenerImpl.startWrappedCall(ServerImpl.java:703)
+	at io.grpc.internal.ServerImpl$ServerTransportListenerImpl.access$2200(ServerImpl.java:406)
+	at io.grpc.internal.ServerImpl$ServerTransportListenerImpl$1HandleServerCall.runInternal(ServerImpl.java:615)
+	at io.grpc.internal.ServerImpl$ServerTransportListenerImpl$1HandleServerCall.runInContext(ServerImpl.java:603)
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:133)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jan 26, 2022 4:43:22 PM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError\nINFO: operation failed: Invalid app id: dev~fakePorjectId\njava.lang.IllegalArgumentException: Invalid app id: dev~fakePorjectId\n\tat com.google.cloud.datastore.core.names.ProjectIds.parseAppId(ProjectIds.java:163)\n\tat com.google.cloud.datastore.core.rep.DatabaseRef.createForApp(DatabaseRef.java:195)\n\tat com.google.cloud.datastore.core.firestorev1.converter.FirestoreV1ResourceRefToRepConverter.parseDatabaseRef(FirestoreV1ResourceRefToRepConverter.java:253)\n\tat com.google.cloud.datastore.core.firestorev1.converter.FirestoreV1ResourceRefToRepConverter.convertDatabaseRefHelper(FirestoreV1ResourceRefToRepConverter.java:164)\n\tat com.google.cloud.datastore.core.firestorev1.converter.FirestoreV1ResourceRefToRepConverter.convertDatabaseRefServiceRelative(FirestoreV1ResourceRefToRepConverter.java:156)\n\tat com.google.cloud.datastore.emulator.impl.util.FirestoreEmulatorConverters.toDatabaseRef(FirestoreEmulatorConverters.java:504)\n\tat com.google.cloud.datastore.emulator.impl.CloudFirestoreV1Router.databaseRefFromContext(CloudFirestoreV1Router.java:263)\n\tat com.google.cloud.datastore.emulator.impl.CloudFirestoreV1Router.writeStream(CloudFirestoreV1Router.java:158)\n\tat com.google.cloud.datastore.emulator.firestore.v1.FirestoreV1GrpcAdapter.bidi(FirestoreV1GrpcAdapter.java:89)\n\tat com.google.cloud.datastore.emulator.firestore.v1.FirestoreV1GrpcAdapter.access$300(FirestoreV1GrpcAdapter.java:39)\n\tat com.google.cloud.datastore.emulator.firestore.v1.FirestoreV1GrpcAdapter$1.write(FirestoreV1GrpcAdapter.java:177)\n\tat com.google.firestore.v1.FirestoreGrpc$MethodHandlers.invoke(FirestoreGrpc.java:1262)\n\tat io.grpc.stub.ServerCalls$StreamingServerCallHandler.startCall(ServerCalls.java:228)\n\tat io.grpc.Contexts.interceptCall(Contexts.java:52)\n\tat com.google.cloud.datastore.emulator.firestore.CloudFirestore$FirebaseAuthInterceptor.interceptCall(CloudFirestore.java:234)\n\tat io.grpc.ServerInterceptors$InterceptCallHandler.startCall(ServerInterceptors.java:244)\n\tat io.grpc.Contexts.interceptCall(Contexts.java:52)\n\tat com.google.cloud.datastore.emulator.firestore.CloudFirestore$FirebaseDatabaseRefInterceptor.interceptCall(CloudFirestore.java:249)\n\tat io.grpc.ServerInterceptors$InterceptCallHandler.startCall(ServerInterceptors.java:244)\n\tat io.grpc.internal.ServerImpl$ServerTransportListenerImpl.startWrappedCall(ServerImpl.java:703)\n\tat io.grpc.internal.ServerImpl$ServerTransportListenerImpl.access$2200(ServerImpl.java:406)\n\tat io.grpc.internal.ServerImpl$ServerTransportListenerImpl$1HandleServerCall.runInternal(ServerImpl.java:615)\n\tat io.grpc.internal.ServerImpl$ServerTransportListenerImpl$1HandleServerCall.runInContext(ServerImpl.java:603)\n\tat io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)\n\tat io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:133)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)\n\tat java.base/java.lang.Thread.run(Thread.java:833)\n\n"}}
+[debug] [2022-01-26T15:44:20.187Z] Jan 26, 2022 4:44:20 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jan 26, 2022 4:44:20 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-01-26T15:44:24.776Z] Jan 26, 2022 4:44:24 PM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError
+INFO: operation failed: Invalid app id: dev~fakePorjectId
+java.lang.IllegalArgumentException: Invalid app id: dev~fakePorjectId
+	at com.google.cloud.datastore.core.names.ProjectIds.parseAppId(ProjectIds.java:163)
+	at com.google.cloud.datastore.core.rep.DatabaseRef.createForApp(DatabaseRef.java:195)
+	at com.google.cloud.datastore.core.firestorev1.converter.FirestoreV1ResourceRefToRepConverter.parseDatabaseRef(FirestoreV1ResourceRefToRepConverter.java:253)
+	at com.google.cloud.datastore.core.firestorev1.converter.FirestoreV1ResourceRefToRepConverter.convertDatabaseRefHelper(FirestoreV1ResourceRefToRepConverter.java:164)
+	at com.google.cloud.datastore.core.firestorev1.converter.FirestoreV1ResourceRefToRepConverter.convertDatabaseRefServiceRelative(FirestoreV1ResourceRefToRepConverter.java:156)
+	at com.google.cloud.datastore.emulator.impl.util.FirestoreEmulatorConverters.toDatabaseRef(FirestoreEmulatorConverters.java:504)
+	at com.google.cloud.datastore.emulator.impl.CloudFirestoreV1Router.databaseRefFromContext(CloudFirestoreV1Router.java:263)
+	at com.google.cloud.datastore.emulator.impl.CloudFirestoreV1Router.writeStream(CloudFirestoreV1Router.java:158)
+	at com.google.cloud.datastore.emulator.firestore.v1.FirestoreV1GrpcAdapter.bidi(FirestoreV1GrpcAdapter.java:89)
+	at com.google.cloud.datastore.emulator.firestore.v1.FirestoreV1GrpcAdapter.access$300(FirestoreV1GrpcAdapter.java:39)
+	at com.google.cloud.datastore.emulator.firestore.v1.FirestoreV1GrpcAdapter$1.write(FirestoreV1GrpcAdapter.java:177)
+	at com.google.firestore.v1.FirestoreGrpc$MethodHandlers.invoke(FirestoreGrpc.java:1262)
+	at io.grpc.stub.ServerCalls$StreamingServerCallHandler.startCall(ServerCalls.java:228)
+	at io.grpc.Contexts.interceptCall(Contexts.java:52)
+	at com.google.cloud.datastore.emulator.firestore.CloudFirestore$FirebaseAuthInterceptor.interceptCall(CloudFirestore.java:234)
+	at io.grpc.ServerInterceptors$InterceptCallHandler.startCall(ServerInterceptors.java:244)
+	at io.grpc.Contexts.interceptCall(Contexts.java:52)
+	at com.google.cloud.datastore.emulator.firestore.CloudFirestore$FirebaseDatabaseRefInterceptor.interceptCall(CloudFirestore.java:249)
+	at io.grpc.ServerInterceptors$InterceptCallHandler.startCall(ServerInterceptors.java:244)
+	at io.grpc.internal.ServerImpl$ServerTransportListenerImpl.startWrappedCall(ServerImpl.java:703)
+	at io.grpc.internal.ServerImpl$ServerTransportListenerImpl.access$2200(ServerImpl.java:406)
+	at io.grpc.internal.ServerImpl$ServerTransportListenerImpl$1HandleServerCall.runInternal(ServerImpl.java:615)
+	at io.grpc.internal.ServerImpl$ServerTransportListenerImpl$1HandleServerCall.runInContext(ServerImpl.java:603)
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:133)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jan 26, 2022 4:44:24 PM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError\nINFO: operation failed: Invalid app id: dev~fakePorjectId\njava.lang.IllegalArgumentException: Invalid app id: dev~fakePorjectId\n\tat com.google.cloud.datastore.core.names.ProjectIds.parseAppId(ProjectIds.java:163)\n\tat com.google.cloud.datastore.core.rep.DatabaseRef.createForApp(DatabaseRef.java:195)\n\tat com.google.cloud.datastore.core.firestorev1.converter.FirestoreV1ResourceRefToRepConverter.parseDatabaseRef(FirestoreV1ResourceRefToRepConverter.java:253)\n\tat com.google.cloud.datastore.core.firestorev1.converter.FirestoreV1ResourceRefToRepConverter.convertDatabaseRefHelper(FirestoreV1ResourceRefToRepConverter.java:164)\n\tat com.google.cloud.datastore.core.firestorev1.converter.FirestoreV1ResourceRefToRepConverter.convertDatabaseRefServiceRelative(FirestoreV1ResourceRefToRepConverter.java:156)\n\tat com.google.cloud.datastore.emulator.impl.util.FirestoreEmulatorConverters.toDatabaseRef(FirestoreEmulatorConverters.java:504)\n\tat com.google.cloud.datastore.emulator.impl.CloudFirestoreV1Router.databaseRefFromContext(CloudFirestoreV1Router.java:263)\n\tat com.google.cloud.datastore.emulator.impl.CloudFirestoreV1Router.writeStream(CloudFirestoreV1Router.java:158)\n\tat com.google.cloud.datastore.emulator.firestore.v1.FirestoreV1GrpcAdapter.bidi(FirestoreV1GrpcAdapter.java:89)\n\tat com.google.cloud.datastore.emulator.firestore.v1.FirestoreV1GrpcAdapter.access$300(FirestoreV1GrpcAdapter.java:39)\n\tat com.google.cloud.datastore.emulator.firestore.v1.FirestoreV1GrpcAdapter$1.write(FirestoreV1GrpcAdapter.java:177)\n\tat com.google.firestore.v1.FirestoreGrpc$MethodHandlers.invoke(FirestoreGrpc.java:1262)\n\tat io.grpc.stub.ServerCalls$StreamingServerCallHandler.startCall(ServerCalls.java:228)\n\tat io.grpc.Contexts.interceptCall(Contexts.java:52)\n\tat com.google.cloud.datastore.emulator.firestore.CloudFirestore$FirebaseAuthInterceptor.interceptCall(CloudFirestore.java:234)\n\tat io.grpc.ServerInterceptors$InterceptCallHandler.startCall(ServerInterceptors.java:244)\n\tat io.grpc.Contexts.interceptCall(Contexts.java:52)\n\tat com.google.cloud.datastore.emulator.firestore.CloudFirestore$FirebaseDatabaseRefInterceptor.interceptCall(CloudFirestore.java:249)\n\tat io.grpc.ServerInterceptors$InterceptCallHandler.startCall(ServerInterceptors.java:244)\n\tat io.grpc.internal.ServerImpl$ServerTransportListenerImpl.startWrappedCall(ServerImpl.java:703)\n\tat io.grpc.internal.ServerImpl$ServerTransportListenerImpl.access$2200(ServerImpl.java:406)\n\tat io.grpc.internal.ServerImpl$ServerTransportListenerImpl$1HandleServerCall.runInternal(ServerImpl.java:615)\n\tat io.grpc.internal.ServerImpl$ServerTransportListenerImpl$1HandleServerCall.runInContext(ServerImpl.java:603)\n\tat io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)\n\tat io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:133)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)\n\tat java.base/java.lang.Thread.run(Thread.java:833)\n\n"}}
+[debug] [2022-01-26T15:45:06.735Z] Jan 26, 2022 4:45:06 PM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError
+INFO: operation failed: Invalid app id: dev~fakePorjectId
+java.lang.IllegalArgumentException: Invalid app id: dev~fakePorjectId
+	at com.google.cloud.datastore.core.names.ProjectIds.parseAppId(ProjectIds.java:163)
+	at com.google.cloud.datastore.core.rep.DatabaseRef.createForApp(DatabaseRef.java:195)
+	at com.google.cloud.datastore.core.firestorev1.converter.FirestoreV1ResourceRefToRepConverter.parseDatabaseRef(FirestoreV1ResourceRefToRepConverter.java:253)
+	at com.google.cloud.datastore.core.firestorev1.converter.FirestoreV1ResourceRefToRepConverter.convertDatabaseRefHelper(FirestoreV1ResourceRefToRepConverter.java:164)
+	at com.google.cloud.datastore.core.firestorev1.converter.FirestoreV1ResourceRefToRepConverter.convertDatabaseRefServiceRelative(FirestoreV1ResourceRefToRepConverter.java:156)
+	at com.google.cloud.datastore.emulator.impl.util.FirestoreEmulatorConverters.toDatabaseRef(FirestoreEmulatorConverters.java:504)
+	at com.google.cloud.datastore.emulator.impl.CloudFirestoreV1Router.databaseRefFromContext(CloudFirestoreV1Router.java:263)
+	at com.google.cloud.datastore.emulator.impl.CloudFirestoreV1Router.writeStream(CloudFirestoreV1Router.java:158)
+	at com.google.cloud.datastore.emulator.firestore.v1.FirestoreV1GrpcAdapter.bidi(FirestoreV1GrpcAdapter.java:89)
+	at com.google.cloud.datastore.emulator.firestore.v1.FirestoreV1GrpcAdapter.access$300(FirestoreV1GrpcAdapter.java:39)
+	at com.google.cloud.datastore.emulator.firestore.v1.FirestoreV1GrpcAdapter$1.write(FirestoreV1GrpcAdapter.java:177)
+	at com.google.firestore.v1.FirestoreGrpc$MethodHandlers.invoke(FirestoreGrpc.java:1262)
+	at io.grpc.stub.ServerCalls$StreamingServerCallHandler.startCall(ServerCalls.java:228)
+	at io.grpc.Contexts.interceptCall(Contexts.java:52)
+	at com.google.cloud.datastore.emulator.firestore.CloudFirestore$FirebaseAuthInterceptor.interceptCall(CloudFirestore.java:234)
+	at io.grpc.ServerInterceptors$InterceptCallHandler.startCall(ServerInterceptors.java:244)
+	at io.grpc.Contexts.interceptCall(Contexts.java:52)
+	at com.google.cloud.datastore.emulator.firestore.CloudFirestore$FirebaseDatabaseRefInterceptor.interceptCall(CloudFirestore.java:249)
+	at io.grpc.ServerInterceptors$InterceptCallHandler.startCall(ServerInterceptors.java:244)
+	at io.grpc.internal.ServerImpl$ServerTransportListenerImpl.startWrappedCall(ServerImpl.java:703)
+	at io.grpc.internal.ServerImpl$ServerTransportListenerImpl.access$2200(ServerImpl.java:406)
+	at io.grpc.internal.ServerImpl$ServerTransportListenerImpl$1HandleServerCall.runInternal(ServerImpl.java:615)
+	at io.grpc.internal.ServerImpl$ServerTransportListenerImpl$1HandleServerCall.runInContext(ServerImpl.java:603)
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:133)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jan 26, 2022 4:45:06 PM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError\nINFO: operation failed: Invalid app id: dev~fakePorjectId\njava.lang.IllegalArgumentException: Invalid app id: dev~fakePorjectId\n\tat com.google.cloud.datastore.core.names.ProjectIds.parseAppId(ProjectIds.java:163)\n\tat com.google.cloud.datastore.core.rep.DatabaseRef.createForApp(DatabaseRef.java:195)\n\tat com.google.cloud.datastore.core.firestorev1.converter.FirestoreV1ResourceRefToRepConverter.parseDatabaseRef(FirestoreV1ResourceRefToRepConverter.java:253)\n\tat com.google.cloud.datastore.core.firestorev1.converter.FirestoreV1ResourceRefToRepConverter.convertDatabaseRefHelper(FirestoreV1ResourceRefToRepConverter.java:164)\n\tat com.google.cloud.datastore.core.firestorev1.converter.FirestoreV1ResourceRefToRepConverter.convertDatabaseRefServiceRelative(FirestoreV1ResourceRefToRepConverter.java:156)\n\tat com.google.cloud.datastore.emulator.impl.util.FirestoreEmulatorConverters.toDatabaseRef(FirestoreEmulatorConverters.java:504)\n\tat com.google.cloud.datastore.emulator.impl.CloudFirestoreV1Router.databaseRefFromContext(CloudFirestoreV1Router.java:263)\n\tat com.google.cloud.datastore.emulator.impl.CloudFirestoreV1Router.writeStream(CloudFirestoreV1Router.java:158)\n\tat com.google.cloud.datastore.emulator.firestore.v1.FirestoreV1GrpcAdapter.bidi(FirestoreV1GrpcAdapter.java:89)\n\tat com.google.cloud.datastore.emulator.firestore.v1.FirestoreV1GrpcAdapter.access$300(FirestoreV1GrpcAdapter.java:39)\n\tat com.google.cloud.datastore.emulator.firestore.v1.FirestoreV1GrpcAdapter$1.write(FirestoreV1GrpcAdapter.java:177)\n\tat com.google.firestore.v1.FirestoreGrpc$MethodHandlers.invoke(FirestoreGrpc.java:1262)\n\tat io.grpc.stub.ServerCalls$StreamingServerCallHandler.startCall(ServerCalls.java:228)\n\tat io.grpc.Contexts.interceptCall(Contexts.java:52)\n\tat com.google.cloud.datastore.emulator.firestore.CloudFirestore$FirebaseAuthInterceptor.interceptCall(CloudFirestore.java:234)\n\tat io.grpc.ServerInterceptors$InterceptCallHandler.startCall(ServerInterceptors.java:244)\n\tat io.grpc.Contexts.interceptCall(Contexts.java:52)\n\tat com.google.cloud.datastore.emulator.firestore.CloudFirestore$FirebaseDatabaseRefInterceptor.interceptCall(CloudFirestore.java:249)\n\tat io.grpc.ServerInterceptors$InterceptCallHandler.startCall(ServerInterceptors.java:244)\n\tat io.grpc.internal.ServerImpl$ServerTransportListenerImpl.startWrappedCall(ServerImpl.java:703)\n\tat io.grpc.internal.ServerImpl$ServerTransportListenerImpl.access$2200(ServerImpl.java:406)\n\tat io.grpc.internal.ServerImpl$ServerTransportListenerImpl$1HandleServerCall.runInternal(ServerImpl.java:615)\n\tat io.grpc.internal.ServerImpl$ServerTransportListenerImpl$1HandleServerCall.runInContext(ServerImpl.java:603)\n\tat io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)\n\tat io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:133)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)\n\tat java.base/java.lang.Thread.run(Thread.java:833)\n\n"}}
+[debug] [2022-01-26T15:45:20.222Z] Jan 26, 2022 4:45:20 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jan 26, 2022 4:45:20 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-01-26T15:45:46.205Z] Jan 26, 2022 4:45:46 PM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError
+INFO: operation failed: Invalid app id: dev~fakePorjectId
+java.lang.IllegalArgumentException: Invalid app id: dev~fakePorjectId
+	at com.google.cloud.datastore.core.names.ProjectIds.parseAppId(ProjectIds.java:163)
+	at com.google.cloud.datastore.core.rep.DatabaseRef.createForApp(DatabaseRef.java:195)
+	at com.google.cloud.datastore.core.firestorev1.converter.FirestoreV1ResourceRefToRepConverter.parseDatabaseRef(FirestoreV1ResourceRefToRepConverter.java:253)
+	at com.google.cloud.datastore.core.firestorev1.converter.FirestoreV1ResourceRefToRepConverter.convertDatabaseRefHelper(FirestoreV1ResourceRefToRepConverter.java:164)
+	at com.google.cloud.datastore.core.firestorev1.converter.FirestoreV1ResourceRefToRepConverter.convertDatabaseRefServiceRelative(FirestoreV1ResourceRefToRepConverter.java:156)
+	at com.google.cloud.datastore.emulator.impl.util.FirestoreEmulatorConverters.toDatabaseRef(FirestoreEmulatorConverters.java:504)
+	at com.google.cloud.datastore.emulator.impl.CloudFirestoreV1Router.databaseRefFromContext(CloudFirestoreV1Router.java:263)
+	at com.google.cloud.datastore.emulator.impl.CloudFirestoreV1Router.writeStream(CloudFirestoreV1Router.java:158)
+	at com.google.cloud.datastore.emulator.firestore.v1.FirestoreV1GrpcAdapter.bidi(FirestoreV1GrpcAdapter.java:89)
+	at com.google.cloud.datastore.emulator.firestore.v1.FirestoreV1GrpcAdapter.access$300(FirestoreV1GrpcAdapter.java:39)
+	at com.google.cloud.datastore.emulator.firestore.v1.FirestoreV1GrpcAdapter$1.write(FirestoreV1GrpcAdapter.java:177)
+	at com.google.firestore.v1.FirestoreGrpc$MethodHandlers.invoke(FirestoreGrpc.java:1262)
+	at io.grpc.stub.ServerCalls$StreamingServerCallHandler.startCall(ServerCalls.java:228)
+	at io.grpc.Contexts.interceptCall(Contexts.java:52)
+	at com.google.cloud.datastore.emulator.firestore.CloudFirestore$FirebaseAuthInterceptor.interceptCall(CloudFirestore.java:234)
+	at io.grpc.ServerInterceptors$InterceptCallHandler.startCall(ServerInterceptors.java:244)
+	at io.grpc.Contexts.interceptCall(Contexts.java:52)
+	at com.google.cloud.datastore.emulator.firestore.CloudFirestore$FirebaseDatabaseRefInterceptor.interceptCall(CloudFirestore.java:249)
+	at io.grpc.ServerInterceptors$InterceptCallHandler.startCall(ServerInterceptors.java:244)
+	at io.grpc.internal.ServerImpl$ServerTransportListenerImpl.startWrappedCall(ServerImpl.java:703)
+	at io.grpc.internal.ServerImpl$ServerTransportListenerImpl.access$2200(ServerImpl.java:406)
+	at io.grpc.internal.ServerImpl$ServerTransportListenerImpl$1HandleServerCall.runInternal(ServerImpl.java:615)
+	at io.grpc.internal.ServerImpl$ServerTransportListenerImpl$1HandleServerCall.runInContext(ServerImpl.java:603)
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:133)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jan 26, 2022 4:45:46 PM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError\nINFO: operation failed: Invalid app id: dev~fakePorjectId\njava.lang.IllegalArgumentException: Invalid app id: dev~fakePorjectId\n\tat com.google.cloud.datastore.core.names.ProjectIds.parseAppId(ProjectIds.java:163)\n\tat com.google.cloud.datastore.core.rep.DatabaseRef.createForApp(DatabaseRef.java:195)\n\tat com.google.cloud.datastore.core.firestorev1.converter.FirestoreV1ResourceRefToRepConverter.parseDatabaseRef(FirestoreV1ResourceRefToRepConverter.java:253)\n\tat com.google.cloud.datastore.core.firestorev1.converter.FirestoreV1ResourceRefToRepConverter.convertDatabaseRefHelper(FirestoreV1ResourceRefToRepConverter.java:164)\n\tat com.google.cloud.datastore.core.firestorev1.converter.FirestoreV1ResourceRefToRepConverter.convertDatabaseRefServiceRelative(FirestoreV1ResourceRefToRepConverter.java:156)\n\tat com.google.cloud.datastore.emulator.impl.util.FirestoreEmulatorConverters.toDatabaseRef(FirestoreEmulatorConverters.java:504)\n\tat com.google.cloud.datastore.emulator.impl.CloudFirestoreV1Router.databaseRefFromContext(CloudFirestoreV1Router.java:263)\n\tat com.google.cloud.datastore.emulator.impl.CloudFirestoreV1Router.writeStream(CloudFirestoreV1Router.java:158)\n\tat com.google.cloud.datastore.emulator.firestore.v1.FirestoreV1GrpcAdapter.bidi(FirestoreV1GrpcAdapter.java:89)\n\tat com.google.cloud.datastore.emulator.firestore.v1.FirestoreV1GrpcAdapter.access$300(FirestoreV1GrpcAdapter.java:39)\n\tat com.google.cloud.datastore.emulator.firestore.v1.FirestoreV1GrpcAdapter$1.write(FirestoreV1GrpcAdapter.java:177)\n\tat com.google.firestore.v1.FirestoreGrpc$MethodHandlers.invoke(FirestoreGrpc.java:1262)\n\tat io.grpc.stub.ServerCalls$StreamingServerCallHandler.startCall(ServerCalls.java:228)\n\tat io.grpc.Contexts.interceptCall(Contexts.java:52)\n\tat com.google.cloud.datastore.emulator.firestore.CloudFirestore$FirebaseAuthInterceptor.interceptCall(CloudFirestore.java:234)\n\tat io.grpc.ServerInterceptors$InterceptCallHandler.startCall(ServerInterceptors.java:244)\n\tat io.grpc.Contexts.interceptCall(Contexts.java:52)\n\tat com.google.cloud.datastore.emulator.firestore.CloudFirestore$FirebaseDatabaseRefInterceptor.interceptCall(CloudFirestore.java:249)\n\tat io.grpc.ServerInterceptors$InterceptCallHandler.startCall(ServerInterceptors.java:244)\n\tat io.grpc.internal.ServerImpl$ServerTransportListenerImpl.startWrappedCall(ServerImpl.java:703)\n\tat io.grpc.internal.ServerImpl$ServerTransportListenerImpl.access$2200(ServerImpl.java:406)\n\tat io.grpc.internal.ServerImpl$ServerTransportListenerImpl$1HandleServerCall.runInternal(ServerImpl.java:615)\n\tat io.grpc.internal.ServerImpl$ServerTransportListenerImpl$1HandleServerCall.runInContext(ServerImpl.java:603)\n\tat io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)\n\tat io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:133)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)\n\tat java.base/java.lang.Thread.run(Thread.java:833)\n\n"}}
+[debug] [2022-01-26T15:46:27.417Z] Jan 26, 2022 4:46:27 PM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError
+INFO: operation failed: Invalid app id: dev~fakePorjectId
+java.lang.IllegalArgumentException: Invalid app id: dev~fakePorjectId
+	at com.google.cloud.datastore.core.names.ProjectIds.parseAppId(ProjectIds.java:163)
+	at com.google.cloud.datastore.core.rep.DatabaseRef.createForApp(DatabaseRef.java:195)
+	at com.google.cloud.datastore.core.firestorev1.converter.FirestoreV1ResourceRefToRepConverter.parseDatabaseRef(FirestoreV1ResourceRefToRepConverter.java:253)
+	at com.google.cloud.datastore.core.firestorev1.converter.FirestoreV1ResourceRefToRepConverter.convertDatabaseRefHelper(FirestoreV1ResourceRefToRepConverter.java:164)
+	at com.google.cloud.datastore.core.firestorev1.converter.FirestoreV1ResourceRefToRepConverter.convertDatabaseRefServiceRelative(FirestoreV1ResourceRefToRepConverter.java:156)
+	at com.google.cloud.datastore.emulator.impl.util.FirestoreEmulatorConverters.toDatabaseRef(FirestoreEmulatorConverters.java:504)
+	at com.google.cloud.datastore.emulator.impl.CloudFirestoreV1Router.databaseRefFromContext(CloudFirestoreV1Router.java:263)
+	at com.google.cloud.datastore.emulator.impl.CloudFirestoreV1Router.writeStream(CloudFirestoreV1Router.java:158)
+	at com.google.cloud.datastore.emulator.firestore.v1.FirestoreV1GrpcAdapter.bidi(FirestoreV1GrpcAdapter.java:89)
+	at com.google.cloud.datastore.emulator.firestore.v1.FirestoreV1GrpcAdapter.access$300(FirestoreV1GrpcAdapter.java:39)
+	at com.google.cloud.datastore.emulator.firestore.v1.FirestoreV1GrpcAdapter$1.write(FirestoreV1GrpcAdapter.java:177)
+	at com.google.firestore.v1.FirestoreGrpc$MethodHandlers.invoke(FirestoreGrpc.java:1262)
+	at io.grpc.stub.ServerCalls$StreamingServerCallHandler.startCall(ServerCalls.java:228)
+	at io.grpc.Contexts.interceptCall(Contexts.java:52)
+	at com.google.cloud.datastore.emulator.firestore.CloudFirestore$FirebaseAuthInterceptor.interceptCall(CloudFirestore.java:234)
+	at io.grpc.ServerInterceptors$InterceptCallHandler.startCall(ServerInterceptors.java:244)
+	at io.grpc.Contexts.interceptCall(Contexts.java:52)
+	at com.google.cloud.datastore.emulator.firestore.CloudFirestore$FirebaseDatabaseRefInterceptor.interceptCall(CloudFirestore.java:249)
+	at io.grpc.ServerInterceptors$InterceptCallHandler.startCall(ServerInterceptors.java:244)
+	at io.grpc.internal.ServerImpl$ServerTransportListenerImpl.startWrappedCall(ServerImpl.java:703)
+	at io.grpc.internal.ServerImpl$ServerTransportListenerImpl.access$2200(ServerImpl.java:406)
+	at io.grpc.internal.ServerImpl$ServerTransportListenerImpl$1HandleServerCall.runInternal(ServerImpl.java:615)
+	at io.grpc.internal.ServerImpl$ServerTransportListenerImpl$1HandleServerCall.runInContext(ServerImpl.java:603)
+	at io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)
+	at io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:133)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jan 26, 2022 4:46:27 PM com.google.cloud.datastore.emulator.impl.util.WrappedStreamObserver onError\nINFO: operation failed: Invalid app id: dev~fakePorjectId\njava.lang.IllegalArgumentException: Invalid app id: dev~fakePorjectId\n\tat com.google.cloud.datastore.core.names.ProjectIds.parseAppId(ProjectIds.java:163)\n\tat com.google.cloud.datastore.core.rep.DatabaseRef.createForApp(DatabaseRef.java:195)\n\tat com.google.cloud.datastore.core.firestorev1.converter.FirestoreV1ResourceRefToRepConverter.parseDatabaseRef(FirestoreV1ResourceRefToRepConverter.java:253)\n\tat com.google.cloud.datastore.core.firestorev1.converter.FirestoreV1ResourceRefToRepConverter.convertDatabaseRefHelper(FirestoreV1ResourceRefToRepConverter.java:164)\n\tat com.google.cloud.datastore.core.firestorev1.converter.FirestoreV1ResourceRefToRepConverter.convertDatabaseRefServiceRelative(FirestoreV1ResourceRefToRepConverter.java:156)\n\tat com.google.cloud.datastore.emulator.impl.util.FirestoreEmulatorConverters.toDatabaseRef(FirestoreEmulatorConverters.java:504)\n\tat com.google.cloud.datastore.emulator.impl.CloudFirestoreV1Router.databaseRefFromContext(CloudFirestoreV1Router.java:263)\n\tat com.google.cloud.datastore.emulator.impl.CloudFirestoreV1Router.writeStream(CloudFirestoreV1Router.java:158)\n\tat com.google.cloud.datastore.emulator.firestore.v1.FirestoreV1GrpcAdapter.bidi(FirestoreV1GrpcAdapter.java:89)\n\tat com.google.cloud.datastore.emulator.firestore.v1.FirestoreV1GrpcAdapter.access$300(FirestoreV1GrpcAdapter.java:39)\n\tat com.google.cloud.datastore.emulator.firestore.v1.FirestoreV1GrpcAdapter$1.write(FirestoreV1GrpcAdapter.java:177)\n\tat com.google.firestore.v1.FirestoreGrpc$MethodHandlers.invoke(FirestoreGrpc.java:1262)\n\tat io.grpc.stub.ServerCalls$StreamingServerCallHandler.startCall(ServerCalls.java:228)\n\tat io.grpc.Contexts.interceptCall(Contexts.java:52)\n\tat com.google.cloud.datastore.emulator.firestore.CloudFirestore$FirebaseAuthInterceptor.interceptCall(CloudFirestore.java:234)\n\tat io.grpc.ServerInterceptors$InterceptCallHandler.startCall(ServerInterceptors.java:244)\n\tat io.grpc.Contexts.interceptCall(Contexts.java:52)\n\tat com.google.cloud.datastore.emulator.firestore.CloudFirestore$FirebaseDatabaseRefInterceptor.interceptCall(CloudFirestore.java:249)\n\tat io.grpc.ServerInterceptors$InterceptCallHandler.startCall(ServerInterceptors.java:244)\n\tat io.grpc.internal.ServerImpl$ServerTransportListenerImpl.startWrappedCall(ServerImpl.java:703)\n\tat io.grpc.internal.ServerImpl$ServerTransportListenerImpl.access$2200(ServerImpl.java:406)\n\tat io.grpc.internal.ServerImpl$ServerTransportListenerImpl$1HandleServerCall.runInternal(ServerImpl.java:615)\n\tat io.grpc.internal.ServerImpl$ServerTransportListenerImpl$1HandleServerCall.runInContext(ServerImpl.java:603)\n\tat io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)\n\tat io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:133)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)\n\tat java.base/java.lang.Thread.run(Thread.java:833)\n\n"}}
+[debug] [2022-01-26T15:46:35.690Z] Jan 26, 2022 4:46:35 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jan 26, 2022 4:46:35 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
