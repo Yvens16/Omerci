@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@babel/preset-typescript": "^7.16.5",
+    "@firebase/rules-unit-testing": "^2.0.1",
     "@types/jest": "^27.0.3",
     "babel-plugin-inline-react-svg": "^2.0.1",
     "firebase": "^9.6.1",

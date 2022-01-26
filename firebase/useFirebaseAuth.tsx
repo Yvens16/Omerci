@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import firebaseApp from './index';
-import { getAuth, sendSignInLinkToEmail, onAuthStateChanged, isSignInWithEmailLink, signOut, signInAnonymously, signInWithEmailLink } from 'firebase/auth';
+import { firebaseAuth } from './index';
+import { sendSignInLinkToEmail, onAuthStateChanged, isSignInWithEmailLink, signOut, signInAnonymously, signInWithEmailLink } from 'firebase/auth';
 
 interface authUserParams {
   uid: string | null,
@@ -77,8 +77,7 @@ export default function useFirebaseAuth() {
       // dynamicLinkDomain: 'example.page.link'
     };
 
-    const auth = getAuth(firebaseApp);
-    sendSignInLinkToEmail(auth, email, actionCodeSettings)
+    sendSignInLinkToEmail(firebaseAuth, email, actionCodeSettings)
       .then(() => {
         // The link was successfully sent. Inform the user.
         // TODO: https://evandromacedo.github.io/react-simple-snackbar/
@@ -96,9 +95,8 @@ export default function useFirebaseAuth() {
   }
 
   const afterGettingLink = () => {
-    const auth = getAuth(firebaseApp);
     let isNewUser, isAnonymous, emailVerified, uid;
-    if (isSignInWithEmailLink(auth, window.location.href)) {
+    if (isSignInWithEmailLink(firebaseAuth, window.location.href)) {
       // Additional state parameters can also be passed via URL.
       // This can be used to continue the user's intended action before triggering
       // the sign-in operation.
@@ -112,7 +110,7 @@ export default function useFirebaseAuth() {
         email = window.prompt('Please provide your email for confirmation') as string;
       }
       // The client SDK will parse the code from the link for you.
-      return signInWithEmailLink(auth, email, window.location.href)
+      return signInWithEmailLink(firebaseAuth, email, window.location.href)
         .then((result: any) => {
           console.log('####result:', result)
           isNewUser = result._tokenResponse.isNewUser;
@@ -144,8 +142,7 @@ export default function useFirebaseAuth() {
   }
 
   const anonymousSignIn = () => {
-    const auth = getAuth(firebaseApp);
-    signInAnonymously(auth)
+    signInAnonymously(firebaseAuth)
       .then(() => {
         // Signed in..
       })
@@ -158,13 +155,11 @@ export default function useFirebaseAuth() {
 
 
   const signOutAccount = () => {
-    const auth = getAuth(firebaseApp);
-    signOut(auth).then(clear);
+    signOut(firebaseAuth).then(clear);
   }
 
   useEffect(() => {
-    const auth = getAuth();
-    const unsuscribe = onAuthStateChanged(auth, authStateChanged);
+    const unsuscribe = onAuthStateChanged(firebaseAuth, authStateChanged);
     return () => {
       unsuscribe();
     }

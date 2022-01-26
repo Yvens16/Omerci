@@ -1,5 +1,5 @@
 import React from 'react';
-import firebaseApp from './index';  
+import { firestore } from './index';  
 import { getFirestore, collection, addDoc, setDoc, doc, getDoc } from "firebase/firestore";
 
 export default function useFirestore() {
@@ -12,9 +12,8 @@ export default function useFirestore() {
   }
 
   const addUserInfo = async ({uid, firstName, lastName, howDoYouKnowUs, email}:IaddUserInfo) => {
-    const db = getFirestore(firebaseApp);
     try {
-      await setDoc(doc(db, 'users', uid), {
+      await setDoc(doc(firestore, 'users', uid), {
         uid,
         firstName,
         lastName,
@@ -30,8 +29,7 @@ export default function useFirestore() {
 
 
   const getUserInfo = async (uid: string) => {
-    const db = getFirestore(firebaseApp);
-    const docRef = doc(db, "users", uid);
+    const docRef = doc(firestore, "users", uid);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
       console.log('docSnap:', docSnap)
