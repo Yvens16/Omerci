@@ -12,3 +12,48 @@ body {
 /* #__next {
 	@apply flex flex-col min-h-full;
 } */
+
+
+@layer utilities {
+  .hide-scrollbar {
+    overflow-x: auto;
+    overflow: -moz-scrollbars-none;
+    scrolllbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .show-scrollbar {
+    overflow-x: auto;
+  }
+
+  .show-scrollbar::-webkit-scrollbar {
+    width: 200px;
+    height: 10px;
+    background-color: #fff;
+  }
+/* 
+  .show-scrollbar::-webkit-scrollbar-thumb {
+    background: #421BA7;
+  }
+  .show-scrollbar::-webkit-scrollbar {
+    display: unset;
+  } */
+
+  .card_settings {
+    display: none;
+  }
+
+  .unset_mx {
+    margin-right: unset;
+    margin-left: unset;
+  }
+}
+
+.carte:hover .card_settings {
+  cursor: pointer;
+  display: flex;
+}

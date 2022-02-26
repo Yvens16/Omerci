@@ -7,6 +7,6 @@ describe("Test personal space page", () => {
   it("Should render initials", () => {
       const { getByText } = render(<PersonalSpace/>);
       const initails = getByText('YB');
-      expect(initails).toHaveTextContent('BY');
+      expect(initails).toHaveTextContent('YB');
   })
 })

@@ -22,6 +22,6 @@
       "test-utils": ["./test-utils.tsx"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "custom.d.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "custom.d.ts", "firebase/sample2.test.js", "firebase/sample2.test.js"],
   "exclude": ["node_modules"],
 }

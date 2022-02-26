@@ -6,7 +6,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest --watch",
+    "test": "jest --watch --maxWorkers=25%",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "chromatic": "npx chromatic"
@@ -14,8 +14,11 @@
   "dependencies": {
     "@babel/preset-typescript": "^7.16.5",
     "@types/jest": "^27.0.3",
+    "babel-jest": "^27.4.6",
     "babel-plugin-inline-react-svg": "^2.0.1",
+    "babel-plugin-jest-hoist": "^27.4.0",
     "firebase": "^9.6.1",
+    "identity-obj-proxy": "^3.0.0",
     "next": "12.0.7",
     "react": "17.0.2",
     "react-dom": "17.0.2"

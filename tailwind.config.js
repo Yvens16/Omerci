@@ -37,6 +37,10 @@ module.exports = {
       header: "#E5E5E5",
     },
     extend: {
+      boxShadow: {
+        'option_box_shadow' : '0 7px 8px rgba(123, 97, 255, 0.05)',
+        'card_box_shadow': 'box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.05)',
+      },
       spacing: {
         '8t': '8px',
         '16t': '16px',
@@ -46,23 +50,26 @@ module.exports = {
         '24t': '24px',
         '28t': '28px',
         '32t': '32px',
+        '40t': '40px',
       },
       margin: {
         '4t': '4px',
+        '6t': '6px',
         '8t': '8px',
-        '16t': '16px',
         '12t': '12px',
+        '16t': '16px',
         '24t': '24px',
         '32t': '32px',
         '36t': '36px',
+        '40t': '40px',
         '48t': '48px',
       },
       borderRadius: {
         '4t': '4px',
         '8t': '8px',
         '12t': '12px',
+        '16t': '16px',
       },
     },
   },
-  plugins: [],
 }
