@@ -4,6 +4,7 @@ import CaretDown from "../../public/icons/arrow/caret_down.svg";
 import Plus from "../../public/icons/misc/plus.svg";
 import Button from '@components/buttons/Button';
 import Tabs from '../tabs/Tabs';
+import { useRouter } from 'next/router';
 // public/icons/basic/settings.svg
 
 type THeader = {
@@ -11,6 +12,7 @@ type THeader = {
   lastName?: string,
 }
 const Header = ({ firstName, lastName }: THeader) => {
+  const router = useRouter()
   return <div className="bg-white mb-40t">
     <div className="xl:mx-auto xl:max-w-[1240px]">
       <div className="pt-24t pb-[28px] xl:pt-24t xl:pb-32t px-16t xl:px-0 flex lg:justify-between items-center lg:max-w-[343px]">
@@ -18,7 +20,6 @@ const Header = ({ firstName, lastName }: THeader) => {
           <div className='bg-gradient-to-b from-gradient1 to-gradient2 w-[48px] h-[48px] rounded-full bg-primary flex justify-center items-center text-white text-[20px] font-semibold'>
             {firstName?.toUpperCase().split('')[0]}{lastName?.toUpperCase().split('')[0]}
           </div>
-
         </div>
         <h1 className='ml-16t mr-32t lg:mx-0 text-big font-semibold text-black'>Bonjour, {firstName}</h1>
         <div className='flex justify-between ml-auto mr-0 lg:unset_mx'>
@@ -29,11 +30,9 @@ const Header = ({ firstName, lastName }: THeader) => {
     </div>
     <div className='px-16t xl:px-0 lg:flex lg:flex-row-reverse lg:items-end lg:justify-between xl:mx-auto xl:max-w-[1240px]'>
       <div className='pb-12t'>
-        <Button myClass='mb-24t lg:mb-0 ' handleClick={function () {
-          throw new Error('Function not implemented.');
-        }} type='primary' size=''>
+        <Button myClass='mb-24t lg:mb-0 ' handleClick={() => router.push('/create_space')} type='primary' size=''>
           <Plus className='fill-white mr-16t' />
-          <span className="font-light">Ajouter un espace</span>
+          <span className="font-light">Ajouter une carte</span>
         </Button>
       </div>
       <div className='lg:w-[287px] lg:h-[33px]'>

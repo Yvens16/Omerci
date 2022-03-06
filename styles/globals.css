@@ -15,19 +15,23 @@ body {
 
 
 @layer utilities {
-  .hide-scrollbar {
+  .add-scrollbar {
     overflow-x: auto;
     overflow: -moz-scrollbars-none;
     scrolllbar-width: none;
     -ms-overflow-style: none;
   }
 
-  .hide-scrollbar::-webkit-scrollbar {
+  .add-scrollbar::-webkit-scrollbar {
     display: none;
   }
 
   .show-scrollbar {
     overflow-x: auto;
+  }
+  .disbale-scrollbar {
+    overflow-x: unset;
+    overflow: unset;
   }
 
   .show-scrollbar::-webkit-scrollbar {

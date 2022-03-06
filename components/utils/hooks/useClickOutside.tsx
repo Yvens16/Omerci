@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 
 export function useOnClickOutside(ref: any, handler: any) {
-  console.log('ref:', ref)
   useEffect(
     () => {
       const listener = (event: any) => {

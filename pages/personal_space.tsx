@@ -1,6 +1,8 @@
-import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import type { NextPage } from 'next'
+import Router, { useRouter } from 'next/router'
 import { useOnClickOutside } from '@components/utils/hooks/useClickOutside';
+import { useFirestoreDb } from 'context/FirestoreContext';
 import Header from "@components/personal_space/Header";
 import Cards from '@components/personal_space/Cards';
 import Options from '@components/personal_space/Options';
@@ -21,6 +23,8 @@ type TCards = {
   sectionName: string,
 }
 const PersonalSpace: NextPage = () => {
+  const { deleteCard } = useFirestoreDb();
+  const [cardId, setCardId] = useState<string>('');
   const [cards, setCards] = useState<TCards | null>(null);
   const [OldCards, setOldCards] = useState<TCards | null>(null);
 
@@ -39,18 +43,21 @@ const PersonalSpace: NextPage = () => {
   
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const modalRef = useRef<HTMLDivElement>(null);
-  useOnClickOutside(modalRef, () => setIsDeleteModalOpen(false));
+  useOnClickOutside(modalRef, () => closeDeleteModal());
 
   const ref = useRef<HTMLDivElement>(null);
   const [isOptionOpen, setIsOptionOpen] = useState<boolean>(false);
   useOnClickOutside(ref, () => setIsOptionOpen(false));
   
   const [url, setUrl] = useState<string>("");
+  const [cardUidToDelete, setCardUidToDelete] = useState<string | null>(null);
+
   
 
   const toggleOptionModal = (id: number | null) => {
     // TODO: set uid to delete
     if (id != null && id > -1) {
+      setCardUidToDelete(cardsData[id].uid);
       const card = cardsData[id];
       if (card.url) setUrl(card.url);
       setActiveIndex(id);
@@ -60,8 +67,10 @@ const PersonalSpace: NextPage = () => {
 
     const toggleSentOptionModal = (id: number | null) => {
     // TODO: set uid to delete
+    const cards = cardsData.filter(card => card.isSent == true);
     if (id != null && id > -1) {
-      const card = cardsData[id];
+      setCardUidToDelete(cardsData[id].uid);
+      const card = cards[id];
       if (card.url) setUrl(card.url);
       setSentActiveIndex(id);
     }
@@ -69,24 +78,24 @@ const PersonalSpace: NextPage = () => {
   };
 
   const openDeleteModal = () => {
-    setIsDeleteModalOpen(true)
-    setActiveIndex(null);
-    setSentActiveIndex(null);
+    setIsDeleteModalOpen(true);
+    toggleOptionModal(null);
+    // setActiveIndex(null);
+    // setSentActiveIndex(null);
+    // setIsOptionOpen(!isOptionOpen);
     /**
      * Close OptionModal
      * Supprimer carte soit par batch update ou par single update
      */
   }
-  const deleteCard = () => {};
 
-  // const createMultipleRefs = () => {
-  //   cardsData.forEach(el => {
-  //     let ref 
-  //   })
-  // }
-
+  const closeDeleteModal = () => {
+    setIsDeleteModalOpen(false);
+  }
   return (
     <div className="text-black">
+      {console.log("toDelete", cardUidToDelete)
+      }
       <Header firstName="Fadel" lastName="Belaston" />
       <div className='xl:mx-auto xl:max-w-[1240px]'>
         <Cards
@@ -106,15 +115,11 @@ const PersonalSpace: NextPage = () => {
       }}>
         <div ref={modalRef} className="flex flex-col items-center">
           <div className='logo mt-32t mb-16t'><Trash className="fill-danger" /></div>
-          <h3 className='text-black font-semibold text-18t text-center mb-8t'>Êtes-vous sûr de vouloir supprimer cet espace ? </h3>
-          <p className='text-base text-center text-third mt-16t mb-40t'>En supprimant cet espace, vous perdrez tous son contenu, et ni vous ni les participants ne pourront y acceder</p>
+          <h3 className='text-black font-semibold text-18t text-center mb-8t'>Êtes-vous sûr de vouloir supprimer cet carte ? </h3>
+          <p className='text-base text-center text-third mt-16t mb-40t'>En supprimant cet carte, vous perdrez tous son contenu, et ni vous ni les participants ne pourront y acceder</p>
           <div className="flex justify-between">
-            <Button myClass='secondary mr-8t' handleClick={function (): void {
-              throw new Error('Function not implemented.');
-            }} type='secondary' size='big'>Annuler</Button>
-            <Button myClass='text-white bg-danger rounded-8t' handleClick={function (): void {
-              throw new Error('Function not implemented.');
-            }} type='primamry' size='big'>Supprimer</Button>
+            <Button myClass='secondary mr-8t' handleClick={closeDeleteModal} type='secondary' size='big'>Annuler</Button>
+            <Button myClass='text-white bg-danger rounded-8t' handleClick={() => deleteCard(cardId)} type='primamry' size='big'>Supprimer</Button>
           </div>
         </div>
       </Modal>

@@ -9,11 +9,13 @@ type TResul = {
 interface IfirestoreContext {
   addUserInfo: ({uid, firstName, lastName, howDoYouKnowUs, email}: {uid: string, firstName: string, lastName: string, howDoYouKnowUs: string, email:string}) => Promise<void>,
   getUserInfo: (uid: string) => Promise<TResul>,
+  deleteCard: (uid: string) => Promise<TResul>,
 }
 
 export const FirestoreCtx = createContext<IfirestoreContext>({
   addUserInfo: async() => {},
   getUserInfo: async(uid:string) => new Promise<TResul>(() => {}),
+  deleteCard: async(uid:string) => new Promise<TResul>(() => {}),
 
 })
 
