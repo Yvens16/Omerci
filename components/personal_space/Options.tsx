@@ -13,14 +13,11 @@ type TOptions = {
   closeOption?: (id: number | null) => void,
   isMobile: boolean,
   openDeleteModal: () => void,
+  copyToClipBoard: (textToCopy: string) => void,
 };
 
 
-const Options = ({ customClass, optionRef, url, closeOption, isMobile, openDeleteModal }: TOptions) => {
-  const copyToClipBoard = (textToCopy: string) => {
-    navigator.clipboard.writeText(textToCopy);
-    // TODO: add a snackbar here
-  }
+const Options = ({ customClass, optionRef, url, closeOption, isMobile, openDeleteModal, copyToClipBoard }: TOptions) => {
   return <>
     {isMobile ? <div className={`z-50 lg:hidden w-screen h-screen bg-modal fixed top-0 left-0 ${customClass}`}>
       <div ref={optionRef} className={`w-screen fixed bottom-0 left-0 p-16t text-black flex flex-col bg-white border border-solid border-secondary_fill option_box_shadow rounded-t-12t`}>

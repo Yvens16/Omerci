@@ -6,7 +6,11 @@ import { getFirestore,
     setDoc,
     doc,
     getDoc,
-    deleteDoc } from "firebase/firestore";
+    getDocs,
+    deleteDoc,
+    DocumentData,
+    query,
+    where} from "firebase/firestore";
 
 export default function useFirestore() {
   interface IaddUserInfo {
@@ -49,14 +53,30 @@ export default function useFirestore() {
     }
   }
 
-  const deleteCard = async (uid: string) => {
+  const deleteCardInDB = async (uid: string) => {
     const db = getFirestore(firebaseApp);
     try {
+      console.log("Delete", uid)
       await deleteDoc(doc(db, "cards", uid));
       // TODO: Add snackbar to display success
     } catch(e) {
-      console.log("Error in deleteCard", e);
+      console.log("Error in deleteCardInDB", e);
       // TODO: Add snackbar to display fail
+    }
+  }
+
+  const getCards = async (creatorUid:string) => {
+    const db = getFirestore(firebaseApp);
+    const cards: DocumentData[] = [];
+    const q = query(collection(db, "cards"), where("creatorId", "==", creatorUid));
+    try {
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach(doc => {
+        cards.push(doc.data());
+      });
+      return cards;
+    } catch(e: any) {
+      throw new Error(e);
     }
   }
   /** 
@@ -68,6 +88,7 @@ export default function useFirestore() {
   return {
     addUserInfo,
     getUserInfo,
-    deleteCard,
+    deleteCardInDB,
+    getCards
   }
 }
