@@ -4,7 +4,7 @@ import React from 'react'
 interface ButtonParams {
   myClass: string;
   children: React.ReactNode,
-  handleClick(): any,
+  handleClick(): void,
   type: string,
   size: string,
   //onChange(name: string): any;  here function that accept an arguement
