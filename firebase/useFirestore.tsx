@@ -59,6 +59,7 @@ export default function useFirestore() {
     const db = getFirestore(firebaseApp);
     try {
       await addDoc(collection(db, 'cards'), {
+        uid: "", //todo: add uid here
         creatorId: userId,
         recipientName,
         title,
