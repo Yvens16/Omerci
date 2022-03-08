@@ -11,7 +11,7 @@ const Tabs = ({ tabs, whichIndex }: TabProps) => {
     setActiveIndex(index);
     whichIndex(index);
   }
-  return (<div className='flex justify-between'>{
+  return (<div className='flex justify-between mb-0 h-full'>{
     tabs.map((link, index) => (
       <div className={
         `text-mid cursor-pointer font-medium	

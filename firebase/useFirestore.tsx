@@ -1,7 +1,18 @@
 import React from 'react';
-import firebaseApp from './index';
 import useFirebaseAuth from '../firebase/useFirebaseAuth';
-import { getFirestore, setDoc, doc, getDoc, serverTimestamp, addDoc, collection } from "firebase/firestore";
+import firebaseApp from './index';  
+import { getFirestore,
+    collection,
+    addDoc,
+    setDoc,
+    doc,
+    getDoc,
+    serverTimestamp,
+    getDocs,
+    deleteDoc,
+    DocumentData,
+    query,
+    where} from "firebase/firestore";
 
 export default function useFirestore() {
   const { updateAuthDisplayName } = useFirebaseAuth();
@@ -74,10 +85,43 @@ export default function useFirestore() {
       console.log("Error in createNewCard", e);
     }
   }
+  const deleteCardInDB = async (uid: string) => {
+    const db = getFirestore(firebaseApp);
+    try {
+      console.log("Delete", uid)
+      await deleteDoc(doc(db, "cards", uid));
+      // TODO: Add snackbar to display success
+    } catch(e) {
+      console.log("Error in deleteCardInDB", e);
+      // TODO: Add snackbar to display fail
+    }
+  }
+
+  const getCards = async (creatorUid:string) => {
+    const db = getFirestore(firebaseApp);
+    const cards: DocumentData[] = [];
+    const q = query(collection(db, "cards"), where("creatorId", "==", creatorUid));
+    try {
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach(doc => {
+        cards.push(doc.data());
+      });
+      return cards;
+    } catch(e: any) {
+      throw new Error(e);
+    }
+  }
+  /** 
+   * Check subcollections
+   * User access: Create a different collection with users role or create a subcollection on the card 
+   * with all the users that can access the data 
+   */
 
   return {
     addUserInfo,
     getUserInfo,
     createNewCard,
+    deleteCardInDB,
+    getCards
   }
 }
