@@ -112,7 +112,7 @@ const AlreadyHasAccount = ({ surname, name, email }: AlreadyHasAccountParams) =>
 }
 
 const Login: NextPage = () => {
-  const [email, setEmail] = useState<string>('fadel2603@gmail.com');
+  const [email, setEmail] = useState<string>('');
   const [emailErrorMsg, setEmailErrorMsg] = useState<string>("");
   const [show, setShow] = useState<boolean>(false);
   const [emailShow, setEmailShow] = useState<boolean>(false);
@@ -173,6 +173,7 @@ const Login: NextPage = () => {
       setSurnameEmpty("N'oubliez pas de rentrer votre prénom !")
     } else {
       const uid = authUser && authUser['uid'] ? authUser['uid'] : '';
+      console.log("EMAILLLLL", email)
       addUserInfo({ uid, firstName: surname, lastName: name, howDoYouKnowUs: howDoyouKnowUs, email });
       //TODO: redirect to my cards page
     }
@@ -196,10 +197,12 @@ const Login: NextPage = () => {
       setEmailShow(false);
     });
   }
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!authUser && window.location.href.includes('mode=signIn')) {
       let email: string = window.localStorage.getItem('emailForSignIn') as string;
+      console.log(' local storageemail:', email)
       if (email) {
+        setEmail(email);
         afterGettingLink().then((rel: any) => {
           if (rel) {
             if (rel.isNewUser) {
@@ -237,6 +240,7 @@ const Login: NextPage = () => {
           {components[step]}
         </div>
       }
+      {console.log("#########", email)}
       <Modal closeModal={closeModal} show={show}>
         <div className='flex flex-col text-center'>
           <div className='flex flex-col items-center'>

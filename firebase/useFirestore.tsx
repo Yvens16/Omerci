@@ -57,9 +57,10 @@ export default function useFirestore() {
 
   const createNewCard = async ({userId, recipientName, title, hasCagnotte, isPremium, teamName}: ICreateNewCard) => {
     const db = getFirestore(firebaseApp);
+    const cardRef = doc(collection(db, "cards"));
     try {
-      await addDoc(collection(db, 'cards'), {
-        uid: "", //todo: add uid here
+      await setDoc(cardRef, {
+        uid: cardRef.id,
         creatorId: userId,
         recipientName,
         title,
