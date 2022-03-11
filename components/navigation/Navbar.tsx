@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Button from '../buttons/Button';
-import Menu from '../../public/icons/menu/hamburger.svg';
+import Menu from '../../public/icons/menu/hamburger.svg'; //./../public/icons/menu/hamburger.svg
 import Cross from '../../public/icons/menu/close_big.svg';
 
 

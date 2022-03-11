@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
-import firebaseApp from './index';
-import { getAuth, sendSignInLinkToEmail, onAuthStateChanged, isSignInWithEmailLink, signOut, signInAnonymously, signInWithEmailLink, updateProfile } from 'firebase/auth';
+import { useState, useEffect, useCallback } from 'react'
+import {auth} from './index';
+import {sendSignInLinkToEmail, onAuthStateChanged, isSignInWithEmailLink, signOut, signInAnonymously, signInWithEmailLink, updateProfile } from 'firebase/auth';
 
 interface authUserParams {
   uid: string | null,
@@ -77,17 +77,17 @@ export default function useFirebaseAuth() {
       // This must be true.
       handleCodeInApp: true,
       // iOS: {
-      //   bundleId: 'com.example.ios'
-      // },
-      // android: {
-      //   packageName: 'com.example.android',
-      //   installApp: true,
-      //   minimumVersion: '12'
-      // },
-      // dynamicLinkDomain: 'example.page.link'
-    };
+        //   bundleId: 'com.example.ios'
+        // },
+        // android: {
+          //   packageName: 'com.example.android',
+          //   installApp: true,
+          //   minimumVersion: '12'
+          // },
+          // dynamicLinkDomain: 'example.page.link'
+        };
 
-    const auth = getAuth(firebaseApp);
+    // const auth = getAuth(firebaseApp);
     sendSignInLinkToEmail(auth, email, actionCodeSettings)
       .then(() => {
         // The link was successfully sent. Inform the user.
@@ -99,14 +99,16 @@ export default function useFirebaseAuth() {
       })
       .catch((error) => {
         const errorCode = error.code;
+        console.log('MAGIC SIGNUP errorCode:', error)
         const errorMessage = error.message;
+        console.log('magic signup errorMessage:', errorMessage)
         // TODO: https://evandromacedo.github.io/react-simple-snackbar/
         // ...
       });
   }
 
   const afterGettingLink = () => {
-    const auth = getAuth(firebaseApp);
+    // const auth = getAuth(firebaseApp);
     let isNewUser, isAnonymous, emailVerified, uid;
     if (isSignInWithEmailLink(auth, window.location.href)) {
       // Additional state parameters can also be passed via URL.
@@ -124,7 +126,7 @@ export default function useFirebaseAuth() {
       // The client SDK will parse the code from the link for you.
       return signInWithEmailLink(auth, email, window.location.href)
         .then((result: any) => {
-          console.log('####result:', result)
+          // console.log('####result:', result)
           isNewUser = result._tokenResponse.isNewUser;
           isAnonymous = result.user.isAnonymous;
           emailVerified = result.user.emailVerified;
@@ -147,7 +149,10 @@ export default function useFirebaseAuth() {
           return resultToReturn;
         })
         .catch((error) => {
-          console.log('error:', error)
+          const errorCode = error.code;
+          console.log('AFTERGETTINGLINK errorCode:', error)
+          const errorMessage = error.message;
+          console.log('AFTERGETTINGLINK errorMessage:', errorMessage)
           // Some error occurred, you can inspect the code: error.code
           // Common errors could be invalid email and invalid or expired OTPs.
         });
@@ -155,7 +160,7 @@ export default function useFirebaseAuth() {
   }
 
   const anonymousSignIn = () => {
-    const auth = getAuth(firebaseApp);
+    // const auth = getAuth(firebaseApp);
     signInAnonymously(auth)
       .then(() => {
         // Signed in..
@@ -169,7 +174,7 @@ export default function useFirebaseAuth() {
 
 
   const signOutAccount = () => {
-    const auth = getAuth(firebaseApp);
+    // const auth = getAuth(firebaseApp);
     signOut(auth).then(clear);
   }
 
@@ -178,7 +183,7 @@ export default function useFirebaseAuth() {
     lastName: string,
   }
   const updateAuthDisplayName = async ({firstName, lastName}: IupdateName) => {
-    const auth = getAuth(firebaseApp);
+    // const auth = getAuth(firebaseApp);
     try {
       if (auth && auth.currentUser)
       await updateProfile(auth.currentUser, {displayName: `${firstName} ${lastName}`});
@@ -190,7 +195,7 @@ export default function useFirebaseAuth() {
   }
 
   useEffect(() => {
-    const auth = getAuth(firebaseApp);
+    // const auth = getAuth(firebaseApp);
     const unsuscribe = onAuthStateChanged(auth, authStateChanged);
     return () => {
       unsuscribe();

@@ -25,7 +25,7 @@ const Input = ({label, labelClass, placeholder, handleChange, infoMessage, name,
         placholder-input_placeholder my-4t
         ${infoMessage ? 'placeholder-danger border-danger text-danger' : null}`}
         type="text" placeholder={placeholder} onChange={handleChange}/>
-      {infoMessage ? <span className={`text-12t text-danger`}>{infoMessage}</span> : null}
+      {infoMessage ? <span title='infoMessage' className={`text-12t text-danger`}>{infoMessage}</span> : null}
     </div>
   );
 }

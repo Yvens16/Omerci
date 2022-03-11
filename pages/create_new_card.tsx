@@ -122,8 +122,6 @@ const CreateCard: NextPage = () => {
   const { createNewCard } = useFirestoreDb();
 
   const { authUser } = useAuth();
-  console.log('authUser:', authUser)
-
   const cancelCreation = () => {
     setWhyValues(initialWhyValues);
     // TODO: Re routing to mes cartes, page pas encore crée

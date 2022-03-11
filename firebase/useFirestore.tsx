@@ -1,6 +1,6 @@
 import React from 'react';
 import useFirebaseAuth from '../firebase/useFirebaseAuth';
-import firebaseApp from './index';  
+import {db} from './index';  
 import { getFirestore,
     collection,
     addDoc,
@@ -25,7 +25,7 @@ export default function useFirestore() {
   }
 
   const addUserInfo = async ({uid, firstName, lastName, howDoYouKnowUs, email}:IaddUserInfo) => {
-    const db = getFirestore(firebaseApp);
+    // const db = getFirestore(firebaseApp);
     try {
       await setDoc(doc(db, 'users', uid), {
         uid,
@@ -44,7 +44,7 @@ export default function useFirestore() {
 
 
   const getUserInfo = async (uid: string) => {
-    const db = getFirestore(firebaseApp);
+    // const db = getFirestore(firebaseApp);
     const docRef = doc(db, "users", uid);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
@@ -67,7 +67,7 @@ export default function useFirestore() {
   }
 
   const createNewCard = async ({userId, recipientName, title, hasCagnotte, isPremium, teamName}: ICreateNewCard) => {
-    const db = getFirestore(firebaseApp);
+    // const db = getFirestore(firebaseApp);
     const cardRef = doc(collection(db, "cards"));
     try {
       await setDoc(cardRef, {
@@ -86,7 +86,7 @@ export default function useFirestore() {
     }
   }
   const deleteCardInDB = async (uid: string) => {
-    const db = getFirestore(firebaseApp);
+    // const db = getFirestore(firebaseApp);
     try {
       console.log("Delete", uid)
       await deleteDoc(doc(db, "cards", uid));
@@ -98,7 +98,7 @@ export default function useFirestore() {
   }
 
   const getCards = async (creatorUid:string) => {
-    const db = getFirestore(firebaseApp);
+    // const db = getFirestore(firebaseApp);
     const cards: DocumentData[] = [];
     const q = query(collection(db, "cards"), where("creatorId", "==", creatorUid));
     try {

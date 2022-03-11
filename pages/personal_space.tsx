@@ -4,8 +4,8 @@ import type { NextPage } from 'next'
 import Router, { useRouter } from 'next/router'
 import { useOnClickOutside } from '@components/utils/hooks/useClickOutside';
 import { useAsync } from '@components/utils/hooks/useAsync';
-import { useFirestoreDb } from 'context/FirestoreContext';
-import { useAuth } from 'context/AuthUserContext';
+import { useFirestoreDb } from '../context/FirestoreContext';
+import { useAuth } from '../context/AuthUserContext';
 import Header from "@components/personal_space/Header";
 import Cards from '@components/personal_space/Cards';
 import Options from '@components/personal_space/Options';

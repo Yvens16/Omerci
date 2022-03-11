@@ -19,4 +19,5 @@ const customRender = (
 ) => render(ui, {wrapper: AllTheProviders, ...options})
 
 export * from '@testing-library/react'
-export {customRender as render}
+export {customRender}
+// export {customRender as render}

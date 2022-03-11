@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Page from '@pages/create_new_card';
+import Page from '../../pages/create_new_card';
 
 
 test('Create a new card page', () => {
@@ -13,7 +13,7 @@ test('Create a new card page', () => {
   const cardTitle = getByPlaceholderText('Merci pour tout Thomas !');
   const teamName = getByPlaceholderText("Toute l'équipe compta !");
 
-  expect(cancelButton).toBeDisabled();
+  expect(cancelButton).not.toBeDisabled();
   expect(createCardButton).toBeDisabled();
   
   userEvent.type(recipientName, 'Fadel Gueye');

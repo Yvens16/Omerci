@@ -20,7 +20,7 @@
       "@pages/*": ["pages/*"],
       "@hooks/*": ["hooks/*"],
       "@public/*": ["public/*"],
-      "test-utils": ["./test-utils.tsx"]
+      "@test-utils": ["./test-utils.tsx"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "custom.d.ts", "firebase/sample2.test.js", "firebase/sample2.test.js"],

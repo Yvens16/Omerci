@@ -1,14 +1,9 @@
 import React, { useState } from 'react';
 import Cross from '../../public/icons/menu/close_small.svg';
+import { IModal } from './interfaces';
 
 
-interface ModalParams {
-  children: React.ReactNode,
-  show: boolean,
-  closeModal(): void,
-}
-
-const Modal =  ({children, show=false, closeModal}: ModalParams) => {
+const Modal =  ({children, show=false, closeModal}: IModal) => {
   const showHideClassName = show ? "block" : "hidden";
   return (
     <div className={`w-screen h-screen bg-modal fixed top-0 left-0 ${showHideClassName}`}>

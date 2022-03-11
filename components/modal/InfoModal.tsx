@@ -1,15 +1,8 @@
 import React, { useEffect,useRef } from 'react';
 import Cross from '../../public/icons/menu/close_big.svg';
+import { IInfoModal } from './interfaces';
 
-
-interface ModalParams {
-  children: React.ReactNode,
-  show: boolean,
-  closeModal: (whenOpeningOnly?:boolean) => void,
-  titleHtml: React.ReactNode,
-}
-
-const Modal = ({ children, show = false, closeModal, titleHtml }: ModalParams) => {
+const Modal = ({ children, show = false, closeModal, titleHtml }: IInfoModal) => {
   const showHideClassName = show ? "block" : "hidden";
   const selectRef = useRef<HTMLDivElement>(null);
   const handleClickOutside = (e: any) => {
