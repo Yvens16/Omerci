@@ -44,6 +44,7 @@ export default function useFirestore() {
 
 
   const getUserInfo = async (uid: string) => {
+    console.log('getUserInfo: UID', uid)
     // const db = getFirestore(firebaseApp);
     const docRef = doc(db, "users", uid);
     const docSnap = await getDoc(docRef);
@@ -78,6 +79,8 @@ export default function useFirestore() {
         hasCagnotte,
         isPremium,
         teamName,
+        photoUrl: '',
+        isSent: false,
         creationDate: serverTimestamp(),
       })
       console.log("CreateNewCard: Creation sucessfull");
@@ -111,6 +114,7 @@ export default function useFirestore() {
       throw new Error(e);
     }
   }
+  
   /** 
    * Check subcollections
    * User access: Create a different collection with users role or create a subcollection on the card 

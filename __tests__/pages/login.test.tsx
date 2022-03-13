@@ -1,4 +1,4 @@
-import { cleanDB, createTestUser } from './../testUtils';
+import { cleanDB, signOutTestUser } from '../../testUtils';
 import React from "react";
 import { screen, waitFor, cleanup, prettyDOM } from '@testing-library/react';
 import { customRender } from "../../test-utils";
@@ -7,37 +7,60 @@ import LoginPage from '../../pages/login';
 import userEvent from "@testing-library/user-event";
 import 'isomorphic-fetch';
 import { LocalStorageMock } from '@react-mock/localstorage';
+jest.mock('next/router', () => ({
+  useRouter() {
+    return ({
+      route: '/',
+      pathname: '',
+      query: '',
+      asPath: '',
+      push: jest.fn(),
+      events: {
+        on: jest.fn(),
+        off: jest.fn()
+      },
+      beforePopState: jest.fn(() => null),
+      prefetch: jest.fn(() => null)
+    });
+  },
+}));
+jest.mock("../../firebase/useFirestore.tsx", () => jest.fn(() => {
+  return {
+    addUserInfo: jest.fn(),
+    getUserInfo: jest.fn().mockImplementation(() => {
+      return {
+        firstName: "Fake",
+        lastName: "user",
+        email: "fake_user@gmail.com"
+      }
+    })
+  }
+}));
 
-afterAll(async() => {
+afterEach(async () => {
+  Object.defineProperty(window, 'location', {
+    writable: true,
+    value: {
+      href: 'http://localhost:3000/login'
+    }
+  });
   await cleanDB();
 })
-const getEmailLink = async() => {
+
+const getEmailLink = async () => {
   try {
     const res = await fetch("http://localhost:9099/emulator/v1/projects/demo-omerci/oobCodes");
     const responseObj = await res.json();
     const codes = responseObj.oobCodes;
-    return codes[codes.length - 1].oobLink.replace("9099", "3000");
-  } catch(err) {
+    return codes[codes.length - 1].oobLink;
+  } catch (err) {
     console.log("ERRROR OOOBLINK", err)
   }
 }
 
 const rightEmail = 'fake_user@gmail.com';
-const signedUserEmail = 'fake_signed_user@gmail.com';
-const signedPassword = 'pass';
 
-
-const setUrl = async() => {
-  const url = await getEmailLink();
-  Object.defineProperty(window, 'location', {
-    writable: true,
-    value: {
-      href: url
-    }
-  });
-}
-
-test("LOGIN FLOW: first screen", async () => {
+const SendEmailLink = async () => {
   customRender(<LoginPage />);
   const emailInput = await waitFor(() => screen.getByPlaceholderText("jean.dujardin@gmail.com"));
   const user = userEvent.setup();
@@ -53,66 +76,89 @@ test("LOGIN FLOW: first screen", async () => {
 
   await user.type(emailInput, rightEmail);
   await user.click(firstNextButton);
+}
 
-  await waitFor(async() => {
-    const EmailSent = await screen.findByText("Vous n'avez pas reçu d'email ?");
-    expect(EmailSent).toBeInTheDocument();
+
+
+const setUrl = async () => {
+  const url = await getEmailLink();
+  Object.defineProperty(window, 'location', {
+    writable: true,
+    value: {
+      href: url
+    }
+  });
+}
+
+test("Should login existing user on same device", async () => {
+  await signOutTestUser();
+  await SendEmailLink();
+  await setUrl();
+  customRender(<LoginPage />);
+  await waitFor(() => {
+    expect(screen.getByText("🎉 Content de vous revoir, Fake !")).toBeInTheDocument();
+  })
+  expect(screen.getByText("fake_user@gmail.com")).toBeInTheDocument();
+  expect(screen.getByText("Fake user")).toBeInTheDocument();
+})
+
+test("Should login new user on same device", async () => {
+  await SendEmailLink();
+  await waitFor(() => {
+    expect(screen.getByText("Vous n'avez pas reçu d'email ?")).toBeInTheDocument();
+  })
+  await setUrl();
+  customRender(<LoginPage />);
+  await waitFor(() => {
+    expect(screen.getByText("Bienvenue !")).toBeInTheDocument();
   })
 });
 
-// describe("Test alien device", () => {
-//   beforeEach(() => {
 
-//   })
-// })
 
-describe('Login Flow different device', () => {
-  test('NEW USER', async() => {
-    const user = userEvent.setup();
-    await setUrl();
-    customRender(
-      <LocalStorageMock items={{ emailForSignIn: null }}>
-        <LoginPage/>
-        </LocalStorageMock>
-    );
-    const modal = await screen.findByText("Oups, il semblerait que vous ayez changé d'appareil !");
-    await waitFor(() => expect(modal).toBeInTheDocument());
-    const input = screen.getByPlaceholderText("ici-votre@email.com 2222");
-  
-    const nextBtn = screen.getAllByRole("button", {name:"Suivant"})[1];
-    await user.type(input, 'fake_user@gmail.com');
-    await user.click(nextBtn);
-    const newUserSection = await screen.findByText("Bienvenue !");//🎉 Content de vous revoir,
-    await waitFor(() => expect(newUserSection).toBeInTheDocument())
-  })
-  test('KNOWN USER', async() => {
-    const { email, password } = await createTestUser();
-    const user = userEvent.setup();
-    await setUrl();
-    customRender(
-      <LocalStorageMock items={{ emailForSignIn: null }}>
-        <LoginPage/>
-        </LocalStorageMock>
-    );
-    const modal = await screen.findByText("Oups, il semblerait que vous ayez changé d'appareil !");
-    await waitFor(() => expect(modal).toBeInTheDocument());
-    const input = screen.getByPlaceholderText("ici-votre@email.com 2222");
-  
-    const nextBtn = screen.getAllByRole("button", {name:"Suivant"})[1];
-    await user.type(input, email);
-    await user.click(nextBtn);
-    const knwonUserSection = await screen.findByText("🎉 Content de vous revoir, !");
-    await waitFor(() => expect(knwonUserSection).toBeInTheDocument())
-  })
+test("Should login new user on different device from where the email was entered", async () => {
+  const user = userEvent.setup();
+  await SendEmailLink();
+  await setUrl();
+  customRender(
+    <LocalStorageMock items={{ emailForSignIn: null }}>
+      <LoginPage />
+    </LocalStorageMock>
+  );
+  const modal = await screen.findByText("Oups, il semblerait que vous ayez changé d'appareil !");
+  await waitFor(() => expect(modal).toBeInTheDocument());
+  const input = screen.getByPlaceholderText("ici-votre@email.com 2222");
 
+  const nextBtn = screen.getAllByRole("button", { name: "Suivant" })[1];
+  await user.type(input, 'fake_user@gmail.com');
+  await user.click(nextBtn);
+  await waitFor(() => expect(screen.getByText("Bienvenue !")).toBeInTheDocument())
 })
 
-// test("LOGIN FLOW: Signup screen", async () => {
-//   await setUrl();
-//   customRender(<LoginPage />);
-//   const input = await waitFor(() => screen.findByText("Votre nom"));
-//   console.log(screen.debug(input))
-// });
+test("Should login existing user on different device from where the email was entered", async () => {
+  await signOutTestUser();
+  const user = userEvent.setup();
+  await SendEmailLink();
+  await setUrl();
+  customRender(
+    <LocalStorageMock items={{ emailForSignIn: null }}>
+      <LoginPage />
+    </LocalStorageMock>
+  );
+  const modal = await screen.findByText("Oups, il semblerait que vous ayez changé d'appareil !");
+  await waitFor(() => expect(modal).toBeInTheDocument());
+  const input = screen.getByPlaceholderText("ici-votre@email.com 2222");
+
+  const nextBtn = screen.getAllByRole("button", { name: "Suivant" })[1];
+  await user.type(input, 'fake_user@gmail.com');
+  await user.click(nextBtn);
+  await waitFor(() => {
+    expect(screen.getByText("🎉 Content de vous revoir, Fake !")).toBeInTheDocument();
+  })
+  expect(screen.getByText("fake_user@gmail.com")).toBeInTheDocument();
+  expect(screen.getByText("Fake user")).toBeInTheDocument();
+})
+
 
 //TODO: BEST WAY TO MANAGE LOTS OF STATES IN COMPONENTS
 //TODO: LA&ZY LOADING COMPONENTS IN REACT

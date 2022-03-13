@@ -21,7 +21,7 @@ test('Create a new card page', () => {
   userEvent.type(teamName, "L'équipe dev");
 
   expect(cancelButton).not.toBeDisabled();
-  expect(createCardButton).not.toBeDisabled();
+  expect(createCardButton).toBeDisabled();
 
   userEvent.click(cancelButton);
   expect(recipientName).toHaveAttribute('value', '');

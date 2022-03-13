@@ -6,10 +6,6 @@ import Login from '../../pages/login';
 import userEvent from "@testing-library/user-event";
 import {useCounter} from './useCounter';
 
-
-
-
-
 function Dom() {
   const {increment, count, incrementAsync} =  useCounter();
   const handleClick = () => {

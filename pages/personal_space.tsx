@@ -17,6 +17,7 @@ import EmptyCard from '@components/personal_space/EmptyCard';
 import { avatars } from '@components/personal_space/utilities';
 
 
+
 type TCards = {
   cards: {
     photoUrl: string,
@@ -29,9 +30,10 @@ type TCards = {
   sectionName: string,
 }
 const PersonalSpace: NextPage = () => {
-  const { deleteCardInDB, getCards } = useFirestoreDb();
-  const { authUser } = useAuth();
-  let { status, value: cardsValues, error } = useAsync(getCards, true, [authUser && authUser["uid"] ? authUser['uid'] : ""]);
+  const { deleteCardInDB, getCards, getUserInfo } = useFirestoreDb();
+  const { authUser, loading } = useAuth();
+  let { execute:loadcardsInfo, status, value: cardsValues, error } = useAsync(getCards, false, authUser && authUser["uid"] ? authUser['uid'] : "");
+  let { execute:loadUserInfo, status: statusUserInfo, value: userInfo, error: errUserInfo } = useAsync(getUserInfo, false, authUser && authUser["uid"] ? authUser['uid'] : "");
   const [cardsData, setCardsData] = useState<any>([]);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const desktopOptionRef = useRef<HTMLDivElement>(null);
@@ -110,6 +112,15 @@ const PersonalSpace: NextPage = () => {
   }
 
   useEffect(() => {
+    console.log('authUser:', authUser)
+    if (authUser && authUser["uid"]) {
+      console.log("Helllooooo")
+      loadUserInfo();
+      loadcardsInfo();
+    };
+  }, [authUser])
+
+  useEffect(() => {
     if (cardsValues?.length) {
       cardsValues.map((card: any) => {
         if (!card.photoUrl.length) card.photoUrl = `${avatars[Math.floor(Math.random() * avatars.length)]}`;
@@ -120,8 +131,10 @@ const PersonalSpace: NextPage = () => {
 
   return (
     <div className="text-black">
-      <Header firstName="Fadel" lastName="Belaston" />
+      {statusUserInfo === "success" && <Header firstName={userInfo.firstName} lastName={userInfo.lastName} />}
+      
       {/* TODO: Add loader when status pending  */}
+      {console.log("statusUserInfo", statusUserInfo, errUserInfo)}
       {status === "idle" && <div>idle</div>}
       {status === "error" && <div>
         <h1 className='text-danger'>Il y'a une erreur envoyer un whatsapp à Yvens, avec l'erreur ci-dessous pour débugger plus facilment</h1>
@@ -129,6 +142,7 @@ const PersonalSpace: NextPage = () => {
       </div>}
       {status === "success"
         && <div className='xl:mx-auto xl:max-w-[1240px]'>
+          {console.log('cardsData:', cardsData)}
           {cardsData.length < 1
             ? <EmptyCard imgLink='/emptyCard.svg' text="Vous n'avez pas encore de carte crée" addNewCard={function (): void | Promise<void> {
               throw new Error('Function not implemented.');

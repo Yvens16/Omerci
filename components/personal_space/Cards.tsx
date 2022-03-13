@@ -64,6 +64,7 @@ type TCards = {
   sent: boolean,
 }
 const Cards = ({ cards, sectionName, activeIndex, toggleOption, mobileOption, desktopOption, sent }: TCards) => {
+  console.log('cards:', cards)
   return (
     <div className='px-16t xl:px-0 bg-default_bg mb-40t'>
       {cards.filter(card => card.isSent === sent).length > 0

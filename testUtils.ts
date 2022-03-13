@@ -1,7 +1,3 @@
-interface ICreatedUser {
-  email: string,
-  password: string
-}
 export const cleanDB = async () => {
   try {
     const res = await fetch("http://localhost:9099/emulator/v1/projects/demo-omerci/accounts", {
@@ -15,18 +11,18 @@ export const cleanDB = async () => {
 };
 
 
-export const createTestUser = async():Promise<{email: string, password: string}>  => {
+export const signOutTestUser = async():Promise<{email: string, password: string}>  => {
   const email = 'fake_user@gmail.com';
 const password = 'password654fe6d4f*';
-  const { createUserWithEmailAndPassword, signOut } = await import('firebase/auth');
-  const {auth} = await import('../firebase/index');
+  const { signOut, createUserWithEmailAndPassword } = await import('firebase/auth');
+  const {auth} = await import('./firebase/index');
   try {
-    // const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
+    const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
     await signOut(auth);
-    console.log('FAKE USER CREATED');
+    console.log('signOutTestUser FAKE USER CREATED then SIGNED OUT');
     return { email, password };
   } catch(err: any) {
-    console.log("createTestUser", err)
+    console.log("signOutTestUser ERROR", err)
     return err;
   }
 }

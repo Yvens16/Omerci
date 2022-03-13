@@ -16,11 +16,12 @@ import Clock from '../public/icons/basic/clock.svg';
 import CreditCard from '../public/icons/basic/credit_card.svg';
 import MoneyBag from '../public/icons/misc/money_bag.svg';
 import CircleCheck from '../public/icons/basic/circle_check.svg';
+import Router, {useRouter} from 'next/router';
 
 
 const Header = ({ cancelCreation }: { cancelCreation: () => void }) => (
   <div className='flex mb-32t md:text-center xl:text-left lg:max-w-content lg:mx-auto lg:pt-24t lg:pb-32t'>
-    <div onClick={cancelCreation} className='lg:hidden'>
+    <div onClick={cancelCreation} className='lg:hidden cursor-pointer'>
       <ChevronLeft className='fill-primary stroke-primary mr-16t' />
     </div>
     <Button handleClick={cancelCreation} myClass='xl:-translate-y-[20%] hidden lg:flex lg:absolute lg:px-10t cursor-pointer' type='third' size=''>
@@ -124,6 +125,7 @@ const CreateCard: NextPage = () => {
   const { authUser } = useAuth();
   const cancelCreation = () => {
     setWhyValues(initialWhyValues);
+    Router.back();
     // TODO: Re routing to mes cartes, page pas encore crée
   };
   const validateCreation = async () => {

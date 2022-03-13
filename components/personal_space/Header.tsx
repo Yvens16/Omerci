@@ -30,7 +30,7 @@ const Header = ({ firstName, lastName }: THeader) => {
     </div>
     <div className='px-16t xl:px-0 lg:flex lg:flex-row-reverse lg:items-end lg:justify-between xl:mx-auto xl:max-w-[1240px]'>
       <div className='pb-12t'>
-        <Button myClass='mb-24t lg:mb-0 ' handleClick={() => router.push('/create_space')} type='primary' size=''>
+        <Button myClass='mb-24t lg:mb-0 ' handleClick={() => router.push('/create_new_card')} type='primary' size=''>
           <Plus className='fill-white mr-16t' />
           <span className="font-light">Ajouter une carte</span>
         </Button>

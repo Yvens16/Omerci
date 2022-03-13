@@ -1,6 +1,6 @@
 import { validateEmail } from './../utilities/helpers';
 /* eslint-disable react/no-unescaped-entities */
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import { auth } from '../firebase/index';
 import { isSignInWithEmailLink, signInWithEmailLink } from 'firebase/auth';
@@ -10,6 +10,7 @@ import Button from '../components/buttons/Button';
 import SendIcon from '../public/icons/communication/Send.svg';
 import { useAuth } from '../context/AuthUserContext';
 import { useFirestoreDb } from '../context/FirestoreContext';
+import {useRouter} from 'next/router';
 
 
 import { IEnterEmailParams, IEmailSent, ISignUp, IAlreadyHasAccount } from '@components/login/interfaces';
@@ -32,6 +33,9 @@ const SignUp = dynamic<ISignUp>(() =>
 const AlreadyHasAccount = dynamic<IAlreadyHasAccount>(() =>
   import('../components/login/AlreadyHasAccount').then((mod) => mod.AlreadyHasAccount)
 );
+const testLog = () => {
+  console.log("FADEL FADEL FADEL");
+}
 const Login: NextPage = () => {
   const [email, setEmail] = useState<string>('');
   const [emailErrorMsg, setEmailErrorMsg] = useState<string>("");
@@ -46,6 +50,7 @@ const Login: NextPage = () => {
 
   const { magicSignInUp, authUser, afterGettingLink, loading } = useAuth();
   const { addUserInfo, getUserInfo } = useFirestoreDb();
+  const router = useRouter();
 
   const getBack = () => {
     setStep(step - 1);
@@ -70,6 +75,8 @@ const Login: NextPage = () => {
   }
 
 
+  const goToDashboard = () => router.push('/personal_space');
+
 
   const handleLogin = () => {
     if (validateEmail(email) === null) {
@@ -81,52 +88,62 @@ const Login: NextPage = () => {
     }
   }
 
-  const handleRegisterInfo = () => {
+  const handleRegisterInfo = async() => {
     if (!name.length) {
       setNameEmpty("N'oubliez pas de rentrer votre nom !");
     } else if (!surname.length) {
       setSurnameEmpty("N'oubliez pas de rentrer votre prénom !")
     } else {
       const uid = authUser && authUser['uid'] ? authUser['uid'] : '';
-      addUserInfo({ uid, firstName: surname, lastName: name, howDoYouKnowUs: howDoyouKnowUs, email });
-      //TODO: redirect to my cards page
+      await addUserInfo({ uid, firstName: surname, lastName: name, howDoYouKnowUs: howDoyouKnowUs, email });
+      goToDashboard();
     }
   }
 
   const handleAlienDeviceLogin = async() => {
     let userData: any;
-    if (email) {
-      userData = await signInWithEmailLink(auth, email, window.location.href);
-      if(userData._tokenResponse.isNewUser) setStep(2)
-      else setStep(3);
+    if (validateEmail(email) === null) {
+      setEmailErrorMsg("L'adresse email n'est pas valide, veuillez réessayer svp");
+    } else {
+      if (email) {
+        try {
+          userData = await signInWithEmailLink(auth, email, window.location.href);
+          window.localStorage.removeItem('emailForSignIn');
+          if(userData._tokenResponse.isNewUser) {
+            setEmailShow(false);
+            setStep(2);
+          }
+          else {
+            const user = await getUserInfo(userData.user.uid);
+            setSurname(user.firstName);
+            setName(user.lastName);
+            setEmail(user.email);
+            setEmailShow(false);
+            setStep(3);
+          }
+        } catch(err) {
+          setEmailErrorMsg("L'email entrée n'est pas le bon email");
+        }
+      }
     }
-    // if(user && user._tokenResponse.isNewUser)
-
-    
-    // window.localStorage.setItem('emailForSignIn', email);
-    // afterGettingLink().then((rel: any) => {
-    //   if (rel) {
-    //     if (rel.isNewUser) {
-    //       setStep(2)
-    //     } else {
-    //       getUserInfo(rel.uid).then((data) => {
-    //         setEmail(data.email);
-    //         setSurname(data.firstName);
-    //         setName(data.lastName)
-    //         setStep(3);
-    //       })
-    //     }
-    //   }
-    //   setEmailShow(false);
-    // });
   }
-
   useEffect(() => {
-    let emailInStorage = window.localStorage.getItem("emailForSignIn");
+    let emailInStorage:any = window.localStorage.getItem("emailForSignIn");
+      const signIn = async() => {
+        let userData: any =  await signInWithEmailLink(auth, emailInStorage, window.location.href);
+        window.localStorage.removeItem('emailForSignIn');
+        if(userData._tokenResponse.isNewUser) setStep(2)
+        else {
+          const user = await getUserInfo(userData.user.uid);
+          setSurname(user.firstName);
+          setName(user.lastName);
+          setEmail(user.email);
+          setStep(3)
+        };
+      }
     if (isSignInWithEmailLink(auth, window.location.href)) {
-      if (!emailInStorage) {
-        setEmailShow(true);
-      } 
+      if (!emailInStorage) setEmailShow(true)
+      else signIn();
     }
   }, [])
 
@@ -143,12 +160,6 @@ const Login: NextPage = () => {
         className='mt-[40px] lg:mt-[140px] text-base text-center flex flex-col p-24t border border-solid border-secondary_fill rounded-12t bg-white w-11/12 mx-16t md:mx-auto my-36t md:w-[462px]'>
         {components[step]}
       </div>
-      {/* {loading ? <h1>It is loading</h1> :
-        <div
-          className='mt-[40px] lg:mt-[140px] text-base text-center flex flex-col p-24t border border-solid border-secondary_fill rounded-12t bg-white w-11/12 mx-16t md:mx-auto my-36t md:w-[462px]'>
-          {components[0]}
-        </div>
-      } */}
       {show ? <Modal closeModal={closeModal} show={show}>
         <div className='flex flex-col text-center'>
           <div className='flex flex-col items-center'>

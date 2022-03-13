@@ -196,8 +196,18 @@ export default function useFirebaseAuth() {
 
   useEffect(() => {
     // const auth = getAuth(firebaseApp);
+    // onAuthStateChanged(auth, (user) => {
+    //   if (user) {
+    //     console.log("BAssainte", authUser)
+    //     authStateChanged(user);
+    //   } else {
+    //     authStateChanged(null);
+    //   }
+      
+    // })
     const unsuscribe = onAuthStateChanged(auth, authStateChanged);
     return () => {
+      setLoading(false);
       unsuscribe();
     }
   }, [])

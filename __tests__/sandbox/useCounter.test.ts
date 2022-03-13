@@ -19,12 +19,12 @@ import 'isomorphic-fetch';
 // });
 
 // // import isomorphic-fetch to be able to use fetch anywhere node and browser like environnement 
-// test('Firebase Auth', () => {
-//   const {result} = renderHook(() => useCounter());
-//   act(() => {
-//     result.current.fetchData();
-//   })
-// });
+test('Firebase Auth', () => {
+  const {result} = renderHook(() => useCounter());
+  act(async() => {
+    const data = await result.current.fetchData();
+  })
+});
 
 
 
