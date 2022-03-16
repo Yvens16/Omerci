@@ -1,7 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, { useState, useRef, useEffect } from 'react';
 import type { NextPage } from 'next'
-import Router, { useRouter } from 'next/router'
 import { useOnClickOutside } from '@components/utils/hooks/useClickOutside';
 import { useAsync } from '@components/utils/hooks/useAsync';
 import { useFirestoreDb } from '../context/FirestoreContext';
@@ -78,7 +77,7 @@ const PersonalSpace: NextPage = () => {
     if (id != null && id > -1) {
       const card = cards[id];
       setCardUidToDelete(card.uid);
-      if (card.url) setUrl(card.url);
+      if (card.cardUrl) setUrl(card.cardUrl);
       setActiveIndex(id);
     }
     setIsOptionOpen(!isOptionOpen);
@@ -89,7 +88,7 @@ const PersonalSpace: NextPage = () => {
     if (id != null && id > -1) {
       const card = cards[id];
       setCardUidToDelete(card.uid);
-      if (card.url) setUrl(card.url);
+      if (card.cardUrl) setUrl(card.cardUrl);
       setSentActiveIndex(id);
     }
     setSentIsOptionOpen(!isSentOptionOpen);
@@ -142,7 +141,6 @@ const PersonalSpace: NextPage = () => {
       </div>}
       {status === "success"
         && <div className='xl:mx-auto xl:max-w-[1240px]'>
-          {console.log('cardsData:', cardsData)}
           {cardsData.length < 1
             ? <EmptyCard imgLink='/emptyCard.svg' text="Vous n'avez pas encore de carte crée" addNewCard={function (): void | Promise<void> {
               throw new Error('Function not implemented.');
@@ -161,16 +159,16 @@ const PersonalSpace: NextPage = () => {
               />
             </>}
         </div>}
-      <Modal show={isDeleteModalOpen} closeModal={function (): void {
+      <Modal customClass='md:w-[477px]' show={isDeleteModalOpen} closeModal={function (): void {
         throw new Error('Function not implemented.');
       }}>
         <div ref={modalRef} className="flex flex-col items-center">
-          <div className='logo mt-32t mb-16t'><Trash className="fill-danger" /></div>
-          <h3 className='text-black font-semibold text-18t text-center mb-8t'>Êtes-vous sûr de vouloir supprimer cet carte ? </h3>
-          <p className='text-base text-center text-third mt-16t mb-40t'>En supprimant cet carte, vous perdrez tous son contenu, et ni vous ni les participants ne pourront y acceder</p>
-          <div className="flex justify-between">
-            <Button myClass='secondary mr-8t' handleClick={closeDeleteModal} type='secondary' size='big'>Annuler</Button>
-            <Button myClass='text-white bg-danger rounded-8t' handleClick={() => deleteCard(cardUidToDelete!)} type='primamry' size='big'>Supprimer</Button>
+          <div className='logo mt-32t mb-16t'><Trash className="fill-danger w-[36px]" /></div>
+          <h3 className='text-black font-semibold text-title text-center mb-8t leading-[32px]'>Êtes-vous sûr de vouloir supprimer cette carte ? </h3>
+          <p className='text-base text-center text-third mb-40t leading-[20px]'>En supprimant cette carte, vous perdrez tous son contenu, et ni vous ni les participants ne pourront y acceder</p>
+          <div className="flex w-full">
+            <Button myClass='grow secondary mr-16t' handleClick={closeDeleteModal} type='secondary' size='big'>Annuler</Button>
+            <Button myClass='grow text-white bg-danger rounded-8t' handleClick={() => deleteCard(cardUidToDelete!)} type='primamry' size='big'>Supprimer</Button>
           </div>
         </div>
       </Modal>
@@ -179,27 +177,3 @@ const PersonalSpace: NextPage = () => {
 }
 
 export default PersonalSpace;
-
-// creationDate
-// 24 janvier 2022 à 00:21:27 UTC+1
-// (horodatage)
-// creatorId
-// ""
-// hasCagnotte
-// false
-// isPremium
-// false
-// isSent
-// true
-// photoUrl
-// "/avatars/girl.jpg"
-// recipientName
-// "Gueye Fadel"
-// teamName
-// "yolo"
-// title
-// "Wesh la tess"
-// uid
-// "F9on2PtYc9QF5KoprNW3"
-// url
-// "false_url"

@@ -19,7 +19,7 @@ function Card(id: number, activeIndex: number | null, sectionName: string, card:
           <MoreIcon className='fill-primary cursor-pointer' />
         </div>
       </div>
-      <span className="text-mid font-medium">{card.title}</span>
+      <span className="text-mid text-center font-medium w-[187px] whitespace-nowrap overflow-hidden text-ellipsis">{card.title}</span>
       <span className='text-12t font-light'>Pour {card.recipientName}</span>
     </div>
     <div className='flex justify-center pb-24t'>

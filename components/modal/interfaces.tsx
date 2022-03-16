@@ -9,4 +9,5 @@ export interface IModal {
   children: React.ReactNode,
   show: boolean,
   closeModal(): void,
+  customClass: string,
 }

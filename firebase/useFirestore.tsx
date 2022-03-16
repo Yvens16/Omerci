@@ -70,6 +70,7 @@ export default function useFirestore() {
   const createNewCard = async ({userId, recipientName, title, hasCagnotte, isPremium, teamName}: ICreateNewCard) => {
     // const db = getFirestore(firebaseApp);
     const cardRef = doc(collection(db, "cards"));
+    const cardUrl = `${window.location.origin}/card/${cardRef.id}`;
     try {
       await setDoc(cardRef, {
         uid: cardRef.id,
@@ -81,6 +82,7 @@ export default function useFirestore() {
         teamName,
         photoUrl: '',
         isSent: false,
+        cardUrl,
         creationDate: serverTimestamp(),
       })
       console.log("CreateNewCard: Creation sucessfull");

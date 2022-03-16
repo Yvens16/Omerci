@@ -21,7 +21,7 @@ const Header = ({ firstName, lastName }: THeader) => {
             {firstName?.toUpperCase().split('')[0]}{lastName?.toUpperCase().split('')[0]}
           </div>
         </div>
-        <h1 className='ml-16t mr-32t lg:mx-0 text-big font-semibold text-black'>Bonjour, {firstName}</h1>
+        <h1 className='ml-14t mr-32t lg:mx-0 text-big font-semibold text-black'>Bonjour, {firstName}</h1>
         <div className='flex justify-between ml-auto mr-0 lg:unset_mx'>
           <Settings />
           <CaretDown />
@@ -31,7 +31,7 @@ const Header = ({ firstName, lastName }: THeader) => {
     <div className='px-16t xl:px-0 lg:flex lg:flex-row-reverse lg:items-end lg:justify-between xl:mx-auto xl:max-w-[1240px]'>
       <div className='pb-12t'>
         <Button myClass='mb-24t lg:mb-0 ' handleClick={() => router.push('/create_new_card')} type='primary' size=''>
-          <Plus className='fill-white mr-16t' />
+          <Plus className='fill-white mr-14t' />
           <span className="font-light">Ajouter une carte</span>
         </Button>
       </div>
