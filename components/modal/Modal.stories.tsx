@@ -11,4 +11,4 @@ const story = {
 export default story;
 
 
-export const Modale = () => <Modal show={true} closeModal={() => console.log('close')}><span>Hello</span></Modal>
+export const Modale = () => <Modal customClass='' show={true} closeModal={() => console.log('close')}><span>Hello</span></Modal>

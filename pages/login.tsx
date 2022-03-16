@@ -160,7 +160,7 @@ const Login: NextPage = () => {
         className='mt-[40px] lg:mt-[140px] text-base text-center flex flex-col p-24t border border-solid border-secondary_fill rounded-12t bg-white w-11/12 mx-16t md:mx-auto my-36t md:w-[462px]'>
         {components[step]}
       </div>
-      {show ? <Modal closeModal={closeModal} show={show}>
+      {show ? <Modal customClass='' closeModal={closeModal} show={show}>
         <div className='flex flex-col text-center'>
           <div className='flex flex-col items-center'>
             <SendIcon className='my-24t' />
@@ -177,7 +177,7 @@ const Login: NextPage = () => {
           </Button>
         </div>
       </Modal> : null}
-      {emailShow ? <Modal closeModal={closeEmailModal} show={emailShow}>
+      {emailShow ? <Modal customClass='' closeModal={closeEmailModal} show={emailShow}>
         <div className='flex flex-col text-center'>
           <h3 className='text-black font-semibold text-18t text-center'><span className='mr-8t'>👋</span>Oups, il semblerait que vous ayez changé d'appareil !</h3>
           <p className='text-base text-black mt-16t mb-[28px]'>Pour des raisons de sécurité, veuillez reconfirmer votre adresse email</p>
