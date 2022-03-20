@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
-import {auth} from './index';
-import {sendSignInLinkToEmail, onAuthStateChanged, isSignInWithEmailLink, signOut, signInAnonymously, signInWithEmailLink, updateProfile } from 'firebase/auth';
+import { auth } from './index';
+import { sendSignInLinkToEmail, onAuthStateChanged, isSignInWithEmailLink, signOut, signInAnonymously, signInWithEmailLink, updateProfile, fetchSignInMethodsForEmail } from 'firebase/auth';
 
 interface authUserParams {
   uid: string | null,
@@ -12,14 +12,15 @@ interface authUserParams {
 }
 const formatAuthUser = (user: authUserParams) => {
   return {
-  uid: user.uid,
-  firstName: user?.displayName?.split(' ')[0],
-  lastName: user?.displayName?.split(' ')[1],
-  email: user.email,
-  photoUrl: user.photoUrl,
-  isAnonymous: user.isAnonymous,
-  emailVerified: user.emailVerified,
-}}
+    uid: user.uid,
+    firstName: user?.displayName?.split(' ')[0],
+    lastName: user?.displayName?.split(' ')[1],
+    email: user.email,
+    photoUrl: user.photoUrl,
+    isAnonymous: user.isAnonymous,
+    emailVerified: user.emailVerified,
+  }
+}
 interface IformatedUser {
   uid: string | null,
   firstName: string | undefined,
@@ -54,7 +55,7 @@ export default function useFirebaseAuth() {
 
   const getEnv = () => {
     let link = '';
-    switch(process.env.NEXT_PUBLIC_VERCEL_ENV) {
+    switch (process.env.NEXT_PUBLIC_VERCEL_ENV) {
       case 'development':
         link = 'http://localhost:3000/login';
         break;
@@ -77,15 +78,15 @@ export default function useFirebaseAuth() {
       // This must be true.
       handleCodeInApp: true,
       // iOS: {
-        //   bundleId: 'com.example.ios'
-        // },
-        // android: {
-          //   packageName: 'com.example.android',
-          //   installApp: true,
-          //   minimumVersion: '12'
-          // },
-          // dynamicLinkDomain: 'example.page.link'
-        };
+      //   bundleId: 'com.example.ios'
+      // },
+      // android: {
+      //   packageName: 'com.example.android',
+      //   installApp: true,
+      //   minimumVersion: '12'
+      // },
+      // dynamicLinkDomain: 'example.page.link'
+    };
 
     // const auth = getAuth(firebaseApp);
     sendSignInLinkToEmail(auth, email, actionCodeSettings)
@@ -139,7 +140,7 @@ export default function useFirebaseAuth() {
           // result.additionalUserInfo.profile == null
           // You can check if the user is new or existing:
           // result.additionalUserInfo.isNewUser
-          let resultToReturn =  {
+          let resultToReturn = {
             isNewUser,
             isAnonymous,
             emailVerified,
@@ -159,17 +160,20 @@ export default function useFirebaseAuth() {
     }
   }
 
-  const anonymousSignIn = () => {
-    // const auth = getAuth(firebaseApp);
-    signInAnonymously(auth)
-      .then(() => {
-        // Signed in..
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // ...
-      });
+  const anonymousSignIn = async () => {
+    try {
+      const credentials = await signInAnonymously(auth);
+      return credentials.user.uid;
+    } catch (err: any) {
+      const errorCode = err.code;
+      const errorMessage = err.message;
+      console.log("anonymousSignIn", `le code d'erreur est ${errorCode} et le message est ${errorMessage}`);
+    }
+  }
+
+  const doesEmailAlreadyExist = async (email: string) => {
+    const providers = await fetchSignInMethodsForEmail(auth, email);
+    return providers.length > 0;
   }
 
 
@@ -182,13 +186,13 @@ export default function useFirebaseAuth() {
     firstName: string,
     lastName: string,
   }
-  const updateAuthDisplayName = async ({firstName, lastName}: IupdateName) => {
+  const updateAuthDisplayName = async ({ firstName, lastName }: IupdateName) => {
     // const auth = getAuth(firebaseApp);
     try {
       if (auth && auth.currentUser)
-      await updateProfile(auth.currentUser, {displayName: `${firstName} ${lastName}`});
+        await updateProfile(auth.currentUser, { displayName: `${firstName} ${lastName}` });
       console.log('updateAuthDisplayName: Profile updated');
-    } catch(e) {
+    } catch (e) {
       //TODO: Snackbar for eroor to user
       console.log("Eroor on updateAuthDisplayName", e);
     }
@@ -203,7 +207,7 @@ export default function useFirebaseAuth() {
     //   } else {
     //     authStateChanged(null);
     //   }
-      
+
     // })
     const unsuscribe = onAuthStateChanged(auth, authStateChanged);
     return () => {
@@ -220,6 +224,7 @@ export default function useFirebaseAuth() {
     signOutAccount,
     signOut,
     afterGettingLink,
-    updateAuthDisplayName
+    updateAuthDisplayName,
+    doesEmailAlreadyExist
   };
 }

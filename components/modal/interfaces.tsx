@@ -10,4 +10,5 @@ export interface IModal {
   show: boolean,
   closeModal(): void,
   customClass: string,
+  whichIcon?: string,
 }

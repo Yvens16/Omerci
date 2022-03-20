@@ -86,6 +86,7 @@ export default function useFirestore() {
         creationDate: serverTimestamp(),
       })
       console.log("CreateNewCard: Creation sucessfull");
+      return cardRef.id;
     } catch (e) {
       console.log("Error in createNewCard", e);
     }

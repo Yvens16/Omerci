@@ -2,6 +2,7 @@ import { useCounter } from './useCounter';
 import useFirebaseAuth from '../../firebase/useFirebaseAuth';
 import { renderHook, act } from '@testing-library/react-hooks';
 import 'isomorphic-fetch';
+import { waitFor } from '@testing-library/dom';
 
 
 // test('Sandbox reactHook', () => {
@@ -19,9 +20,9 @@ import 'isomorphic-fetch';
 // });
 
 // // import isomorphic-fetch to be able to use fetch anywhere node and browser like environnement 
-test('Firebase Auth', () => {
+test('Firebase Auth', async() => {
   const {result} = renderHook(() => useCounter());
-  act(async() => {
+  await waitFor(async() => {
     const data = await result.current.fetchData();
   })
 });
