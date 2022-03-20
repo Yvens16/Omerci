@@ -152,7 +152,7 @@ const CreateCard: NextPage = () => {
   const [isEmailModalOpen, setEmailModal] = useState(false);
   const [isEmailSentModalOpen, setEmailSentModal] = useState(false);
 
-  const { createNewCard } = useFirestoreDb();
+  const { createNewCard, addUserInfo } = useFirestoreDb();
 
   const { authUser, doesEmailAlreadyExist, anonymousSignIn, magicSignInUp } = useAuth();
   const cancelCreation = () => {
@@ -175,7 +175,7 @@ const CreateCard: NextPage = () => {
     // Router.push(`/card/${cardRefId}`);
   }
   const anonymousCreateCard = async () => {
-    const { name, title, hasCagnotte, isPremium, team, email } = whyValues;
+    const { name, title, hasCagnotte, isPremium, team, email, userName } = whyValues;
     const userId = authUser && authUser['uid'] ? authUser['uid'] : '';
     const recipientName = name;
     const teamName = team;
@@ -185,7 +185,10 @@ const CreateCard: NextPage = () => {
       //todo : open modal
       setEmailModal(true);
     } else {
-      const userId = await anonymousSignIn() as unknown as string;
+      const user = await anonymousSignIn() as any;
+      // const user = await anonymousSignIn() as unknown as string;
+      const userId = user.uid;
+      await addUserInfo({uid: userId, firstName:userName, lastName:"", howDoYouKnowUs:"", email})
       const cardRefId = await createNewCard({ userId, recipientName, title, hasCagnotte, isPremium, teamName });
     // TODO: Re routing to la carte en question   
       // Router.push(`/card/${cardRefId}`);

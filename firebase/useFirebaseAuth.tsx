@@ -163,7 +163,7 @@ export default function useFirebaseAuth() {
   const anonymousSignIn = async () => {
     try {
       const credentials = await signInAnonymously(auth);
-      return credentials.user.uid;
+      return credentials.user;
     } catch (err: any) {
       const errorCode = err.code;
       const errorMessage = err.message;

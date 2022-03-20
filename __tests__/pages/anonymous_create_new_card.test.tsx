@@ -16,6 +16,7 @@ const fakeUserEmail = "fake_user@gmail.com";
 jest.mock("../../firebase/useFirestore.tsx", () => jest.fn(() => {
   return {
     createNewCard: mockCreateNewCard,
+    addUserInfo: jest.fn()
   }
 }))
 
@@ -59,7 +60,7 @@ test("User is Anonymous and create a card", async () => {
     return {
       authUser: null,
       doesEmailAlreadyExist: jest.fn().mockResolvedValueOnce(false),
-      anonymousSignIn: jest.fn().mockResolvedValueOnce("fake_anonymous_uid"),
+      anonymousSignIn: jest.fn().mockResolvedValueOnce({uid: "fake_anonymous_uid"}),
       magicSignInUp: jest.fn()
     }
   })
