@@ -14,3 +14,8 @@ export function useCounter() {
   }
   return { count, increment, incrementAsync, fetchData }
 }
+
+test("At least on test", () => {
+  const number = 42;
+  expect(number).toBe(42)
+})
