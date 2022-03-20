@@ -272,7 +272,7 @@ const CreateCard: NextPage = () => {
     <div className='bg-white lg:bg-default_bg pb-[15%]'>
       <div className='pt-[32px] lg:pt-0 lg:mx-0 mx-16t'>
         <div className='lg:bg-white'>
-          <Header cancelCreation={cancelCreation} />
+          <Header cancelCreation={cancelCreation} /> 
         </div>
         <div className='bg-white lg:max-w-[687px] lg:mx-auto lg:border lg:border-secondary_fill lg:rounded-12t'>
           <div className='lg:p-32t'>
