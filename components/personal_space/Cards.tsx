@@ -11,8 +11,13 @@ function Card(id: number, activeIndex: number | null, sectionName: string, card:
       ? <div className='w-full h-full absolute bg-white opacity-50 top-0 left-0'></div>
       : null}
     <div className='flex flex-col items-center p-24t'>
-      <div className=' mb-8t relative overflow-hidden	border border-solid border-white  w-[62px] h-[62px] rounded-16t flex justify-center items-center text-white text-[20px] font-semibold'>
-      <Image className={`${sectionName === "Envoyées au destinataire" ? "-z-10" : ""}`} src={card.photoUrl} alt={`Photo de la carte ${card.title}`} layout='fill' objectFit='cover' />
+      <div className='mb-8t relative overflow-hidden	border border-solid border-white  w-[62px] h-[62px] rounded-16t flex justify-center items-center text-white text-[20px] font-semibold'>
+        <Image className={`img_avatar ${sectionName === "Envoyées au destinataire" ? "-z-10" : ""}`} src={card.photoUrl} alt={`Photo de la carte ${card.title}`} layout='fill' objectFit='cover' />
+        <style jsx global>{`
+    .img_avatar {
+      border-radius: 16px;
+    }
+  `}</style>
       </div>
       <div onClick={() => toggleOption(id)} className={`${activeIndex === id ? "border border-primary" : ""} lg:card_settings absolute top-0 right-0 mr-24t mt-24t w-32t h-32t p-8t rounded-8t bg-secondary_fill flex justify-center items-center`}>
         <div>
@@ -68,7 +73,7 @@ const Cards = ({ cards, sectionName, activeIndex, toggleOption, mobileOption, de
   return (
     <div className='px-16t xl:px-0 bg-default_bg mb-40t'>
       {cards.filter(card => card.isSent === sent).length > 0
-      ?<div className='mb-16t'><h3 className='font-semibold text-18t'>{sectionName}</h3></div> : null}
+        ? <div className='mb-16t'><h3 className='font-semibold text-18t'>{sectionName}</h3></div> : null}
       <div className={`flex lg:flex-wrap add-scrollbar lg:disbale-scrollbar ${cards.length < 1 ? "justify-center lg:justify-start" : ""}`}>
         {cards.filter(card => card.isSent === sent).map((card, id) => (
           Card(id, activeIndex, sectionName, card, toggleOption, desktopOption)

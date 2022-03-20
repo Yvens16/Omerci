@@ -17,7 +17,7 @@ interface ButtonParams {
 const Button = ({myClass, children, handleClick, type, size, isDisabled}: ButtonParams) => {
   let classToUse = '';
   let primiryClass = 'bg-primary text-white flex justify-center items-center rounded-md hover:bg-primary_hover md:w-auto';
-  let secondaryClass = 'bg-secondary_fill text-primary flex justify-center items-center rounded-md hover:border-solid hover:border hover:border-primary md:w-auto'
+  let secondaryClass = 'bg-secondary_fill text-primary flex justify-center items-center rounded-md border border-solid border-white hover:border-solid hover:border hover:border-primary md:w-auto'
   let thirdClass = 'bg-white flex justify-center items-center rounded-md hover:bg-third_hover md:w-auto';
 
   switch(type) {

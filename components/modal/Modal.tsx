@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Cross from '../../public/icons/menu/close_small.svg';
+import Cross from '../../public/icons/menu/close_big.svg';
 import { IModal } from './interfaces';
 
 

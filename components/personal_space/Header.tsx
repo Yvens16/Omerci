@@ -16,12 +16,12 @@ const Header = ({ firstName, lastName }: THeader) => {
   return <div className="bg-white mb-40t">
     <div className="xl:mx-auto xl:max-w-[1240px]">
       <div className="pt-24t pb-[28px] xl:pt-24t xl:pb-32t px-16t xl:px-0 flex lg:justify-between items-center lg:max-w-[343px]">
-        <div>
-          <div className='bg-gradient-to-b from-gradient1 to-gradient2 w-[48px] h-[48px] rounded-full bg-primary flex justify-center items-center text-white text-[20px] font-semibold'>
+        <div className='lg:mr-8t'>
+          <div className='bg-gradient-to-b from-gradient1 to-gradient2 w-[48px] h-[48px] text-[20px] lg:w-[72px] lg:h-[72px] rounded-full bg-primary flex justify-center items-center text-white lg:text-[30px] font-semibold'>
             {firstName?.toUpperCase().split('')[0]}{lastName?.toUpperCase().split('')[0]}
           </div>
         </div>
-        <h1 className='ml-14t mr-32t lg:mx-0 text-big font-semibold text-black'>Bonjour, {firstName}</h1>
+        <h1 className='ml-14t mr-[30px] lg:mx-0 text-big font-semibold text-black'>Bonjour, {firstName}</h1>
         <div className='flex justify-between ml-auto mr-0 lg:unset_mx'>
           <Settings />
           <CaretDown />

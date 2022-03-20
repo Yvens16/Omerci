@@ -41,26 +41,27 @@ const Options = ({ customClass, optionRef, url, closeOption, isMobile, openDelet
     </div> :
       <div ref={optionRef} className={`z-50 hidden lg:flex w-[381px] h-[226px] text-black  flex-col bg-white border border-solid border-secondary_fill option_box_shadow rounded-12t ${customClass}`}>
         <div className='p-16t'>
-        <h3 className='text-mid font-semibold mb-24t'>Autres options</h3>
-        <div className='flex mb-8t items-center'>
-          <ShareIcon className='mr-12t stroke-third fill-white stroke-[2px]' />
-          <span className='text-mid'>Lien de partage</span>
-        </div>
-        <div className='flex mb-16t items-center'>
-          <div className='basis-7/12 mr-8t'>
-            <Input isDisabled={true} label='' placeholder={url} handleChange={function (e: any): void {
-              throw new Error('Function not implemented.');
-            } } infoMessage='' name=''></Input>
+          <h3 className='text-mid font-semibold mb-24t'>Autres options</h3>
+          <div className='flex mb-8t items-center'>
+            <ShareIcon className='mr-12t stroke-third fill-white stroke-[2px]' />
+            <span className='text-mid'>Lien de partage</span>
           </div>
-          <Button myClass='' handleClick={() => copyToClipBoard(url)} type='primary' size=''>Copier le lien</Button>
+          <div className='flex mb-16t items-center'>
+            <div className='basis-7/12 mr-8t'>
+              <Input isDisabled={true} label='' placeholder={url} handleChange={function (e: any): void {
+                throw new Error('Function not implemented.');
+              }} infoMessage='' name=''></Input>
+            </div>
+            <Button myClass='' handleClick={() => copyToClipBoard(url)} type='primary' size=''>Copier le lien</Button>
+          </div>
+          <hr className='border-t border-t-secondary_fill mb-8t' />
+          <div className='text-danger flex'>
+            <Button myClass='grow text-danger w-[100%] w-full p-0 h-[40px] items-center pb-16t' handleClick={() => openDeleteModal()} type='third' size=''>
+              <Trash className='fill-danger mr-4t' />
+              Supprimer cette carte</Button>
+          </div>
         </div>
-        <hr className='border-t border-t-secondary_fill mb-8t' />
-        </div>
-        <div className='text-danger flex'>
-          <Button myClass='grow text-danger w-[100%] w-full p-0 h-[40px] items-center pb-16t' handleClick={() => openDeleteModal()} type='third' size=''>
-            <Trash className='fill-danger mr-4t' />
-            Supprimer cette carte</Button>
-        </div>
+
       </div>
     }
   </>
