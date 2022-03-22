@@ -10,6 +10,8 @@ const AuthUserContext = createContext({
   signOut: async () => {},
   afterGettingLink: async () => {},
   updateAuthDisplayName: async () => Promise,
+  doesEmailAlreadyExist: async (email: string) => new Promise<boolean>(() => {}),
+  anonymousSignIn: async() => Promise,
 })
 
 interface ChildrenParams {

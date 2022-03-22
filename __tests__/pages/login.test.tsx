@@ -1,6 +1,6 @@
 import { cleanDB, signOutTestUser } from '../../testUtils';
 import React from "react";
-import { screen, waitFor, cleanup, prettyDOM } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import { customRender } from "../../test-utils";
 
 import LoginPage from '../../pages/login';
@@ -36,6 +36,7 @@ jest.mock("../../firebase/useFirestore.tsx", () => jest.fn(() => {
     })
   }
 }));
+
 
 afterEach(async () => {
   Object.defineProperty(window, 'location', {

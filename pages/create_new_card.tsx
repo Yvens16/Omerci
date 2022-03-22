@@ -4,7 +4,8 @@ import Input from '@components/inputs/Input';
 import Checkbox from '@components/inputs/Checkbox';
 import type { NextPage } from 'next';
 import Button from '@components/buttons/Button';
-import Modal from '@components/modal/InfoModal';
+import InfoModal from '@components/modal/InfoModal';
+import Modal from '@components/modal/Modal';
 
 import { useAuth } from '../context/AuthUserContext';
 import { useFirestoreDb } from '../context/FirestoreContext';
@@ -16,7 +17,10 @@ import Clock from '../public/icons/basic/clock.svg';
 import CreditCard from '../public/icons/basic/credit_card.svg';
 import MoneyBag from '../public/icons/misc/money_bag.svg';
 import CircleCheck from '../public/icons/basic/circle_check.svg';
-import Router, {useRouter} from 'next/router';
+import Group from '../public/icons/user/group.svg';
+import LetterIllustration from '../public/icons/undraw/undraw_mail_sent_re_0ofv 1.svg';
+import Router, { useRouter } from 'next/router';
+import Link from 'next/link';
 
 
 const Header = ({ cancelCreation }: { cancelCreation: () => void }) => (
@@ -26,7 +30,7 @@ const Header = ({ cancelCreation }: { cancelCreation: () => void }) => (
     </div>
     <Button handleClick={cancelCreation} myClass='xl:-translate-y-[20%] hidden lg:flex lg:absolute lg:px-10t cursor-pointer' type='third' size=''>
       <>
-        <LeftArrow className='fill-primary' />
+        <LeftArrow className='fill-primary w-[24px] h-[24px]' />
         <span className='text-primary xl:text-mid xl:font-medium'>Retour à l'accueil</span>
       </>
     </Button>
@@ -45,11 +49,11 @@ type WhyThisCard = {
     hasCagnotte: boolean,
     isPremium: boolean,
   },
-  toggleCagnotteModal:  (whenOpeningOnly:boolean) => void,
-  togglePremiumModal: (whenOpeningOnly:boolean) => void,
+  toggleCagnotteModal: (whenOpeningOnly: boolean) => void,
+  togglePremiumModal: (whenOpeningOnly: boolean) => void,
 };
 
-const WhyThisCard = ({ handleChange, values, togglePremiumModal,toggleCagnotteModal }: WhyThisCard) => (
+const WhyThisCard = ({ handleChange, values, togglePremiumModal, toggleCagnotteModal }: WhyThisCard) => (
   <div className='lg:flex lg:items-baseline justify-between'>
     <div className='lg:basis-1/4 lg:mr-16t'>
       <h4 className='font-medium text-black text-mid lg:max-w-[140px]'>Pour qui est cette carte ?</h4>
@@ -76,15 +80,39 @@ const WhyThisCard = ({ handleChange, values, togglePremiumModal,toggleCagnotteMo
 interface IFromWho {
   values: {
     team: string,
+    name?: string,
+    email?: string,
+    userName?: string
   },
+  isAnonymousFlow: boolean,
+  emailAlreadyExist: boolean,
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+  toggleEmailModal: () => void,
 }
 
-const FromWho = ({ values, handleChange }: IFromWho) => (
+const FromWho = ({ values, handleChange, isAnonymousFlow, emailAlreadyExist, toggleEmailModal }: IFromWho) => (
   <div className='mt-48t mb-24t lg:flex justify-between'>
     <h4 className='font-medium text-black text-mid mb-16t lg:basis-1/4 lg:mr-16t lg:max-w-[140px]'>De la part de... ?</h4>
-    <div className='lg:basis-3/4 lg:max-w-[420px]'>
-      <Input name='team' value={values.team} label="Nom de groupe ou d'équipe" labelClass='font-light' placeholder="Toute l'équipe compta !" handleChange={handleChange} infoMessage='' />
+    <div className="lg:flex lg:flex-col lg:basis-3/4 lg:max-w-[420px]">
+      <div className='lg:basis-3/4 lg:max-w-[420px]'>
+        <Input name='team' value={values.team} label="Nom de groupe ou d'équipe" labelClass='font-light' placeholder="Toute l'équipe compta !" handleChange={handleChange} infoMessage='' />
+      </div>
+      {isAnonymousFlow
+        ? <>
+          <div className='lg:basis-3/4 lg:max-w-[420px]'>
+            <Input name='userName' value={values.userName} label="Votre nom" labelClass='font-light' placeholder="John Doe" handleChange={handleChange} infoMessage='' />
+          </div>
+          <div className='lg:basis-3/4 lg:max-w-[420px]'>
+            <Input name='email' value={values.email} label="Votre email" labelClass='font-light' placeholder="johndoe@gmail.com" handleChange={handleChange} infoMessage='' />
+            {
+              emailAlreadyExist ?
+                <span className="text-[13px] font-medium italic text-third">Cette adresse email possède déja <span className="text-primary cursor-pointer underline" onClick={() => toggleEmailModal()}>un compte Omerci</span>.
+                </span>
+                :
+                <span className='text-[13px] font-medium italic text-third'>Nous vous enverrons un lien pratique pour gérer votre espace.</span>
+            }
+          </div>
+        </> : null}
     </div>
   </div>
 );
@@ -116,27 +144,57 @@ const Info = ({ }) => (
 );
 
 const CreateCard: NextPage = () => {
-  const initialWhyValues = { name: '', title: '', hasCagnotte: false, isPremium: false, team: '' };
+  const initialWhyValues = { name: '', title: '', hasCagnotte: false, isPremium: false, team: '', email: '', userName:'' };
   const [whyValues, setWhyValues] = useState(initialWhyValues);
   const [isDisabled, setDisabled] = useState(true);
+  const [isAnonymousFlow, setAnonymousFlow] = useState<boolean>(false);
+  const [emailAlreadyExist, setEmailAlreadyExist] = useState<boolean>(false);
+  const [isEmailModalOpen, setEmailModal] = useState(false);
+  const [isEmailSentModalOpen, setEmailSentModal] = useState(false);
 
-  const { createNewCard } = useFirestoreDb();
+  const { createNewCard, addUserInfo } = useFirestoreDb();
 
-  const { authUser } = useAuth();
+  const { authUser, doesEmailAlreadyExist, anonymousSignIn, magicSignInUp } = useAuth();
   const cancelCreation = () => {
     setWhyValues(initialWhyValues);
     Router.back();
-    // TODO: Re routing to mes cartes, page pas encore crée
   };
   const validateCreation = async () => {
+    if (!isAnonymousFlow) createCardKnownUser()
+    else anonymousCreateCard();
+  };
+
+  const createCardKnownUser = async () => {
     const { name, title, hasCagnotte, isPremium, team } = whyValues;
     const userId = authUser && authUser['uid'] ? authUser['uid'] : '';
     const recipientName = name;
     const teamName = team;
-    await createNewCard({ userId, recipientName, title, hasCagnotte, isPremium, teamName });
+    const cardRefId =  await createNewCard({ userId, recipientName, title, hasCagnotte, isPremium, teamName });
     setWhyValues(initialWhyValues);
-    // TODO: Re routing to la carte en question     
-  };
+    // TODO: Re routing to la carte en question  
+    // Router.push(`/card/${cardRefId}`);
+  }
+  const anonymousCreateCard = async () => {
+    const { name, title, hasCagnotte, isPremium, team, email, userName } = whyValues;
+    const userId = authUser && authUser['uid'] ? authUser['uid'] : '';
+    const recipientName = name;
+    const teamName = team;
+    const doesEmailExist = await doesEmailAlreadyExist(email);
+    setEmailAlreadyExist(doesEmailExist);
+    if (doesEmailExist) {
+      //todo : open modal
+      setEmailModal(true);
+    } else {
+      const user = await anonymousSignIn() as any;
+      // const user = await anonymousSignIn() as unknown as string;
+      const userId = user.uid;
+      await addUserInfo({uid: userId, firstName:userName, lastName:"", howDoYouKnowUs:"", email})
+      const cardRefId = await createNewCard({ userId, recipientName, title, hasCagnotte, isPremium, teamName });
+    // TODO: Re routing to la carte en question   
+      // Router.push(`/card/${cardRefId}`);
+    }
+    //TODO: Open connection modal 
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, checked, type } = e.target;
@@ -145,6 +203,53 @@ const CreateCard: NextPage = () => {
       [name]: type == 'checkbox' ? checked : value,
     });
   }
+
+  const toggleEmailModal = () => {
+    setEmailModal((prevState) => !prevState);
+  }
+  const toggleEmailSentModal = () => {
+    setEmailSentModal((prevState) => !prevState);
+  }
+
+  const sendEmailLink = async () => {
+    const {name, title, hasCagnotte, isPremium, team, email} = whyValues;
+    //todo: Send Email Link
+    const queryString = `?name=${name}&title=${title}&isPremium=${isPremium}&team=${team}&hasCagnotte=${hasCagnotte}`;
+    await magicSignInUp(email)
+    toggleEmailModal();
+    toggleEmailSentModal();
+  }
+
+  const getQueryParams = ( params: string, url: string ) => {
+    let href = url;
+    // this is an expression to get query strings
+    let regexp = new RegExp( '[?&]' + params + '=([^&#]*)', 'i' );
+    let qString = regexp.exec(href);
+    return qString ? qString[1] : null;
+  };
+  const fillUpForm = async () => {
+    const recipientName = getQueryParams("name", window.location.href)?.replace("%20", " ");
+    const cardTitle = getQueryParams("title", window.location.href)?.replace("%20", " ");
+    const teamName = getQueryParams("team", window.location.href)?.replace("%20", " ");
+    const isPremium = getQueryParams("isPremium", window.location.href)?.length ? JSON.parse(getQueryParams("isPremium", window.location.href)?.replace("%20", " ").toLocaleLowerCase() || "") : false;
+    const hasCagnotte = getQueryParams("isPremium", window.location.href)?.length ? JSON.parse(getQueryParams("hasCagnotte", window.location.href)?.replace("%20", " ").toLocaleLowerCase() || "") : false;
+    setWhyValues({
+      ...whyValues,
+      name: recipientName || "",
+      title: cardTitle || "",
+      team: teamName || "",
+      isPremium: isPremium || false,
+      hasCagnotte: hasCagnotte || false 
+    });
+  }
+  //todo: Usseffect to get email Link, verify if action state in link and set Form to action Link states
+  useEffect(() => {
+    fillUpForm();
+  }, [])
+
+  useEffect(() => {
+    if (!authUser) setAnonymousFlow(true);
+  }, [authUser])
   useEffect(() => {
     const { title, name, team } = whyValues;
     const disabledButtons = () => {
@@ -170,12 +275,12 @@ const CreateCard: NextPage = () => {
     <div className='bg-white lg:bg-default_bg pb-[15%]'>
       <div className='pt-[32px] lg:pt-0 lg:mx-0 mx-16t'>
         <div className='lg:bg-white'>
-          <Header cancelCreation={cancelCreation} />
+          <Header cancelCreation={cancelCreation} /> 
         </div>
         <div className='bg-white lg:max-w-[687px] lg:mx-auto lg:border lg:border-secondary_fill lg:rounded-12t'>
           <div className='lg:p-32t'>
             <WhyThisCard togglePremiumModal={togglePremiumModal} toggleCagnotteModal={toggleCagnotteModal} values={whyValues} handleChange={handleChange} />
-            <FromWho values={whyValues} handleChange={handleChange} />
+            <FromWho toggleEmailModal={toggleEmailModal} emailAlreadyExist={emailAlreadyExist} isAnonymousFlow={isAnonymousFlow} values={whyValues} handleChange={handleChange} />
           </div>
         </div>
         <div className='lg:max-w-[687px] lg:mx-auto bg-white rounded-8t'>
@@ -189,7 +294,7 @@ const CreateCard: NextPage = () => {
         </div>
       </div>
 
-      <Modal show={isPremiumModalOpen} titleHtml={<>Passer à l'espace <br /> premium</>} closeModal={togglePremiumModal}>
+      <InfoModal show={isPremiumModalOpen} titleHtml={<>Passer à l'espace <br /> premium</>} closeModal={togglePremiumModal}>
         <div className='text-black'>
           <p className='mb-24t'>Faite en sorte que votre collaborateur se sente vraiment spécial ! Activez les fonctionnalité premium !</p>
           <div className='flex justify-start'><div className='mr-10t'>
@@ -207,13 +312,39 @@ const CreateCard: NextPage = () => {
           <div className='flex jsutify-start'> <span>Le tout pour <span className='font-semibold'>8,99€</span> </span></div>
           <p className='my-24t'>Vous pouvez ajouter la fonctionnalité maintenant ou plus tard.</p>
         </div>
-      </Modal>
+      </InfoModal>
 
-      <Modal show={isCagnotteModalOpen} titleHtml={<>Collecter de l'argent pour <br /> une cagnotte</>} closeModal={toggleCagnotteModal}>
+      <InfoModal show={isCagnotteModalOpen} titleHtml={<>Collecter de l'argent pour <br /> une cagnotte</>} closeModal={toggleCagnotteModal}>
         <div className='text-black text-center'>
           <p className='mb-24t'>Chaque participant à votre carte aura la possibilité de participer financièrement à une cagnotte!</p>
           <p>La quantité réunie pourra être tanrsformé en carte de notre partenaire <span className='text-primary underline'>Weedoogift</span> et être utilisée dans plus de 3000 enseignes partenaire</p>
           <p className='mt-24t'>Il y a une limite maximum de 300€. Passez à la version premium pour augmenter la capacité.</p>
+        </div>
+      </InfoModal>
+      <Modal show={isEmailModalOpen} closeModal={toggleEmailModal} customClass=''>
+        <div className="container">
+          <div className="flex justify-center mb-24t mt-36t"><Group className="fill-black w-[36px] h-[36px]" /></div>
+          <h2 className="text-title font-semibold text-center mb-8t">Souhaitez-vous vous connecter ?</h2>
+          <p className="text-base text-center font-normal leading-[21px] mb-40t text-third">Il semble que cette addresse mail possède déja un compte. Nous vous enverrons un lien magique de connexion à l’adresse
+            <span className='font-semibold'> {whyValues.email}</span></p>
+          <div className='flex justify-center'>
+            <Button isDisabled={false} type='secondary' myClass='flex-1 h-[40px] mr-16t' handleClick={toggleEmailModal} size='big'>
+              Annuler
+            </Button>
+            <Button isDisabled={false} myClass={'flex-1 h-[40px]'} handleClick={sendEmailLink} type='primary' size={'big'}>Me connecter</Button>
+          </div>
+        </div>
+      </Modal>
+
+      <Modal show={isEmailSentModalOpen} closeModal={toggleEmailSentModal} customClass='' whichIcon='return'>
+        <div className="container">
+          <h2 className="text-base font-normal text-center text-black mb-24t">Un email avec un lien de connexion a été envoyé à l’adresse {whyValues.email}</h2>
+          <div className='flex justify-center mt-[24px] mb-16t'>
+            <LetterIllustration />
+          </div>
+          <div onClick={sendEmailLink} className='flex justify-center underline cursor-pointer'>
+            Vous n’avez pas reçu d’email ?
+          </div>
         </div>
       </Modal>
     </div>

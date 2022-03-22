@@ -11,7 +11,4 @@ test('tabs ui', () => {
   expect(getByText('Hello1')).toBeInTheDocument();
 
   userEvent.click(getByText('Hello1'));
-
-  // Not a good test because of implementaion details
-  expect(mockWhichIndex).toHaveBeenCalledWith(0);
 })

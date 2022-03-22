@@ -1,17 +1,17 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Page from '../../pages/create_new_card';
 
 
 test('Create a new card page', () => {
-  const { getByText, getByPlaceholderText } = render(<Page/>)
-  const cancelButton = getByText("Annuler");
-  const createCardButton = getByText("Créer la carte");
+  render(<Page/>)
+  const cancelButton = screen.getAllByText("Annuler")[0];
+  const createCardButton = screen.getByText("Créer la carte");
 
-  const recipientName = getByPlaceholderText('Jean Dupont');
-  const cardTitle = getByPlaceholderText('Merci pour tout Thomas !');
-  const teamName = getByPlaceholderText("Toute l'équipe compta !");
+  const recipientName = screen.getByPlaceholderText('Jean Dupont');
+  const cardTitle = screen.getByPlaceholderText('Merci pour tout Thomas !');
+  const teamName = screen.getByPlaceholderText("Toute l'équipe compta !");
 
   expect(cancelButton).not.toBeDisabled();
   expect(createCardButton).toBeDisabled();
