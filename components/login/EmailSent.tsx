@@ -9,7 +9,7 @@ export const EmailSent = ({ email, showModal, getBack }: IEmailSent) => {
   return <>
     <div>
       <Button myClass='' handleClick={getBack} size='' type='third'>
-        <ArrowLeft className='fill-[#6A6774]' />
+        <ArrowLeft className='w-[17px] h-[17px] fill-[#6A6774] mr-4t' />
         <span>Retour</span>
       </Button>
       <p className='my-16t text-black'>Un email avec un lien de connexion à été envoyé à l'adresse {email}</p>

@@ -111,9 +111,7 @@ const PersonalSpace: NextPage = () => {
   }
 
   useEffect(() => {
-    console.log('authUser:', authUser)
     if (authUser && authUser["uid"]) {
-      console.log("Helllooooo")
       loadUserInfo();
       loadcardsInfo();
     };
@@ -133,7 +131,6 @@ const PersonalSpace: NextPage = () => {
       {statusUserInfo === "success" && <Header firstName={userInfo.firstName} lastName={userInfo.lastName} />}
       
       {/* TODO: Add loader when status pending  */}
-      {console.log("statusUserInfo", statusUserInfo, errUserInfo)}
       {status === "idle" && <div>idle</div>}
       {status === "error" && <div>
         <h1 className='text-danger'>Il y'a une erreur envoyer un whatsapp à Yvens, avec l'erreur ci-dessous pour débugger plus facilment</h1>

@@ -35,7 +35,7 @@ const Button = ({myClass, children, handleClick, type, size, isDisabled}: Button
   <button
     disabled={isDisabled || false}
     className={
-      `disabled:text-white disabled:bg-input_default
+      `disabled:text-white disabled:bg-input_default whitespace-nowrap flex-auto
       ${classToUse}
       ${myClass.includes('nav') ? 'text-black' : 'text-mid'}
       ${size === 'big' ? 'py-12t px-20t': 'px-16t py-8t'}

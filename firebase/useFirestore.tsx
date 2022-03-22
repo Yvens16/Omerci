@@ -44,7 +44,6 @@ export default function useFirestore() {
 
 
   const getUserInfo = async (uid: string) => {
-    console.log('getUserInfo: UID', uid)
     // const db = getFirestore(firebaseApp);
     const docRef = doc(db, "users", uid);
     const docSnap = await getDoc(docRef);

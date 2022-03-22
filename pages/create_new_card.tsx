@@ -287,10 +287,10 @@ const CreateCard: NextPage = () => {
           <Info />
         </div>
         <div className='flex justify-center lg:max-w-[687px] lg:mx-auto lg:mt-24t'>
-          <Button isDisabled={false} type='secondary' myClass='flex-1 h-[40px] mr-16t' handleClick={cancelCreation} size='big'>
+          <Button isDisabled={false} type='secondary' myClass='grow-1 h-[48px] mr-8t md:mr-16t' handleClick={cancelCreation} size='big'>
             Annuler
           </Button>
-          <Button isDisabled={isDisabled} myClass={'flex-1 h-[40px] '} handleClick={validateCreation} type='primary' size={'big'}>Créer la carte</Button>
+          <Button isDisabled={isDisabled} myClass={'grow-1 flex text-center justify-center h-[48px]'} handleClick={validateCreation} type='primary' size={'big'}>Créer la carte</Button>
         </div>
       </div>
 
@@ -328,10 +328,12 @@ const CreateCard: NextPage = () => {
           <p className="text-base text-center font-normal leading-[21px] mb-40t text-third">Il semble que cette addresse mail possède déja un compte. Nous vous enverrons un lien magique de connexion à l’adresse
             <span className='font-semibold'> {whyValues.email}</span></p>
           <div className='flex justify-center'>
-            <Button isDisabled={false} type='secondary' myClass='flex-1 h-[40px] mr-16t' handleClick={toggleEmailModal} size='big'>
+            <Button isDisabled={false} type='secondary' myClass='grow-1 h-[48px] mr-8t md:mr-16t' handleClick={toggleEmailModal} size='big'>
               Annuler
             </Button>
-            <Button isDisabled={false} myClass={'flex-1 h-[40px]'} handleClick={sendEmailLink} type='primary' size={'big'}>Me connecter</Button>
+          <Button isDisabled={isDisabled} myClass={'grow flex text-center justify-center h-[48px]'} handleClick={validateCreation} type='primary' size={'big'}>Créer la carte</Button>
+
+            {/* <Button isDisabled={false} myClass={'grow-1 flex text-center justify-center h-[48px]'} handleClick={sendEmailLink} type='primary' size={'big'}>Me connecter</Button> */}
           </div>
         </div>
       </Modal>
