@@ -143,7 +143,9 @@ const Login: NextPage = () => {
         };
       }
     if (isSignInWithEmailLink(auth, window.location.href)) {
-      if (!emailInStorage) setEmailShow(true)
+      const urlSearchParams = new URLSearchParams(window.location.search);
+        const params = Object.fromEntries(urlSearchParams.entries());
+      if (!emailInStorage || params.email === null) setEmailShow(true)
       else signIn();
     }
   }, [])
