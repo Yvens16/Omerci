@@ -14,7 +14,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* <Ba/> */}
-      <Navbar/>
+      {/* <Navbar/> */}
       {/* <Button myClass={''} type='primary' size='' handleClick={() => console.log('hi')}>
         <>
           <BrandIcon className='fill-white mr-2'/>
