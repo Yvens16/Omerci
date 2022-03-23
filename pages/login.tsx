@@ -130,9 +130,9 @@ const Login: NextPage = () => {
   useEffect(() => {
     let emailInStorage:any = window.localStorage.getItem("emailForSignIn");
       const signIn = async() => {
-        let userData: any =  await signInWithEmailLink(auth, emailInStorage, window.location.href);
         const urlSearchParams = new URLSearchParams(window.location.search);
         const params = Object.fromEntries(urlSearchParams.entries());
+        let userData: any =  await signInWithEmailLink(auth, params.email, window.location.href);
         setEmail(params.email);
         window.localStorage.removeItem('emailForSignIn');
         if(userData._tokenResponse.isNewUser) setStep(2)
