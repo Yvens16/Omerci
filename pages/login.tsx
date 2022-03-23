@@ -131,7 +131,9 @@ const Login: NextPage = () => {
     let emailInStorage:any = window.localStorage.getItem("emailForSignIn");
       const signIn = async() => {
         let userData: any =  await signInWithEmailLink(auth, emailInStorage, window.location.href);
-        setEmail(emailInStorage);
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const params = Object.fromEntries(urlSearchParams.entries());
+        setEmail(params.email);
         window.localStorage.removeItem('emailForSignIn');
         if(userData._tokenResponse.isNewUser) setStep(2)
         else {
