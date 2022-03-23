@@ -143,7 +143,7 @@ const Login: NextPage = () => {
         };
       }
     if (isSignInWithEmailLink(auth, window.location.href)) {
-      alert(emailInStorage);
+      alert(window.localStorage);
       if (!emailInStorage) setEmailShow(true)
       else signIn();
     }
