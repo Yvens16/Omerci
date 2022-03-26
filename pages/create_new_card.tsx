@@ -189,7 +189,7 @@ const CreateCard: NextPage = () => {
       // const user = await anonymousSignIn() as unknown as string;
       const userId = user.uid;
       await addUserInfo({uid: userId, firstName:userName, lastName:"", howDoYouKnowUs:"", email})
-      // const cardRefId = await createNewCard({ userId, recipientName, title, hasCagnotte, isPremium, teamName });
+      const cardRefId = await createNewCard({ userId, recipientName, title, hasCagnotte, isPremium, teamName });
     // TODO: Re routing to la carte en question   
       // Router.push(`/card/${cardRefId}`);
     }
@@ -252,10 +252,14 @@ const CreateCard: NextPage = () => {
     else setAnonymousFlow(false);
   }, [authUser])
   useEffect(() => {
-    const { title, name, team } = whyValues;
+    const { title, name, team, email } = whyValues;
     const disabledButtons = () => {
       if (title.length != 0 && name.length != 0 && team.length != 0) {
-        setDisabled(false);
+        if (isAnonymousFlow && email.length === 0) {
+          setDisabled(true)
+        } else {
+          setDisabled(false);
+        }
       } else {
         setDisabled(true);
       }
