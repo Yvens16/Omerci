@@ -136,7 +136,9 @@ const Login: NextPage = () => {
         setEmail(params.email);
         window.localStorage.removeItem('emailForSignIn');
         if(userData._tokenResponse.isNewUser) setStep(2)
-        else {
+        else if (params.isAnonymous === 'true') {
+          router.push("/personal_space")
+        } else {
           const user = await getUserInfo(userData.user.uid);
           setSurname(user.firstName);
           setName(user.lastName);

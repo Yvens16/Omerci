@@ -70,11 +70,28 @@ export default function useFirebaseAuth() {
     return link;
   }
 
-  const magicSignInUp = (email: string) => {
+  const getEnvAnonymous = (email: string) => {
+    let link = '';
+    switch (process.env.NEXT_PUBLIC_VERCEL_ENV) {
+      case 'development':
+        link = `http://localhost:3000/login/?email=${email}&isAnonymous=true`;
+        break;
+      case 'preview':
+        link = `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/login/?email=${email}&isAnonymous=true`;
+        break;
+      case 'production':
+        // TODO change to prod domain and add the domain in firebase settings too: https://console.firebase.google.com/project/omerci/authentication/providers
+        link = `https://omerci.vercel.app/login/?email=${email}&isAnonymous=true`;
+        break;
+    }
+    return link;
+  }
+
+  const magicSignInUp = (email: string, isAnonymous = false) => {
     const actionCodeSettings = {
       // URL you want to redirect back to. The domain (www.example.com) for this
       // URL must be in the authorized domains list in the Firebase Console.
-      url: getEnv(email),
+      url: isAnonymous ? getEnvAnonymous(email) : getEnv(email),
       // This must be true.
       handleCodeInApp: true,
       // iOS: {

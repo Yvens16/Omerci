@@ -189,7 +189,7 @@ const CreateCard: NextPage = () => {
       // const user = await anonymousSignIn() as unknown as string;
       const userId = user.uid;
       await addUserInfo({uid: userId, firstName:userName, lastName:"", howDoYouKnowUs:"", email})
-      const cardRefId = await createNewCard({ userId, recipientName, title, hasCagnotte, isPremium, teamName });
+      // const cardRefId = await createNewCard({ userId, recipientName, title, hasCagnotte, isPremium, teamName });
     // TODO: Re routing to la carte en question   
       // Router.push(`/card/${cardRefId}`);
     }
@@ -214,41 +214,42 @@ const CreateCard: NextPage = () => {
   const sendEmailLink = async () => {
     const {name, title, hasCagnotte, isPremium, team, email} = whyValues;
     //todo: Send Email Link
-    const queryString = `?name=${name}&title=${title}&isPremium=${isPremium}&team=${team}&hasCagnotte=${hasCagnotte}`;
-    await magicSignInUp(email)
+    // const queryString = `?name=${name}&title=${title}&isPremium=${isPremium}&team=${team}&hasCagnotte=${hasCagnotte}`;
+    await magicSignInUp(email, true)
     toggleEmailModal();
     toggleEmailSentModal();
   }
 
-  const getQueryParams = ( params: string, url: string ) => {
-    let href = url;
-    // this is an expression to get query strings
-    let regexp = new RegExp( '[?&]' + params + '=([^&#]*)', 'i' );
-    let qString = regexp.exec(href);
-    return qString ? qString[1] : null;
-  };
-  const fillUpForm = async () => {
-    const recipientName = getQueryParams("name", window.location.href)?.replace("%20", " ");
-    const cardTitle = getQueryParams("title", window.location.href)?.replace("%20", " ");
-    const teamName = getQueryParams("team", window.location.href)?.replace("%20", " ");
-    const isPremium = getQueryParams("isPremium", window.location.href)?.length ? JSON.parse(getQueryParams("isPremium", window.location.href)?.replace("%20", " ").toLocaleLowerCase() || "") : false;
-    const hasCagnotte = getQueryParams("isPremium", window.location.href)?.length ? JSON.parse(getQueryParams("hasCagnotte", window.location.href)?.replace("%20", " ").toLocaleLowerCase() || "") : false;
-    setWhyValues({
-      ...whyValues,
-      name: recipientName || "",
-      title: cardTitle || "",
-      team: teamName || "",
-      isPremium: isPremium || false,
-      hasCagnotte: hasCagnotte || false 
-    });
-  }
+  // const getQueryParams = ( params: string, url: string ) => {
+  //   let href = url;
+  //   // this is an expression to get query strings
+  //   let regexp = new RegExp( '[?&]' + params + '=([^&#]*)', 'i' );
+  //   let qString = regexp.exec(href);
+  //   return qString ? qString[1] : null;
+  // };
+  // const fillUpForm = async () => {
+  //   const recipientName = getQueryParams("name", window.location.href)?.replace("%20", " ");
+  //   const cardTitle = getQueryParams("title", window.location.href)?.replace("%20", " ");
+  //   const teamName = getQueryParams("team", window.location.href)?.replace("%20", " ");
+  //   const isPremium = getQueryParams("isPremium", window.location.href)?.length ? JSON.parse(getQueryParams("isPremium", window.location.href)?.replace("%20", " ").toLocaleLowerCase() || "") : false;
+  //   const hasCagnotte = getQueryParams("isPremium", window.location.href)?.length ? JSON.parse(getQueryParams("hasCagnotte", window.location.href)?.replace("%20", " ").toLocaleLowerCase() || "") : false;
+  //   setWhyValues({
+  //     ...whyValues,
+  //     name: recipientName || "",
+  //     title: cardTitle || "",
+  //     team: teamName || "",
+  //     isPremium: isPremium || false,
+  //     hasCagnotte: hasCagnotte || false 
+  //   });
+  // }
   //todo: Usseffect to get email Link, verify if action state in link and set Form to action Link states
-  useEffect(() => {
-    fillUpForm();
-  }, [])
+  // useEffect(() => {
+  //   fillUpForm();
+  // }, [])
 
   useEffect(() => {
-    if (!authUser) setAnonymousFlow(true);
+    if (!authUser) setAnonymousFlow(true)
+    else setAnonymousFlow(false);
   }, [authUser])
   useEffect(() => {
     const { title, name, team } = whyValues;
@@ -331,9 +332,7 @@ const CreateCard: NextPage = () => {
             <Button isDisabled={false} type='secondary' myClass='grow-1 h-[48px] mr-8t md:mr-16t' handleClick={toggleEmailModal} size='big'>
               Annuler
             </Button>
-          <Button isDisabled={isDisabled} myClass={'grow flex text-center justify-center h-[48px]'} handleClick={validateCreation} type='primary' size={'big'}>Créer la carte</Button>
-
-            {/* <Button isDisabled={false} myClass={'grow-1 flex text-center justify-center h-[48px]'} handleClick={sendEmailLink} type='primary' size={'big'}>Me connecter</Button> */}
+            <Button isDisabled={false} myClass={'grow-1 flex text-center justify-center h-[48px]'} handleClick={sendEmailLink} type='primary' size={'big'}>Me connecter</Button>
           </div>
         </div>
       </Modal>
