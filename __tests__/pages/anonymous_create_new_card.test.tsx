@@ -150,15 +150,15 @@ test("User is not anonymous and Create a card", async () => {
   expect(screen.queryByText("Nous vous enverrons un lien pratique pour gérer votre espace.")).not.toBeInTheDocument();
 })
 
-test("User connected and get back to the card he was completing witth all infos", async() => {
-  const url = `${window.location.origin}?name=Fadel&title=Merci%20Fadel&team=L'équipe%20compta&isPremium=true&hasCagnotte=false`;
-  setUrl(url);
-  customRender(<CreateNewCardPage/>);
-  await waitFor(() => {
-    expect(screen.getByPlaceholderText("Jean Dupont")).toHaveValue("Fadel");
-  })
-  expect(screen.getByRole("checkbox", {name : "Passer premium !"})).toBeChecked();
-  expect(screen.getByRole("checkbox", {name : "Ajouter une cagnotte en ligne"})).not.toBeChecked();
-  expect(screen.getByPlaceholderText("Merci pour tout Thomas !")).toHaveValue("Merci Fadel");
-  expect(screen.getByPlaceholderText("Toute l'équipe compta !")).toHaveValue("L'équipe compta");
-})
+// test("User connected and get back to the card he was completing witth all infos", async() => {
+//   const url = `${window.location.origin}?name=Fadel&title=Merci%20Fadel&team=L'équipe%20compta&isPremium=true&hasCagnotte=false`;
+//   setUrl(url);
+//   customRender(<CreateNewCardPage/>);
+//   await waitFor(() => {
+//     expect(screen.getByPlaceholderText("Jean Dupont")).toHaveValue("Fadel");
+//   })
+//   expect(screen.getByRole("checkbox", {name : "Passer premium !"})).toBeChecked();
+//   expect(screen.getByRole("checkbox", {name : "Ajouter une cagnotte en ligne"})).not.toBeChecked();
+//   expect(screen.getByPlaceholderText("Merci pour tout Thomas !")).toHaveValue("Merci Fadel");
+//   expect(screen.getByPlaceholderText("Toute l'équipe compta !")).toHaveValue("L'équipe compta");
+// })

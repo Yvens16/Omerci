@@ -53,7 +53,9 @@ const getEmailLink = async () => {
     const res = await fetch("http://localhost:9099/emulator/v1/projects/demo-omerci/oobCodes");
     const responseObj = await res.json();
     const codes = responseObj.oobCodes;
-    return codes[codes.length - 1].oobLink;
+    const obj = codes[codes.length - 1];
+    let urlLink = `http://localhost:3000/login?email=${obj.email}&mode=signIn&lang=en&oobCode=${obj.oobCode}&apiKey=fake-api-key`;
+    return urlLink;
   } catch (err) {
     console.log("ERRROR OOOBLINK", err)
   }
@@ -81,14 +83,26 @@ const SendEmailLink = async () => {
 
 
 
-const setUrl = async () => {
+const setUrl = async (isDifferentDevice=false) => {
   const url = await getEmailLink();
-  Object.defineProperty(window, 'location', {
-    writable: true,
-    value: {
-      href: url
-    }
-  });
+  const search = url!.split('login')[1];
+  if (!isDifferentDevice) {
+    Object.defineProperty(window, 'location', {
+      writable: true,
+      value: {
+        href: url,
+        search: search,
+      }
+    });
+  } else {
+    Object.defineProperty(window, 'location', {
+      writable: true,
+      value: {
+        href: url,
+        search: null,
+      }
+    });
+  }
 }
 
 test("Should login existing user on same device", async () => {
@@ -120,7 +134,7 @@ test("Should login new user on same device", async () => {
 test("Should login new user on different device from where the email was entered", async () => {
   const user = userEvent.setup();
   await SendEmailLink();
-  await setUrl();
+  await setUrl(true);
   customRender(
     <LocalStorageMock items={{ emailForSignIn: null }}>
       <LoginPage />
@@ -140,7 +154,7 @@ test("Should login existing user on different device from where the email was en
   await signOutTestUser();
   const user = userEvent.setup();
   await SendEmailLink();
-  await setUrl();
+  await setUrl(true);
   customRender(
     <LocalStorageMock items={{ emailForSignIn: null }}>
       <LoginPage />

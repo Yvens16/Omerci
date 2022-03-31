@@ -33,9 +33,7 @@ const SignUp = dynamic<ISignUp>(() =>
 const AlreadyHasAccount = dynamic<IAlreadyHasAccount>(() =>
   import('../components/login/AlreadyHasAccount').then((mod) => mod.AlreadyHasAccount)
 );
-const testLog = () => {
-  console.log("FADEL FADEL FADEL");
-}
+
 const Login: NextPage = () => {
   const [email, setEmail] = useState<string>('');
   const [emailErrorMsg, setEmailErrorMsg] = useState<string>("");
@@ -129,14 +127,14 @@ const Login: NextPage = () => {
   }
   useEffect(() => {
     let emailInStorage:any = window.localStorage.getItem("emailForSignIn");
-      const signIn = async() => {
-        const urlSearchParams = new URLSearchParams(window.location.search);
-        const params = Object.fromEntries(urlSearchParams.entries());
-        let userData: any =  await signInWithEmailLink(auth, params.email, window.location.href);
-        setEmail(params.email);
-        window.localStorage.removeItem('emailForSignIn');
-        if(userData._tokenResponse.isNewUser) setStep(2)
-        else if (params.isAnonymous === 'true') {
+    const signIn = async() => {
+      const urlSearchParams = new URLSearchParams(window.location.search);
+      const params = Object.fromEntries(urlSearchParams.entries());
+      let userData: any =  await signInWithEmailLink(auth, params.email, window.location.href);
+      setEmail(params.email);
+      window.localStorage.removeItem('emailForSignIn');
+      if(userData._tokenResponse.isNewUser) setStep(2)
+      else if (params.isAnonymous === 'true') {
           router.push("/personal_space")
         } else {
           const user = await getUserInfo(userData.user.uid);
@@ -146,10 +144,11 @@ const Login: NextPage = () => {
           setStep(3)
         };
       }
+
     if (isSignInWithEmailLink(auth, window.location.href)) {
       const urlSearchParams = new URLSearchParams(window.location.search);
         const params = Object.fromEntries(urlSearchParams.entries());
-      if (!emailInStorage && params.email === null) setEmailShow(true)
+      if (!emailInStorage && !params.email) setEmailShow(true)
       else signIn();
     }
   }, [])
