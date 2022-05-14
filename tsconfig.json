@@ -16,10 +16,10 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
+      "@public/*": ["public/*"],
       "@components/*": ["components/*"],
       "@pages/*": ["pages/*"],
       "@hooks/*": ["hooks/*"],
-      "@public/*": ["public/*"],
       "@test-utils": ["./test-utils.tsx"]
     }
   },

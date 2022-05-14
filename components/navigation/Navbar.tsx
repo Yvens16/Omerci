@@ -9,7 +9,7 @@ const Navbar = ({ }) => {
   const [isNavOpen, setNavOpen] = useState(false);
   return (
     <nav className='bg-white'>
-      <div className='flex justify-between items-center px-16t py-8t lg:py-10t relative lg:h-[73px] max-w-content mx-auto'>
+      <div className='flex justify-between items-center px-16t xl:px-0 py-8t lg:py-10t relative lg:h-[73px] max-w-content mx-auto'>
         <span>LOGO</span>
         <div className='lg:hidden'>
           {isNavOpen ? <Cross onClick={() => setNavOpen(!isNavOpen)} /> : <Menu onClick={() => setNavOpen(!isNavOpen)} />}
@@ -27,7 +27,7 @@ const Navbar = ({ }) => {
           <Button myClass='nav font-base' type='third' size='' handleClick={() => console.log('button2')}><Link href='/'>Prix</Link></Button>
           <Button myClass='nav font-base' type='third' size='' handleClick={() => console.log('button3')}><Link href='/'>F.A.Q</Link></Button>
           <Button myClass='nav font-base' type='third' size='' handleClick={() => console.log('button4')}><Link href='/'>À propos</Link></Button>
-          <Button myClass='ml-36t mr-12t' type='primary' size='' handleClick={() => console.log('bye')}>Connexion</Button>
+          <Button myClass='ml-36t mr-12t lg:mr-0' type='primary' size='' handleClick={() => console.log('bye')}>Connexion</Button>
         </div>
       </div>
     </nav>

@@ -7,14 +7,15 @@ interface ButtonParams {
   handleClick(): void,
   type: string,
   size: string,
-  isDisabled?: boolean
+  isDisabled?: boolean,
+  testId?: string,
   //onChange(name: string): any;  here function that accept an arguement
   //onChange(name: string): number; here function that accept an argument and return a value
   //onChange?(name: string): number; here function that is optional
   // onChange: MyFunctionType; here using the "type" keyword in coop with the line above the interface*
 }
 
-const Button = ({myClass, children, handleClick, type, size, isDisabled}: ButtonParams) => {
+const Button = ({myClass, children, handleClick, type, size, isDisabled, testId}: ButtonParams) => {
   let classToUse = '';
   let primaryClass = 'bg-primary text-white flex justify-center items-center rounded-md hover:bg-primary_hover md:w-auto';
   let secondaryClass = 'bg-secondary_fill text-primary flex justify-center items-center rounded-md border border-solid border-white hover:border-solid hover:border hover:border-primary md:w-auto'
@@ -33,6 +34,7 @@ const Button = ({myClass, children, handleClick, type, size, isDisabled}: Button
   }
   return (
   <button
+  data-testid={testId}
     disabled={isDisabled || false}
     className={
       `disabled:text-white disabled:bg-input_default whitespace-nowrap flex-auto

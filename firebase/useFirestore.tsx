@@ -12,6 +12,7 @@ import { getFirestore,
     deleteDoc,
     DocumentData,
     query,
+    updateDoc,
     where} from "firebase/firestore";
 
 export default function useFirestore() {
@@ -64,11 +65,11 @@ export default function useFirestore() {
     hasCagnotte: boolean,
     isPremium: boolean
     teamName: string,
+    photoUrl: string,
   }
 
-  const createNewCard = async ({userId, recipientName, title, hasCagnotte, isPremium, teamName}: ICreateNewCard) => {
-    // const db = getFirestore(firebaseApp);
-    const cardRef = doc(collection(db, "cards"));
+  const createNewCard = async ({userId, recipientName, title, hasCagnotte, isPremium, teamName, photoUrl}: ICreateNewCard) => {
+    const cardRef = doc(db, "cards");
     const cardUrl = `${window.location.origin}/card/${cardRef.id}`;
     try {
       await setDoc(cardRef, {
@@ -79,10 +80,11 @@ export default function useFirestore() {
         hasCagnotte,
         isPremium,
         teamName,
-        photoUrl: '',
+        photoUrl,
         isSent: false,
         cardUrl,
         creationDate: serverTimestamp(),
+        WhoHasAlreadySeenOnce: [],
       })
       console.log("CreateNewCard: Creation sucessfull");
       return cardRef.id;
@@ -90,6 +92,39 @@ export default function useFirestore() {
       console.log("Error in createNewCard", e);
     }
   }
+
+  interface IUpdateCard extends ICreateNewCard {
+    cardId: string,
+    isSent: string,
+    WhoHasAlreadySeenOnce: string[],
+  }
+  const updateCard = async ({userId, recipientName, title, hasCagnotte, isPremium, teamName, cardId, photoUrl, isSent, WhoHasAlreadySeenOnce}: IUpdateCard) => {
+    WhoHasAlreadySeenOnce.push(userId);
+    const cardRef = doc(db, "cards", cardId);
+    const cardUrl = `${window.location.origin}/card/${cardId}`;
+    try {
+      await updateDoc(cardRef, {
+        uid: cardId,
+        creatorId: userId,
+        recipientName,
+        title,
+        hasCagnotte,
+        isPremium,
+        teamName,
+        photoUrl,
+        isSent,
+        cardUrl,
+        creationDate: serverTimestamp(),
+        WhoHasAlreadySeenOnce,
+      })
+      console.log("CreateNewCard: Creation sucessfull");
+      return cardRef.id;
+    } catch (e) {
+      console.log("Error in createNewCard", e);
+    }
+  }
+
+
   const deleteCardInDB = async (uid: string) => {
     // const db = getFirestore(firebaseApp);
     try {
@@ -116,6 +151,39 @@ export default function useFirestore() {
       throw new Error(e);
     }
   }
+  const getCard = async (cardId: string) => {
+    const docRef = doc(db, "cards", cardId);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      return docSnap.data();
+    } else {
+      throw new Error("Cette carte n'existe pas");
+    }
+  }
+
+  const getMessagesOnCard = async(cardId: string) => {
+    const q = query(collection(db, "messages"), where("cardId", "==", cardId));
+    const messages: DocumentData[] = [];
+    try {
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach(doc => {
+        messages.push(doc.data());
+      });
+      return messages;
+    } catch(e: any) {
+      throw new Error(e);
+    }
+  }
+
+  const deleteMessage = async (uid: string) => {
+    try {
+      await deleteDoc(doc(db, "messages", uid));
+      // TODO: Add snackbar to display success
+    } catch(e) {
+      console.log("Error in deleteMessage", e);
+      // TODO: Add snackbar to display fail
+    }
+  }
   
   /** 
    * Check subcollections
@@ -127,7 +195,11 @@ export default function useFirestore() {
     addUserInfo,
     getUserInfo,
     createNewCard,
+    updateCard,
     deleteCardInDB,
-    getCards
+    getCards,
+    getCard,
+    getMessagesOnCard,
+    deleteMessage
   }
 }

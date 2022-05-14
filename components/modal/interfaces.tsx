@@ -1,7 +1,7 @@
 export interface IInfoModal {
-  children: React.ReactNode,
+  children?: React.ReactNode,
   show: boolean,
-  closeModal: (whenOpeningOnly?:boolean) => void,
+  closeModal():void,
   titleHtml: React.ReactNode,
 }
 

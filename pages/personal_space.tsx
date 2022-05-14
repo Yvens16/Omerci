@@ -115,7 +115,7 @@ const PersonalSpace: NextPage = () => {
       loadUserInfo();
       loadcardsInfo();
     };
-  }, [authUser])
+  }, [authUser, loadUserInfo, loadcardsInfo])
 
   useEffect(() => {
     if (cardsValues?.length) {

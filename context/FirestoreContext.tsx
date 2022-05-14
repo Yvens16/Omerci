@@ -9,7 +9,10 @@ type TResul = {
 interface ICreateNewCard {
   userId: string, recipientName: string, title: string, hasCagnotte: boolean, isPremium: boolean, teamName: string
 }
-type cardsData = {
+interface IUpdatecard extends ICreateNewCard {
+  cardId: string,
+}
+type TcardsData = {
   uid: string,
   photoUrl: string,
   title: string,
@@ -20,20 +23,48 @@ type cardsData = {
   url: string,
   isSent: boolean
 }[]
+
+type Tcard = {
+  uid: string,
+  photoUrl: string,
+  title: string,
+  creationDate: string,
+  recipientName: string,
+  messageNumber: number,
+  money: number,
+  url: string,
+  isSent: boolean,
+  WhoHasAlreadySeenOnce: [],
+  messagesId: [],
+}
+
+type TMessages = {
+  ownerName: string,
+  mediaUrl: string,
+  text: string,
+}
 interface IfirestoreContext {
   addUserInfo: ({ uid, firstName, lastName, howDoYouKnowUs, email }: { uid: string, firstName: string, lastName: string, howDoYouKnowUs: string, email: string }) => Promise<void>,
   getUserInfo: (uid: string) => Promise<TResul>,
-  createNewCard: ({ userId, recipientName, title, hasCagnotte, isPremium, teamName }: ICreateNewCard) => Promise<void>
+  createNewCard: ({ userId, recipientName, title, hasCagnotte, isPremium, teamName }: ICreateNewCard) => Promise<void>,
+  updateCard: ({ userId, recipientName, title, hasCagnotte, isPremium, teamName, cardId }: IUpdatecard) => Promise<void>,
   deleteCardInDB: (uid: string) => Promise<void>,
-  getCards: (creatorUid: string) => Promise<cardsData>,
+  deleteMessage: (uid: string) => Promise<void>,
+  getCards: (creatorUid: string) => Promise<TcardsData>,
+  getCard: (cardId: string) => Promise<Tcard>,
+  getMessagesOnCard: (cardId: string) => Promise<TMessages>,
 }
 
 export const FirestoreCtx = createContext<IfirestoreContext>({
-  addUserInfo: async () => { },
+  addUserInfo: async () => {},
   getUserInfo: async (uid: string) => new Promise<TResul>(() => { }),
   createNewCard: async ({userId, recipientName, title, hasCagnotte, isPremium, teamName}: ICreateNewCard) => new Promise<void>(() => { }),
+  updateCard: async ({userId, recipientName, title, hasCagnotte, isPremium, teamName, cardId}: IUpdatecard) => new Promise<void>(() => { }),
   deleteCardInDB: async(uid:string) => new Promise(() => {}),
-  getCards: (creatorUid: string) => new Promise<cardsData>(() => {}),
+  deleteMessage: async(uid:string) => new Promise(() => {}),
+  getCards: (creatorUid: string) => new Promise<TcardsData>(() => {}),
+  getCard: (cardId: string) => new Promise<Tcard>(() => {}),
+  getMessagesOnCard: (creatorUid: string) => new Promise<TMessages>(() => {}),
 })
 
 
