@@ -16,7 +16,7 @@ function header() {
             Retour à l’accueil
         </Button>
       </div>
-      <Button myClass={'max-w-[193px] py-8t px-16t'} handleClick={function (): void {
+      <Button myClass={'max-w-[193px] !py-8t !px-16t'} handleClick={function (): void {
         throw new Error('Function not implemented.');
       }} type='secondary' size='big'> <SendIcon className='fill-primary mr-8t' /> Envoyer la carte</Button></div>
 
