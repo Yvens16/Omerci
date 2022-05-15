@@ -14,6 +14,7 @@ import { useAuth } from '../../context/AuthUserContext';
 import MobileOption from '@components/space_card_custom/card_options/MobileOption';
 import DesktopOption from '@components/space_card_custom/card_options/Option';
 import DeleteMessageModal from '@components/space_card_custom/params_modal/DeleteMessageModal';
+import ParamsModale from "@components/space_card_custom/params_modal/Modal";
 
 const OnboardingModal = dynamic<IOnboardingModal>(() => import('@components/space_card_custom/modals/OnboardingModal'))
 
@@ -94,7 +95,7 @@ const CardPage: NextPage = () => {
       return !prevState;
     });
   }
-  
+
   /** ######## DeleteModale ######## */
 
   const toggleDeleteModal = () => {
@@ -115,11 +116,11 @@ const CardPage: NextPage = () => {
     }
   }, [executeGetMessages, cardStatus, cardId])
   useEffect(() => {
-    const showTheOnboardingModal = async() => {
+    const showTheOnboardingModal = async () => {
       if (authUser && authUser["uid"] && card) {
         if (!card.WhoHasAlreadySeenOnce.includes(authUser["uid"])) {
           setShowOnboardingModal(true)
-          await updateCard({...card, userId: authUser["uid"], cardId: card.uid})
+          await updateCard({ ...card, userId: authUser["uid"], cardId: card.uid })
           //TODO: API call to add userUid to WhoHasAlreadySeenOnce array
           //TODO: Make send message icon the right size
         };
@@ -134,16 +135,65 @@ const CardPage: NextPage = () => {
     showTheOnboardingModal();
   }, [authUser, card, updateCard])
 
-  /** ######## ONBOARDING MODAL ######## */
+  /** ######## option modal ######## */
+  const [showParamsModal, setShowParamsModal] = useState(false);
+  const toggleParamsModal = () => {
+    setShowParamsModal((prevState) => {
+      return !prevState;
+    })
+  }
+
+  const paramsInitialValues = {
+    title: "",
+    destinatorName: "",
+    from: "",
+    hasCagnotte: (card && card.hasCagnotte) || false ,
+  }
+
+  const [values, setValues] = useState(paramsInitialValues);
+  const handleInputChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    const {name, value, checked, id} = e.target;
+    const dateSelects = ["day", "month", "year"];
+    if (id && dateSelects.includes(id)) {
+      setValues((prevState) => ({
+        ...prevState,
+        [name]: name === "hasCagnotte" ? checked : value,
+      }))
+    }
+    setValues((prevState) => ({
+      ...prevState,
+      [name]: name === "hasCagnotte" ? checked : value,
+    }))
+  }
+
+  const initialDates = {
+    day: "",
+    month: "",
+    year: ""
+  }
+
+  const [dates, setDates] = useState(initialDates);
+  const handleSelectChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    const {textContent, id} = e.target;
+      setDates((prevState) => ({
+        ...prevState,
+        [id]: textContent,
+      }))
+  }
+
+  /** ######## option modal ######## */
+
+
+
   return (
     <div className=" lg:max-w-[1240px] mx-auto">
       <div className="py-8t bg-white md:!bg-default_bg md:my-24t px-16t xl:px-0 mb-16t xl:my-24t">
         <Header />
       </div>
       <div className='px-16t xl:px-0 xl:grid xl:grid-cols-[30%_70%]'>
-      {/* <CardParams teamName={"card.teamName"} goToCreateMessage={goToCreateMessage} isAdmin={isAdmin} photoUrl={'/avatars/girl.jpg'} backgroundUrl={"'/images/card_params_bg.jpg'"}
+        {/* <CardParams teamName={"card.teamName"} goToCreateMessage={goToCreateMessage} isAdmin={isAdmin} photoUrl={'/avatars/girl.jpg'} backgroundUrl={"'/images/card_params_bg.jpg'"}
           cardTitle={"card.cardTitle"} receiverName={"card.recipientName"} messageNumber={12} moneyCount={13} /> */}
-        {cardStatus === "success" && <CardParams teamName={card.teamName} goToCreateMessage={goToCreateMessage} isAdmin={isAdmin} photoUrl={card.photoUrl || '/avatars/girl.jpg'} backgroundUrl={"'/images/card_params_bg.jpg'"}
+        {cardStatus === "success" && <CardParams toggleParamsModal={toggleParamsModal} teamName={card.teamName} goToCreateMessage={goToCreateMessage} isAdmin={isAdmin} photoUrl={card.photoUrl || '/avatars/girl.jpg'} backgroundUrl={"'/images/card_params_bg.jpg'"}
           cardTitle={card.cardTitle} receiverName={card.recipientName} messageNumber={card.messageNumber} moneyCount={card.moneyCount} />}
         {cardStatus === "error" && <div className="bg-danger text-white mb-36t flex flex-col xl:max-w-[350px] h-max">
           <div className={`card mb-24t bg-cover p-24t rounded-12t`}>
@@ -156,17 +206,17 @@ const CardPage: NextPage = () => {
             <hr className='w-full block border border-solid border-input_default' />
           </div>
           <div className='mobile_view new_message md:hidden'>
-          <div className='mb-24t'>
-            <AddNewMessage goToCreateMessage={goToCreateMessage} />
-          </div>
+            <div className='mb-24t'>
+              <AddNewMessage goToCreateMessage={goToCreateMessage} />
+            </div>
             {messagesStatus === "success" && messages.length && messages.map((message: any, idx: any) => (
               <div key={idx} className="mb-24t md:mr-8t">
                 <Message message={message.messageText} toggleDeleteModal={() => toggleDeleteModal()} toggleModal={() => toggleMobileOptionModal(message.uid)} messageId={message.uid} mediaUrl={message.mediaUrl} editRight={getEditRight(authUser!["uid"], message["creatorId"], card["creatorId"])} ownerName={message.ownerName} createdDate={message.createdDate}></Message>
               </div>
             ))}
           </div>
-          <div className={`desktop_view colum_grid hidden md:grid ${messagesStatus === "success" && messages.length < 2 ? "md:flex md:flex-col": "md:grid-cols-[1fr_1fr] md:gap-24t"}`}>
-            <div className={`col_left ${messagesStatus === "success" && messages.length < 2 ? "lg:flex lg:flex-row-reverse lg:justify-between": ""}`}>
+          <div className={`desktop_view colum_grid hidden md:grid ${messagesStatus === "success" && messages.length < 2 ? "md:flex md:flex-col" : "md:grid-cols-[1fr_1fr] md:gap-24t"}`}>
+            <div className={`col_left ${messagesStatus === "success" && messages.length < 2 ? "lg:flex lg:flex-row-reverse lg:justify-between" : ""}`}>
               <div className='mb-24t'>
                 <AddNewMessage goToCreateMessage={goToCreateMessage} />
               </div>
@@ -196,7 +246,10 @@ const CardPage: NextPage = () => {
           closeModal={closeOnboardingModal} titleHtml={undefined} />
       }
       {showMobileOption && <MobileOption modifyMessage={() => modifyMessage(selectedMessageId)} toggleDeleteModal={() => toggleDeleteModal()} />}
-      {showDeleteModal && <DeleteMessageModal deleteMessage={() => deleteSelectedMessage(selectedMessageId)} show={showDeleteModal} closeModal={toggleDeleteModal}/>}
+      {showDeleteModal && <DeleteMessageModal deleteMessage={() => deleteSelectedMessage(selectedMessageId)} show={showDeleteModal} closeModal={toggleDeleteModal} />}
+      {showParamsModal && cardStatus == "success" && <ParamsModale dates={dates} values={values} handleChangeInput={handleInputChange} show={showParamsModal} closeModal={toggleParamsModal} photoUrl={card.photoUrl}
+        backgrounds={[]} cardTitle={card.title} receiverName={card.recipientName} teamName={card.teamName} expirationDay={''}
+        expirationMonth={''} expirationYear={''} handleSelectChange={handleSelectChange} />}
     </div>
   )
 }

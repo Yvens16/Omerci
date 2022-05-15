@@ -12,7 +12,7 @@ import Button from "../../buttons/Button";
 import { useRouter } from 'next/router';
 
 
-const CardParams = ({ isAdmin, backgroundUrl, photoUrl, cardTitle, teamName, receiverName, messageNumber, moneyCount, goToCreateMessage }: IParams) => {
+const CardParams = ({ isAdmin, backgroundUrl, photoUrl, cardTitle, teamName, receiverName, messageNumber, moneyCount, goToCreateMessage, toggleParamsModal }: IParams) => {
   const router = useRouter();
   const { isrecipient } = router.query;
   return <div className="mb-36t flex flex-col xl:max-w-[350px] h-max">
@@ -22,7 +22,7 @@ const CardParams = ({ isAdmin, backgroundUrl, photoUrl, cardTitle, teamName, rec
           <Image className={`img_avatar`} src={photoUrl} alt={`avatar}`} layout="fill" objectFit="cover" />
         </div>
         {isAdmin
-          ? <div className="w-[40px] h-[40px] bg-secondary_fill p-8t rounded-8t cursor-pointer">
+          ? <div onClick={toggleParamsModal} className="w-[40px] h-[40px] bg-secondary_fill p-8t rounded-8t cursor-pointer">
             <SettingsIcon data-testid="settings" className="w-[24px] h-[24px] fill-primary" />
           </div>
           : null}

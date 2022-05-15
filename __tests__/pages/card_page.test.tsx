@@ -67,7 +67,7 @@ const seenCard = {
   hasCagnotte: false,
   isPremium: false,
   teamName: "Compta",
-  photoUrl: '',
+  photoUrl: '/avatars/girl.jpg',
   isSent: false,
   cardUrl: "card/1234",
   creationDate: "7 avril 2022 à 12:27:17 UTC+2",
@@ -215,7 +215,7 @@ test("User modifyThe his message", async () => {
   customRender(<CardPage />);
   const participantMessages = await screen.findAllByTestId("more_icon");
   expect(participantMessages[0]).toBeInTheDocument();
-  user.click(participantMessages[0]);
+  await user.click(participantMessages[0]);
   const modifyButton = await screen.findByText("Modifier mon message");
   await user.click(modifyButton);
   expect(mockPush).toHaveBeenCalledWith({
@@ -273,9 +273,32 @@ test("Creator of the card sees the icon params in CardParams on the left of the 
   })
   const user = userEvent.setup();
   customRender(<CardPage />);
+  let settingsBtn: any;
   await waitFor(() => {
-    expect(screen.getByTestId("settings")).toBeInTheDocument()
+    settingsBtn = screen.getByTestId("settings");
+    expect(settingsBtn).toBeInTheDocument()
   });
+  await user.click(settingsBtn);
+  expect(screen.getByText(/Parametre de la carte/)).toBeInTheDocument();
+  const titleInput = screen.getByLabelText("Titre de votre carte");
+  const DestinatorNameInput = screen.getByLabelText("Nom du destinaire");
+  const FromWhoInput = screen.getByLabelText("De la part de");
+  const hasCagnotteCheckbox = screen.getByText("Ajouter une cagnotte en ligne");
+  await user.type(titleInput, "Au revoir Thomas !");
+  await user.type(DestinatorNameInput, "Thomas Bouchard");
+  await user.type(FromWhoInput, "Toute l’equipe compta !");
+  await user.click(hasCagnotteCheckbox);
+  expect(titleInput).toHaveValue("Au revoir Thomas !");
+  expect(DestinatorNameInput).toHaveValue("Thomas Bouchard");
+  expect(FromWhoInput).toHaveValue("Toute l’equipe compta !");
+  expect(screen.getByLabelText("Ajouter une cagnotte en ligne")).toBeChecked();
+  await user.click(hasCagnotteCheckbox);
+  expect(screen.getByLabelText("Ajouter une cagnotte en ligne")).not.toBeChecked();
+
+  // const dayInput = screen.getByTestId("day_0");
+  // const monthInput = screen.getByTestId("month_0");
+  // const YearInput = screen.getByTestId("year_0");
+  // await user.
 });
 
 
@@ -300,6 +323,7 @@ test("Participant doesn't see the params icon because not creator of card", asyn
     expect(screen.queryByTestId("settings")).not.toBeInTheDocument()
   });
 })
+
 
 
 //####################################################################################################################################

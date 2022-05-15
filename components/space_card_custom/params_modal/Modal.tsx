@@ -24,15 +24,15 @@ const optionMonth = getMonths().map((month, idx) => {
   return { label: `${month}`, value: `${idx + 1}` };
 })
 
-function Modal({ show, closeModal, photoUrl, backgrounds }: IModalParams) {
+function Modal({ show, closeModal, photoUrl, backgrounds, handleChangeInput, values, handleSelectChange, dates }: IModalParams) {
   return (
     <SimpleModal show={show} closeModal={closeModal} titleHtml={undefined}>
-      <h3 className="font-medium text-title md:hidden mb-12t">Information de l’espace</h3>
-      <h3 className="font-medium text-title hidden md:block mb-12t">Parametre de l’espace Yvens’s Fairwell</h3>
+      <h3 className="font-medium text-title md:hidden mb-12t">Information de la carte</h3>
+      <h3 className="font-medium text-title hidden md:block mb-12t">Parametre de la carte</h3>
       <div className='profil'>
         <p className="text-14t font-semibold">Photo de profil</p>
         <div className="rounded-[50%] w-[69px] h-[69px] relative">
-          <Image src={photoUrl} alt='image de profil' className='img_avatar rounded-[50%]' layout="fill" objectFit="cover"></Image>
+          <Image src={photoUrl || '/avatars/cat.svg'} alt='image de profil' className='img_avatar rounded-[50%]' layout="fill" objectFit="cover"></Image>
         </div>
       </div>
       <div className="backgrounds">
@@ -44,29 +44,17 @@ function Modal({ show, closeModal, photoUrl, backgrounds }: IModalParams) {
             return <div className={`w-[64px] h-[64px] mr-8t`} style={{backgroundColor: `${url}`}} key={idx}></div>;
           })}
         </div> */}
-        <Input label={'Titre de votre carte'} placeholder={''} handleChange={function (e: any): void {
-          throw new Error('Function not implemented.');
-        }} name={''} infoMessage={''}></Input>
-        <Input label={'Nom du destinaire'} placeholder={''} handleChange={function (e: any): void {
-          throw new Error('Function not implemented.');
-        }} name={''} infoMessage={''}></Input>
-        <Input label={'De la part de'} placeholder={''} handleChange={function (e: any): void {
-          throw new Error('Function not implemented.');
-        }} name={''} infoMessage={''}></Input>
-        <span className="mb-4t text-14t text-black">Date limite</span>
-        <div className="inputs_date max-w-[40%] flex justify-between">
-          <Select optionList={optionDates} selectedItem={''} defaultValue={'12'} showOptionList={false} changeOption={function (): {} {
-            throw new Error('Function not implemented.');
-          }} />
-          <Select optionList={optionMonth} selectedItem={''} defaultValue={'Mars'} showOptionList={false} changeOption={function (): {} {
-            throw new Error('Function not implemented.');
-          }} />
-          <Select optionList={optionYears} selectedItem={''} defaultValue={'2022'} showOptionList={false} changeOption={function (): {} {
-            throw new Error('Function not implemented.');
-          }} />
-        </div>
+        <Input value={values.title} label={'Titre de votre carte'} placeholder={''} handleChange={handleChangeInput} name='title' infoMessage={''}></Input>
+        <Input value={values.destinatorName} label={'Nom du destinaire'} placeholder={''} handleChange={handleChangeInput} name='destinatorName' infoMessage={''}></Input>
+        <Input value={values.from} label={'De la part de'} placeholder={''} handleChange={handleChangeInput} name='from' infoMessage={''}></Input>
+        {/* <span className="mb-4t text-14t text-black">Date limite</span> */}
+        {/* <div className="inputs_date max-w-[50%] flex justify-between">
+          <Select name='day' optionList={optionDates} selectedItem={dates.day} defaultValue={'12'} showOptionList={false} changeOption={handleSelectChange} />
+          <Select name='month' optionList={optionMonth} selectedItem={dates.month} defaultValue={'Mars'} showOptionList={false} changeOption={handleSelectChange} />
+          <Select name='year' optionList={optionYears} selectedItem={dates.year} defaultValue={'2022'} showOptionList={false} changeOption={handleSelectChange} />
+        </div> */}
         <div className='flex my-8t p-4t mb-32t'>
-          <Checkbox isCheck={true} name='hasCagnotte' handleCheck={() => console.log("Hello")} labelText='Ajouter une cagnotte en ligne' type={''} />
+          <Checkbox isCheck={values.hasCagnotte} name='hasCagnotte' handleCheck={handleChangeInput} labelText='Ajouter une cagnotte en ligne' type={''} />
           <QuestionMark className='fill-[#6EDB8D]' />
         </div>
         <div className='flex'>

@@ -27,6 +27,7 @@ export interface IParams {
   moneyCount: number,
   teamName: string,
   goToCreateMessage: () => void,
+  toggleParamsModal: () => void,
 }
 
 export interface IAddNewMessage {
@@ -51,6 +52,10 @@ export interface IModalParams {
   expirationDay: string,
   expirationMonth: string,
   expirationYear: string,
+  handleChangeInput: React.ChangeEventHandler<HTMLInputElement>,
+  handleSelectChange: any,
+  dates: any,
+  values: any,
 }
 
 export interface IOnboardingModal extends IInfoModal {
