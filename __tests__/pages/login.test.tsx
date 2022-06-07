@@ -65,7 +65,8 @@ const rightEmail = 'fake_user@gmail.com';
 
 const SendEmailLink = async () => {
   customRender(<LoginPage />);
-  const emailInput = await waitFor(() => screen.getByPlaceholderText("jean.dujardin@gmail.com"));
+  // const emailInput = await waitFor(() => screen.getByPlaceholderText("jean.dujardin@gmail.com"));
+  const emailInput = await screen.findByPlaceholderText("jean.dujardin@gmail.com");
   const user = userEvent.setup();
   const firstNextButton = screen.getAllByText('Suivant')[0];
 
@@ -147,7 +148,8 @@ test("Should login new user on different device from where the email was entered
   const nextBtn = screen.getAllByRole("button", { name: "Suivant" })[1];
   await user.type(input, 'fake_user@gmail.com');
   await user.click(nextBtn);
-  await waitFor(() => expect(screen.getByText("Bienvenue !")).toBeInTheDocument())
+  // await waitFor(() => expect(screen.getByText("Bienvenue !")).toBeInTheDocument())
+  expect(await screen.findByText("Bienvenue !")).toBeInTheDocument()
 })
 
 test("Should login existing user on different device from where the email was entered", async () => {

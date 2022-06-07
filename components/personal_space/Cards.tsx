@@ -6,7 +6,7 @@ import MoreIcon from '../../public/icons/menu/more_horizontal.svg';
 
 
 function Card(id: number, activeIndex: number | null, sectionName: string, card: { uid: string; photoUrl: string; title: string; creationDate: string; recipientName: string; messageNumber: number; money: number; url: null | string; isSent: boolean; }, toggleOption: (id: number) => void, desktopOption: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined): JSX.Element {
-  return <div className={`${id === activeIndex ? "z-10" : ""} relative carte card_box_shadow lg:mb-16t mr-16t rounded-12t bg-white border border-solid min-w-[235px] drop-shadow-[0_5px_12px_rgba(0,0,0,0.05)] border-secondary_fill`} key={id}>
+  return <div className={`${id === activeIndex ? "z-10" : ""} relative carte shadow-card_box_shadow lg:mb-16t mr-16t rounded-12t bg-white border border-solid min-w-[235px] drop-shadow-[0_5px_12px_rgba(0,0,0,0.05)] border-secondary_fill`} key={id}>
     {sectionName === "Envoyées au destinataire"
       ? <div className='w-full h-full absolute bg-white opacity-50 top-0 left-0'></div>
       : null}

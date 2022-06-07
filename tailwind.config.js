@@ -5,7 +5,8 @@ module.exports = {
   ],
   theme: {
     maxWidth: {
-      content: '1240px'
+      content: '1240px',
+      laptopContent: "687px",
     },
     fontSize: {
       base: ['14px', '24px'],
@@ -36,19 +37,23 @@ module.exports = {
       gradient2: '#9B41E2',
       header: '#E5E5E5',
       iconsParams: "rgba(249, 249, 251, 0.34)",
+      msgHug:"rgba(255, 255, 255, 0.2)",
       shape_bg: "rgba(119, 13, 255, 0.07)",
       dashed_third: "rgba(106, 103, 116, 0.33)",
       profile_card_gradient: "linear-gradient(153deg, #E2415E 16.87%, #E241DC 78.3%)",
     },
     extend: {
+      width: {
+        inherit: "inherit"
+      },
       backgroundImage: {
         // 'params': "url('/public/images/card_params_bg.jpg')"
       },
       boxShadow: {
         option_box_shadow: '0 7px 8px rgba(123, 97, 255, 0.05)',
         card_box_shadow: '0px 5px 12px rgba(0, 0, 0, 0.05)',
-        shape_shadow: 'box-shadow: inset 0px 0px 45px rgba(24, 133, 242, 0.1)',
-        
+        shape_shadow: 'inset 0px 0px 45px rgba(24, 133, 242, 0.1)',
+        gif_header_shadow: "0px 4px 4px rgba(0, 0, 0, 0.05)",
       },
       spacing: {
         '4t': '4px',

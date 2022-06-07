@@ -53,7 +53,7 @@ OnboardingModal.args = {
         </div>
       </div>
     </div>
-    <div className="card_box_shadow  text-black text-left w-full md:border md:border-solid md:border-input_default md:rounded-12t mb-32t md:p-24t">
+    <div className="shadow-card_box_shadow  text-black text-left w-full md:border md:border-solid md:border-input_default md:rounded-12t mb-32t md:p-24t">
       <div className='border border-solid border-input_default md:border-none mb-16t p-16t rounded-12t md:flex md:items-center'>
         <div className="rounded-[50%] bg-primary md:min-w-[32px] w-[32px] h-[32px] flex items-center justify-center mb-8t md:mr-16t">
           <MessageIcon className="fill-white w-[18px] h-[18px]" />

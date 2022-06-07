@@ -20,7 +20,7 @@ type TOptions = {
 const Options = ({ customClass, optionRef, url, closeOption, isMobile, openDeleteModal, copyToClipBoard }: TOptions) => {
   return <>
     {isMobile ? <div className={`z-50 lg:hidden w-screen h-screen bg-modal fixed top-0 left-0 ${customClass}`}>
-      <div ref={optionRef} className={`w-screen fixed bottom-0 left-0 p-16t text-black flex flex-col bg-white border border-solid border-secondary_fill option_box_shadow rounded-t-12t`}>
+      <div ref={optionRef} className={`w-screen fixed bottom-0 left-0 p-16t text-black flex flex-col bg-white border border-solid border-secondary_fill shadow-option_box_shadow rounded-t-12t`}>
         <div onClick={() => closeOption && closeOption(null)} className="w-[40px] h-[40px] flex justify-center items-center rounded-8t border border-solid border-primary bg-secondary_fill absolute right-[16px] top-[-48px]">
           <Close className="fill-primary" />
         </div>
@@ -39,7 +39,7 @@ const Options = ({ customClass, optionRef, url, closeOption, isMobile, openDelet
         </div>
       </div>
     </div> :
-      <div ref={optionRef} className={`z-50 hidden lg:flex w-[381px] text-black  flex-col bg-white border border-solid border-secondary_fill option_box_shadow rounded-12t ${customClass}`}>
+      <div ref={optionRef} className={`z-50 hidden lg:flex w-[381px] text-black  flex-col bg-white border border-solid border-secondary_fill shadow-option_box_shadow rounded-12t ${customClass}`}>
         <div className='m-16t'>
           <h3 className='text-mid font-semibold mb-24t'>Autres options</h3>
           <div className='flex mb-8t items-center'>

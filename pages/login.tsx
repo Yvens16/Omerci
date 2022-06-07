@@ -53,11 +53,11 @@ const Login: NextPage = () => {
   const getBack = () => {
     setStep(step - 1);
   }
-  const handleName = (e: any) => {
+  const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNameEmpty('');
     setName(e.target.value);
   }
-  const handleSurname = (e: any) => {
+  const handleSurname = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSurnameEmpty('');
     setSurname(e.target.value);
   }
@@ -67,7 +67,7 @@ const Login: NextPage = () => {
   const closeEmailModal = () => setEmailShow(false);
   const showModal = () => setShow(true);
 
-  const handleEmail = (e: any) => {
+  const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmailErrorMsg('');
     setEmail(e.target.value);
   }

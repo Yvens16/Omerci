@@ -30,4 +30,10 @@ module.exports = {
   core: {
     builder: "webpack5",
   },
+  env: (config) => ({
+    ...config,
+    NEXT_PUBLIC_GIFY_BETA_KEY: process.env.NEXT_PUBLIC_GIFY_BETA_KEY,
+    NEXT_PUBLIC_UNSPLASH_ACCESS_KEY: process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY,
+    NEXT_PUBLIC_UNSPLASH_SECRET_KEY: process.env.NEXT_PUBLIC_UNSPLASH_SECRET_KEY
+  })
 }
