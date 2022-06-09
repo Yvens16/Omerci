@@ -5,3 +5,9 @@ export interface Information {
   email: string,
 }
 
+export interface IEmailSettings {
+  handleInputs: () => void,
+  settings: {
+    [key: string]: boolean,
+  },
+}
