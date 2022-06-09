@@ -5,11 +5,11 @@ import Checkbox from '@components/inputs/Checkbox';
 
 const inputs = [
   {
-    title: "Envoyez moi un email pour...",
+    title: "Les cartes que j'ai crées",
     inputs: [{ name: "instructions", labelText: "Des instructions lorsque je crée une carte" }, { name: "new_message", labelText: "Un nouveau message envoyé dans une carte" }, { name: "card_opened", labelText: "Un destinataire à ouvert une carte que je lui ai envoyé" }, { name: "card_not_sent", labelText: "Des rappels concernant des cartes que j’aurais oublié d’envoyer" }]
   },
   {
-    title: "Les espcaes où je participe",
+    title: "Les cartes où je participe",
     inputs: [{ name: "card_sent", labelText: "Lorsque une carte est envoyé au destinataire" }]
   },
   {
