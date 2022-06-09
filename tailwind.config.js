@@ -5,7 +5,8 @@ module.exports = {
   ],
   theme: {
     maxWidth: {
-      content: '1240px'
+      content: '1240px',
+      laptopContent: "687px",
     },
     fontSize: {
       base: ['14px', '24px'],
