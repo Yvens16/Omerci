@@ -21,7 +21,7 @@ const inputs = [
 function EmailSettings({ settings, handleInputs }: IEmailSettings) {
   return (
     <div
-      className='email_settings border border-solid border-secondary_fill rounded-8t p-16t m-16t xl:w-laptopContent mx-auto'>
+      className='email_settings border border-solid border-secondary_fill rounded-8t p-16t m-16t xl:max-w-laptopContent mx-auto'>
       <div className='text-primary flex items-center mb-24t text-mid font-semibold'>
         <StreamIcon className="w-[14px] h-[14px] mr-8t" />
         Envoyez moi un email pour...
@@ -31,7 +31,7 @@ function EmailSettings({ settings, handleInputs }: IEmailSettings) {
           <p className='mb-12t text-black text-medium italic text-14t font-semibold'>{section.title}</p>
           {section.inputs.map((input, idx) => (
             <div key={idx} className="flex mb-8t">
-              <Checkbox labelText={'Des instructions lorsque je crée une carte'} type={''} handleCheck={handleInputs} name={'instructions'} isCheck={settings.instructions} />
+              <Checkbox labelText={input.labelText} type={''} handleCheck={handleInputs} name={input.name} isCheck={settings[input.name]} />
             </div>
           ))}
         </div>
