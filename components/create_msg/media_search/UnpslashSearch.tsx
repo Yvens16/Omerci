@@ -15,12 +15,13 @@ declare module "react" {
 }
 
 const unsplash = createApi({
-  accessKey: process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY as string,
+  accessKey: `${process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY}`,
   fetch: fetch,
 });
 
-function UnsplashSearch({ showModal, onClose, selectPhoto, mediaRef }: IUnsplashSearch) {
-  const modaleRef = useRef<HTMLDivElement>(null);
+
+
+function UnsplashSearch({showModal, onClose, selectPhoto, mediaRef}: IUnsplashSearch) {
   const [pictures, setPictures] = useState<any>();
   const [searchTerm, setSearchTerm] = useState<string>('');
   const handleSearchPictures = async (e: any) => {
@@ -45,7 +46,7 @@ function UnsplashSearch({ showModal, onClose, selectPhoto, mediaRef }: IUnsplash
   if (!showModal) return null;
 
   return (
-    <div className='w-full md:w-screen md:h-screen md:bg-modal md:fixed md:top-0 md:left-0 flex justify-center'>
+    <div className='w-full md:w-screen md:h-screen md:bg-modal md:fixed md:top-0 md:left-0 flex justify-center' data-testid="unsplashModalBg">
       <div ref={mediaRef} onClick={(e) => e.stopPropagation()} className="w-full md:bg-white md:w-[570px] md:h-[634px] rounded-12t md:flex md:flex-col md:mt-[6%] md:pb-16t">
         <div className='hidden md:flex w-full md:justify-between md:items-center p-24t'>
           <h3 className='text-title font-medium'>Rechercher une image</h3>

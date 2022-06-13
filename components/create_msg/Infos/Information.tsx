@@ -16,7 +16,7 @@ function Information({ handleInfo, messageCreatorInfo }: IInfo) {
         <div className="md:basis-1/4 md:mx-8t">
           <Input value={messageCreatorInfo.familyName} label={'Nom'} placeholder={'Dujardin'} handleChange={handleInfo} name={'familyName'} infoMessage={''}></Input></div>
         <div className="md:basis-2/4">
-          <Input value={messageCreatorInfo.email} label={'Adresse Email'} placeholder={'yvensbelaston@gmail.com'} handleChange={handleInfo} name={'email'} infoMessage={''}></Input></div>
+          <Input value={messageCreatorInfo.email} label={'Adresse Email'} placeholder={'jeandujardin@gmail.com'} handleChange={handleInfo} name={'email'} infoMessage={''}></Input></div>
       </div>
     </div>
   )

@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 import { withDesign } from 'storybook-addon-designs'
-import Cagnotte from './Cagnotte'
+import { Cagnotte } from './Cagnotte'
 
 
 export default {

@@ -1,4 +1,4 @@
-export interface Cagnotte {
+export interface ICagnotte {
   isCustomAmount: boolean,
   isAmountSelected: boolean,
   commissionValue: number,
@@ -9,4 +9,5 @@ export interface Cagnotte {
   stripePromise: any,
   onFileUpload: () => void,
   clientSecret: string,
+  reset: () => void,
 }

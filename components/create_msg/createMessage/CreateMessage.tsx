@@ -35,7 +35,7 @@ function CreateMessage({ fileChange, showWhichView, handleMessage, messageConten
           </div>}
         {(fileUrlToShow.type === "" && mediaUrl === "") && <div className="medias flex w-[70%] lg:w-[20%]">
           <Button myClass='flex-none !p-8t !w-[48px] h-[48px] from_gify bg-secondary_fill p-8t rounded-8t flex items-center justify-center text-mid text-primary font-semibold' handleClick={() => showWhichView("gify")} type={''} size={''} >GIF</Button>
-          <Button myClass='flex-none !p-8t !w-[48px] h-[48px] from_unsplash mx-24t bg-secondary_fill p-8t rounded-8t flex items-center justify-center text-mid text-primary font-semibold' handleClick={() => showWhichView("unsplash")} type={''} size={''}>
+          <Button testId='unsplashSearch' myClass='flex-none !p-8t !w-[48px] h-[48px] from_unsplash mx-24t bg-secondary_fill p-8t rounded-8t flex items-center justify-center text-mid text-primary font-semibold' handleClick={() => showWhichView("unsplash")} type={''} size={''}>
             <ImageIcon className="fill-primary w-[24px]" />
           </Button>
           <label htmlFor="docs" className="cursor-pointer w-[48px] h-[48px] from_device bg-secondary_fill p-8t rounded-8t flex items-center justify-center text-mid text-primary font-semibold">

@@ -14,3 +14,7 @@ export interface IInfo {
   handleInfo: (e:React.SyntheticEvent) => void,
   messageCreatorInfo: { name: string, familyName: string, email: string }
 }
+
+export interface IHeader {
+  backToCard: () => void,
+}

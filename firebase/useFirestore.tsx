@@ -59,7 +59,6 @@ export default function useFirestore() {
       return null;
     }
   }
-
   interface ICreateNewCard {
     userId: string,
     recipientName: string,
@@ -70,11 +69,12 @@ export default function useFirestore() {
     photoUrl: string,
   }
 
-  const createNewCard = async ({ userId, recipientName, title, hasCagnotte, isPremium, teamName, photoUrl }: ICreateNewCard) => {
-    const cardRef = doc(db, "cards");
+  const createNewCard = async ({ userId, recipientName, title, hasCagnotte, isPremium, teamName, photoUrl="" }: ICreateNewCard) => {
+    const cardRef = doc(collection(db, "cards"));
+    let card;
     const cardUrl = `${window.location.origin}/card/${cardRef.id}`;
     try {
-      await setDoc(cardRef, {
+      card = await setDoc(cardRef, {
         uid: cardRef.id,
         creatorId: userId,
         recipientName,
@@ -119,10 +119,10 @@ export default function useFirestore() {
         creationDate: serverTimestamp(),
         WhoHasAlreadySeenOnce,
       })
-      console.log("CreateNewCard: Creation sucessfull");
+      console.log("updateCard: Creation sucessfull");
       return cardRef.id;
     } catch (e) {
-      console.log("Error in createNewCard", e);
+      console.log("Error in updateCard", e);
     }
   }
 
@@ -164,6 +164,7 @@ export default function useFirestore() {
   }
 
   const getMessagesOnCard = async (cardId: string) => {
+    console.log('cardId:', cardId)
     const q = query(collection(db, "messages"), where("cardId", "==", cardId));
     const messages: DocumentData[] = [];
     try {
@@ -171,6 +172,7 @@ export default function useFirestore() {
       querySnapshot.forEach(doc => {
         messages.push(doc.data());
       });
+      console.log('messages:', messages)
       return messages;
     } catch (e: any) {
       throw new Error(e);
@@ -187,6 +189,16 @@ export default function useFirestore() {
     }
   }
 
+  const getVideoUrl = async (storageUrl: string) => {
+    try {
+      const url = await getDownloadURL(ref(storage, storageUrl));
+      console.log('url:', url)
+      return url;
+    } catch(err) {
+      console.log("getVideoUrl", err);
+    }
+  }
+
   interface CreateMessage {
     docName?: string,
     docType?: "gif" | "audio" | 'image' | "video",
@@ -195,10 +207,11 @@ export default function useFirestore() {
     message: string,
     userId: string,
     mediaUrl: string,
-    creator: { name: string, familyName: string, email: string }
+    creator: { name: string, familyName: string, email: string },
+    cardId: string,
   }
 
-  const createMessage = async ({ docName, docType, file, creatorId = "1234test", message, mediaUrl="", creator }: CreateMessage) => {
+  const createMessage = async ({ docName, docType, file, creatorId = "1234test", message, mediaUrl="", creator, cardId }: CreateMessage) => {
     const MessageRef = doc(collection(db, "messages"));
     const storageRef = ref(storage, `${docType}/${docName}`);
     console.log('storageRef:', storageRef.fullPath)
@@ -206,6 +219,7 @@ export default function useFirestore() {
       console.log('mediaUrl:', mediaUrl)
       if (mediaUrl !== "" && !file) {
         await setDoc(MessageRef, {
+          cardId,
           media: { url: mediaUrl, type: docType },
           uid: MessageRef.id,
           creatorId: creatorId,
@@ -218,6 +232,7 @@ export default function useFirestore() {
         const fullUrl =  await getDownloadURL(storageRef);
         console.log('Snapshot was uploaded !:', snapshot)
         await setDoc(MessageRef, {
+          cardId,
           media: { url: fullUrl, type: docType },
           uid: MessageRef.id,
           creatorId: creatorId,
@@ -250,6 +265,7 @@ export default function useFirestore() {
     getCard,
     getMessagesOnCard,
     deleteMessage,
-    createMessage
+    createMessage,
+    getVideoUrl
   }
 }

@@ -170,9 +170,10 @@ const CreateCard: NextPage = () => {
     const recipientName = name;
     const teamName = team;
     const cardRefId =  await createNewCard({ userId, recipientName, title, hasCagnotte, isPremium, teamName });
+    console.log('cardRefId:', cardRefId)
     setWhyValues(initialWhyValues);
     // TODO: Re routing to la carte en question  
-    // Router.push(`/card/${cardRefId}`);
+    Router.push(`/card/${cardRefId}`);
   }
   const anonymousCreateCard = async () => {
     const { name, title, hasCagnotte, isPremium, team, email, userName } = whyValues;
@@ -190,8 +191,9 @@ const CreateCard: NextPage = () => {
       const userId = user.uid;
       await addUserInfo({uid: userId, firstName:userName, lastName:"", howDoYouKnowUs:"", email})
       const cardRefId = await createNewCard({ userId, recipientName, title, hasCagnotte, isPremium, teamName });
+      console.log('cardRefId:', cardRefId)
     // TODO: Re routing to la carte en question   
-      // Router.push(`/card/${cardRefId}`);
+      Router.push(`/card/${cardRefId}`);
     }
     //TODO: Open connection modal 
   }
@@ -295,7 +297,7 @@ const CreateCard: NextPage = () => {
           <Button isDisabled={false} type='secondary' myClass='grow-1 h-[48px] mr-8t md:mr-16t' handleClick={cancelCreation} size='big'>
             Annuler
           </Button>
-          <Button isDisabled={isDisabled} myClass={'grow-1 flex text-center justify-center h-[48px]'} handleClick={validateCreation} type='primary' size={'big'}>Créer la carte</Button>
+          <Button isDisabled={isDisabled} myClass={'grow-1 flex text-center justify-center h-[48px]'} handleClick={() => validateCreation()} type='primary' size={'big'}>Créer la carte</Button>
         </div>
       </div>
 

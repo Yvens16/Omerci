@@ -3,11 +3,12 @@ import dynamic from 'next/dynamic';
 import type { NextPage } from "next";
 import { IGif } from "@giphy/js-types";
 import { useRouter } from 'next/router';
-import { IMessageCreation } from "@components/create_msg/interfaces";
-import { useFirestoreDb } from 'context/FirestoreContext';
+import { IHeader, IMessageCreation } from "@components/create_msg/interfaces";
+import { ICagnotte } from '@components/create_msg/cagnotte/interfaces';
+import { useFirestoreDb } from '../context/FirestoreContext';
 import Button from '@components/buttons/Button';
 import { useOnClickOutside } from '@components/utils/hooks/useClickOutside';
-import { useAuth } from 'context/AuthUserContext';
+import { useAuth } from '../context/AuthUserContext';
 import useSWR from 'swr'
 import {
   PaymentElement,
@@ -21,25 +22,27 @@ const stripePromise = loadStripe(stripekey!);
 
 
 
-const Header = dynamic(() => import("@components/create_msg/header/Header"));
-const MessageCreation = dynamic(() => import("@components/create_msg/createMessage/CreateMessage"));
+const Header = dynamic<IHeader>(() => import("@components/create_msg/header/Header"));
+const MessageCreation = dynamic<IMessageCreation>(() => import("@components/create_msg/createMessage/CreateMessage"));
 const Infos = dynamic(() => import("@components/create_msg/Infos/Information"));
-const Cagnotte = dynamic(() => import("@components/create_msg/cagnotte/Cagnotte"));
+const Cagnotte = dynamic<ICagnotte>(() => (import("@components/create_msg/cagnotte/Cagnotte")).then((mod) => mod.Cagnotte));
 const GifyModal = dynamic(() => import('@components/create_msg/media_search/GifySearch'));
 const UnsplashModal = dynamic(() => import('@components/create_msg/media_search/UnpslashSearch'));
 
 
 const CreateMessage: NextPage = () => {
+  const router = useRouter();
+  console.log(router.query, "@@@@@@@@@@@")
   const [stripeMessage, setMessage] = useState(null);
   const [stripeIsLoading, setStripeIsLoading] = useState(false);
 
   const { authUser } = useAuth();
   const [messageCreatorInfo, setInfo] = useState<{ name: string, familyName: string, email: string }>({
-    name: "Jean",
-    familyName: "Dujardin",
-    email: "te@gmail.com",
+    name: "",
+    familyName: "",
+    email: "",
   });
-  const [messageContent, setMessageContent] = useState<string>("Hello brad");
+  const [messageContent, setMessageContent] = useState<string>("");
   const [gifUrl, setGifUrl] = useState<string>("");
   const [unsplashUrl, setUnsplashUrl] = useState<string>("");
   const [cagnotteAmount, setCagnotteAmount] = useState<number>(0);
@@ -95,10 +98,24 @@ const CreateMessage: NextPage = () => {
   }
 
   const onFileUpload = async () => {
+    const cardId = router.query.carteid as string;
     if (selectedFile) {
       const fileType: any = selectedFile.type.split("/")[0];
-      await createMessage({ file: selectedFile, docName: selectedFile.name, docType: fileType, creatorId: "1234", message: messageContent, creator: messageCreatorInfo });
-    } else if (unsplashUrl !== "" || gifUrl !== "") await createMessage({ docType: unsplashUrl.length ? "image" : "gif", creatorId: "1234", message: messageContent, mediaUrl: unsplashUrl.length ? unsplashUrl : gifUrl, creator: messageCreatorInfo })
+      await createMessage({ cardId, file: selectedFile, docName: selectedFile.name, docType: fileType, creatorId: "1234", message: messageContent, creator: messageCreatorInfo });
+    } else if (unsplashUrl !== "" || gifUrl !== "") await createMessage({ cardId, docType: unsplashUrl.length ? "image" : "gif", creatorId: "1234", message: messageContent, mediaUrl: unsplashUrl.length ? unsplashUrl : gifUrl, creator: messageCreatorInfo })
+    router.push(`card/${cardId}`)
+  }
+  const reset = () => {
+    setInfo({ name: "", familyName: "", email: "" })
+    setMessageContent("");
+    setGifUrl("");
+    setUnsplashUrl("");
+    setCagnotteAmount(0);
+    setIsAmountSelected(false);
+    setFiles(undefined);
+    setFileToShowURL({  type:"", url:"" });
+    setIsCustomAmount(false);
+    // router.push(`/card/${router.query.carteid}`);
   }
 
   const handleMessage = (e: any) => {
@@ -133,41 +150,43 @@ const CreateMessage: NextPage = () => {
     // passing the client secret obtained from the server
     clientSecret: data && data.clientSecret ? data.clientSecret : "",
   };
+  const backToCard = () => {
+    router.push(`/card/${router.query.carteid}`);
+  }
 
   return (
     <>
       <div className="px-16t xl:px-0">
-        {console.log("data to show secretClient", data)}
-        {showView === "default" && <>
-          <Header />
-          <div className='mb-24t'>
-            <MessageCreation fileUrlToShow={fileUrlToShow} deleteMediaState={deleteMediaState} fileChange={onFileChange} showWhichView={showWhichView} handleMessage={handleMessage} messageContent={messageContent} mediaUrl={unsplashUrl.length ? unsplashUrl : gifUrl} />
-          </div>
-          <div className='mb-24t'>
-            <Infos handleInfo={handleInfo} messageCreatorInfo={messageCreatorInfo} />
-          </div>
-          <div className='mb-40t'>
-            {data && data.clientSecret &&
-              <Cagnotte
-                stripePromise={stripePromise}
-                cagnotteAmount={cagnotteAmount}
-                handleCustomAmount={handleCustomAmount}
-                stripeOption={options}
-                handleCagnotteAmount={handleCagnotteAmount}
-                isCustomAmount={isCustomAmount}
-                isAmountSelected={isAmountSelected}
-                onFileUpload={onFileUpload}
-                clientSecret={data.clientSecret}
-                commissionValue={0} />
-            }
-          </div>
-          {/* <div className="buttons flex justify-between mb-12t xl:max-w-laptopContent xl:mx-auto 2xl:max-w-content">
+        <Header backToCard={backToCard}/>
+        <div className='mb-24t'>
+          <MessageCreation fileUrlToShow={fileUrlToShow} deleteMediaState={deleteMediaState} fileChange={onFileChange} showWhichView={showWhichView} handleMessage={handleMessage} messageContent={messageContent} mediaUrl={unsplashUrl.length ? unsplashUrl : gifUrl} />
+        </div>
+        <div className='mb-24t'>
+          <Infos handleInfo={handleInfo} messageCreatorInfo={messageCreatorInfo} />
+        </div>
+        <div className='mb-40t'>
+          {data && data.clientSecret &&
+            <Cagnotte
+              stripePromise={stripePromise}
+              cagnotteAmount={cagnotteAmount}
+              handleCustomAmount={handleCustomAmount}
+              stripeOption={options}
+              handleCagnotteAmount={handleCagnotteAmount}
+              isCustomAmount={isCustomAmount}
+              isAmountSelected={isAmountSelected}
+              onFileUpload={onFileUpload}
+              clientSecret={data.clientSecret}
+              commissionValue={0}
+              reset={reset}
+            />
+          }
+        </div>
+        {/* <div className="buttons flex justify-between mb-12t xl:max-w-laptopContent xl:mx-auto 2xl:max-w-content">
             <Button myClass={'mr-12t'} handleClick={function (): void {
               throw new Error('Function not implemented.');
             }} type={'secondary'} size={'big'}>Annuler</Button>
             <Button myClass={''} handleClick={onFileUpload} type={'primary'} size={'big'}>Ajouter le message</Button>
           </div> */}
-        </>}
       </div>
       {showView === "gify" && <GifyModal mediaRef={MediasModalRef} showModal={true} onClose={() => showWhichView("default")} selectGif={selectGif} />}
       {showView === "unsplash" && <UnsplashModal mediaRef={MediasModalRef} showModal={true} onClose={() => showWhichView("default")} selectPhoto={selectPhoto} />}

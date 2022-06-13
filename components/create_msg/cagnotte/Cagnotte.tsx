@@ -4,7 +4,7 @@ import CircleChevron from "../../../public/icons/circle_arrow.svg"
 import Input from '@components/inputs/Input'
 import Button from '@components/buttons/Button'
 import CheckoutForm from './CheckoutForm'
-import { Cagnotte as ICagnotte } from './interfaces'
+import { ICagnotte } from './interfaces'
 import { Elements, CardNumberElement, CardExpiryElement, CardCvcElement, PaymentElement } from '@stripe/react-stripe-js';
 
 
@@ -17,10 +17,7 @@ import { Elements, CardNumberElement, CardExpiryElement, CardCvcElement, Payment
 //   console.log('stripePromise:', stripePromise)
 // }
 // load();
-
-
-
-function Cagnotte({ isCustomAmount, isAmountSelected, commissionValue, handleCagnotteAmount, stripeOption, handleCustomAmount, cagnotteAmount, stripePromise, onFileUpload, clientSecret }: ICagnotte) {
+export function Cagnotte({ isCustomAmount, isAmountSelected, commissionValue, handleCagnotteAmount, stripeOption, handleCustomAmount, cagnotteAmount, stripePromise, onFileUpload, clientSecret, reset }: ICagnotte) {
   return (
     <div className='rounded-8t border border-solid border-secondary_fill p-16t xl:max-w-laptopContent xl:mx-auto 2xl:max-w-content'>
       <div className="header flex items-center mb-24t">
@@ -57,15 +54,20 @@ function Cagnotte({ isCustomAmount, isAmountSelected, commissionValue, handleCag
             https://stripe.com/docs/js/elements_object/fetch_updates
           */}
         {/* options={stripeOption} key={stripeOption.clientSecret}: if using paymentElements */}
-        <Elements stripe={stripePromise}>
+        {/* <Elements stripe={stripePromise}>
           <div className='flex w-full justify-between flex-wrap'>
             <CheckoutForm isAmountSelected={isAmountSelected} onFileUpload={onFileUpload} clientSecret={clientSecret} />
           </div>
-        </Elements>
+        </Elements> */}
+        <div className="buttons w-full flex justify-between mb-12t xl:max-w-laptopContent xl:mx-auto 2xl:max-w-content">
+          <Button myClass={'mr-12t'} handleClick={reset} type={'secondary'} size={'big'}>Annuler</Button>
+          <Button myClass={''} handleClick={() => {
+            // acceptPayment();
+            onFileUpload();
+          }} type={'primary'} size={'big'}>Ajouter le message</Button>
+        </div>
       </div>
 
     </div>
   )
 }
-
-export default Cagnotte;

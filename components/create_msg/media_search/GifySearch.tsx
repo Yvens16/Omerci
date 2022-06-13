@@ -18,7 +18,6 @@ declare module "react" {
 const gf = new GiphyFetch(`${process.env.NEXT_PUBLIC_GIFY_BETA_KEY}`);
 
 function GifySearch({showModal, onClose, selectGif, mediaRef} : IGifySearch) {
-  console.log(window.innerWidth)
   const [gifs, setGifs] = useState<any>();
   const [searchTerm, setSearchTerm] = useState<string>('');
   const handleSearchGifs = async (e: any) => {
@@ -36,7 +35,7 @@ function GifySearch({showModal, onClose, selectGif, mediaRef} : IGifySearch) {
   if (!showModal) return null;
 
   return (
-    <div className='w-full md:w-screen md:h-screen md:bg-modal md:fixed md:top-0 md:left-0 flex justify-center'>
+    <div className='w-full md:w-screen md:h-screen md:bg-modal md:fixed md:top-0 md:left-0 flex justify-center' data-testid="gifySearch">
       <div ref={mediaRef} onClick={(e) => e.stopPropagation()} className="w-full md:bg-white md:w-[570px] md:h-[634px] rounded-12t md:flex md:flex-col md:mt-[6%] md:pb-16t">
         <div className='hidden md:flex w-full md:justify-between md:items-center p-24t'>
           <h3 className='text-title font-medium'>Rechercher un GIF</h3>
