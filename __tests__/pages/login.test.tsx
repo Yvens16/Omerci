@@ -86,6 +86,7 @@ const SendEmailLink = async () => {
 
 const setUrl = async (isDifferentDevice=false) => {
   const url = await getEmailLink();
+  console.log('url:', url)
   const search = url!.split('login')[1];
   if (!isDifferentDevice) {
     Object.defineProperty(window, 'location', {

@@ -32,7 +32,7 @@ const UnsplashModal = dynamic(() => import('@components/create_msg/media_search/
 
 const CreateMessage: NextPage = () => {
   const router = useRouter();
-  console.log(router.query, "@@@@@@@@@@@")
+  
   const [stripeMessage, setMessage] = useState(null);
   const [stripeIsLoading, setStripeIsLoading] = useState(false);
 

@@ -197,6 +197,7 @@ const CardPage: NextPage = () => {
       <div className='px-16t xl:px-0 xl:grid xl:grid-cols-[30%_70%]'>
         {/* <CardParams teamName={"card.teamName"} goToCreateMessage={goToCreateMessage} isAdmin={isAdmin} photoUrl={'/avatars/girl.jpg'} backgroundUrl={"'/images/card_params_bg.jpg'"}
           cardTitle={"card.cardTitle"} receiverName={"card.recipientName"} messageNumber={12} moneyCount={13} /> */}
+          {console.log('cardStatus:', cardStatus, messagesStatus)}
         {cardStatus === "success" && messagesStatus === "success" && <CardParams toggleParamsModal={toggleParamsModal} teamName={card.teamName} goToCreateMessage={goToCreateMessage} isAdmin={isAdmin} photoUrl={card.photoUrl || '/avatars/girl.jpg'} backgroundUrl={"'/images/card_params_bg.jpg'"}
           cardTitle={card.cardTitle} receiverName={card.recipientName} messageNumber={messages.length} moneyCount={card.moneyCount} />}
         {cardStatus === "error" && <div className="bg-danger text-white mb-36t flex flex-col xl:max-w-[350px] h-max">
