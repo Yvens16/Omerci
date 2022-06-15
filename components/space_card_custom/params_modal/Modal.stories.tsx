@@ -11,7 +11,14 @@ export default {
   title: "Modal Params",
   component: Modal,
   decorators: [withDesign],
-  args: {}
+  args: {
+    values: {
+      name: "name",
+      title: "title",
+      hasCagnotte: false,
+      isPremium: false,
+    }
+  }
 } as ComponentMeta<typeof Modal>
 
 const Template: ComponentStory<typeof Modal> = (args) => <Modal {...args}></Modal>
