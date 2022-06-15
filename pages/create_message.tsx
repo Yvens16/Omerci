@@ -164,7 +164,7 @@ const CreateMessage: NextPage = () => {
         <div className='mb-24t'>
           <Infos handleInfo={handleInfo} messageCreatorInfo={messageCreatorInfo} />
         </div>
-        <div className='mb-40t'>
+        {/* <div className='mb-40t'>
           {data && data.clientSecret &&
             <Cagnotte
               stripePromise={stripePromise}
@@ -180,13 +180,11 @@ const CreateMessage: NextPage = () => {
               reset={reset}
             />
           }
-        </div>
-        {/* <div className="buttons flex justify-between mb-12t xl:max-w-laptopContent xl:mx-auto 2xl:max-w-content">
-            <Button myClass={'mr-12t'} handleClick={function (): void {
-              throw new Error('Function not implemented.');
-            }} type={'secondary'} size={'big'}>Annuler</Button>
+        </div> */}
+        <div className="buttons grid grid-cols-2 mb-12t xl:max-w-laptopContent xl:mx-auto 2xl:max-w-content">
+            <Button myClass={'mr-12t'} handleClick={reset} type={'secondary'} size={'big'}>Annuler</Button>
             <Button myClass={''} handleClick={onFileUpload} type={'primary'} size={'big'}>Ajouter le message</Button>
-          </div> */}
+          </div>
       </div>
       {showView === "gify" && <GifyModal mediaRef={MediasModalRef} showModal={true} onClose={() => showWhichView("default")} selectGif={selectGif} />}
       {showView === "unsplash" && <UnsplashModal mediaRef={MediasModalRef} showModal={true} onClose={() => showWhichView("default")} selectPhoto={selectPhoto} />}

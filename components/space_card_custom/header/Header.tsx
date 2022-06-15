@@ -4,7 +4,7 @@ import SendIcon from '../../../public/icons/communication/send_bis.svg'
 import ShortArrowIcon from '../../../public/icons/arrow/short_left.svg'
 import Button from "@components/buttons/Button"
 
-function header() {
+function Header() {
   return (
     <div className='navigate flex justify-between items-baseline'>
       <ChevronLeftIcon className='fill-primary md:hidden' />
@@ -23,4 +23,4 @@ function header() {
   )
 }
 
-export default header
+export default Header

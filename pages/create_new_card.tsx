@@ -157,7 +157,7 @@ const CreateCard: NextPage = () => {
   const { authUser, doesEmailAlreadyExist, anonymousSignIn, magicSignInUp } = useAuth();
   const cancelCreation = () => {
     setWhyValues(initialWhyValues);
-    Router.back();
+    Router.push("/personal_space");
   };
   const validateCreation = async () => {
     if (!isAnonymousFlow) createCardKnownUser()

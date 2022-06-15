@@ -3,10 +3,12 @@ import Link from 'next/link';
 import Button from '../buttons/Button';
 import Menu from '../../public/icons/menu/hamburger.svg'; //./../public/icons/menu/hamburger.svg
 import Cross from '../../public/icons/menu/close_big.svg';
+import {useRouter} from 'next/router';
 
 
 const Navbar = ({ }) => {
   const [isNavOpen, setNavOpen] = useState(false);
+  const router = useRouter();
   return (
     <nav className='bg-white'>
       <div className='flex justify-between items-center px-16t xl:px-0 py-8t lg:py-10t relative lg:h-[73px] max-w-content mx-auto'>
@@ -19,7 +21,7 @@ const Navbar = ({ }) => {
               <Button myClass='nav font-base mt-8t' type='third' size='' handleClick={() => console.log('button2')}><Link href='/'>Prix</Link></Button>
               <Button myClass='nav font-base mt-8t' type='third' size='' handleClick={() => console.log('button3')}><Link href='/'>F.A.Q</Link></Button>
               <Button myClass='nav font-base mt-8t' type='third' size='' handleClick={() => console.log('button4')}><Link href='/'>À propos</Link></Button>
-              <Button myClass='mt-8t' type='primary' size='' handleClick={() => console.log('bye')}>Connexion</Button>
+              <Button myClass='mt-8t' type='primary' size='' handleClick={() => router.push("/login")}>Connexion</Button>
             </div> : null}
         </div>
         <div className='hidden lg:flex lg:justify-between lg:items-center'>
@@ -27,7 +29,7 @@ const Navbar = ({ }) => {
           <Button myClass='nav font-base' type='third' size='' handleClick={() => console.log('button2')}><Link href='/'>Prix</Link></Button>
           <Button myClass='nav font-base' type='third' size='' handleClick={() => console.log('button3')}><Link href='/'>F.A.Q</Link></Button>
           <Button myClass='nav font-base' type='third' size='' handleClick={() => console.log('button4')}><Link href='/'>À propos</Link></Button>
-          <Button myClass='ml-36t mr-12t lg:mr-0' type='primary' size='' handleClick={() => console.log('bye')}>Connexion</Button>
+          <Button myClass='ml-36t mr-12t lg:mr-0' type='primary' size='' handleClick={() => router.push("/login")}>Connexion</Button>
         </div>
       </div>
     </nav>
