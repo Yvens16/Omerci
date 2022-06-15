@@ -112,7 +112,7 @@ test("User is Anonymous but has an account", async () => {
   await user.type(emailInput, fakeUserEmail);
   await user.type(teamName, "Toute l'équipe Compta");
   await user.click(createBtn);
-  expect(screen.queryByText("Souhaitez-vous vous connecter ?")).toBeInTheDocument();
+  expect(screen.getByText("Souhaitez-vous vous connecter ?")).toBeInTheDocument();
   // const cancelBtn = screen.getAllByText("Annuler")[1];
   const connectionBtn = screen.getByText("Me connecter");
   await user.click(connectionBtn);
@@ -125,7 +125,7 @@ test("User is Anonymous but has an account", async () => {
   // expect(screen.getByText("un compte Omerci")).toBeInTheDocument();
   const modalLink = screen.getByText("un compte Omerci");
   await user.click(modalLink);
-  expect(screen.queryByText("Souhaitez-vous vous connecter ?")).toBeInTheDocument();
+  expect(screen.getByText("Souhaitez-vous vous connecter ?")).toBeInTheDocument();
 })
 
 

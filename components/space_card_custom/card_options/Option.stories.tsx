@@ -2,13 +2,17 @@ import { ComponentStory, ComponentMeta } from '@storybook/react'
 import { withDesign } from 'storybook-addon-designs'
 import Options from './Option'
 import MobileOption from './MobileOption';
+import { IOptions } from './interfaces';
 
 
 export default {
   title: "Option Mobile/Desktop",
   component: Options,
   decorators: [withDesign],
-  args: {}
+  args: {
+    toggleDeleteModal: () => console.log("toggle DeleteModale"),
+    modifyMessage: () => console.log("modify Message")
+  }
 } as ComponentMeta<typeof Options>
 
 const Template: ComponentStory<typeof Options> = (args) => <Options {...args}></Options>
@@ -16,7 +20,7 @@ const Template: ComponentStory<typeof Options> = (args) => <Options {...args}></
 
 export const DesktopOptions = Template.bind({});
 DesktopOptions.args = {};
-export const MobileOpt = () => <MobileOption></MobileOption>
+export const MobileOpt = (args: IOptions) => <MobileOption {...args}></MobileOption>
 MobileOpt.parameters = {
   design : {
     type: "figma",

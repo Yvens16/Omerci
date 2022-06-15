@@ -10,7 +10,7 @@ export default {
   args: {}
 } as ComponentMeta<typeof Recipient>
 
-const Template: ComponentStory<typeof Recipient> = (args) => <Recipient {...args}></Recipient>
+const Template: ComponentStory<typeof Recipient> = (args) => <Recipient></Recipient>
 
 
 export const RecipientStr = Template.bind({});
