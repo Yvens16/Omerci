@@ -31,7 +31,7 @@ const Header = ({ cancelCreation }: { cancelCreation: () => void }) => (
     <Button handleClick={cancelCreation} myClass='xl:-translate-y-[20%] hidden lg:flex lg:absolute lg:px-10t cursor-pointer' type='third' size=''>
       <>
         <LeftArrow className='fill-primary w-[24px] h-[24px]' />
-        <span className='text-primary xl:text-mid xl:font-medium'>Retour à l'accueil</span>
+        <span className='text-primary xl:text-mid xl:font-medium'>Retour au tableau de bord</span>
       </>
     </Button>
     <div className='lg:max-w-[687px] lg:mx-auto flex-1'>
