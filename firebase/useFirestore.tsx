@@ -1,19 +1,22 @@
 import React from 'react';
 import useFirebaseAuth from '../firebase/useFirebaseAuth';
-import {db} from './index';  
-import { getFirestore,
-    collection,
-    addDoc,
-    setDoc,
-    doc,
-    getDoc,
-    serverTimestamp,
-    getDocs,
-    deleteDoc,
-    DocumentData,
-    query,
-    updateDoc,
-    where} from "firebase/firestore";
+import { db, storage } from './index';
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  setDoc,
+  doc,
+  getDoc,
+  serverTimestamp,
+  getDocs,
+  deleteDoc,
+  DocumentData,
+  query,
+  updateDoc,
+  where
+} from "firebase/firestore";
 
 export default function useFirestore() {
   const { updateAuthDisplayName } = useFirebaseAuth();
@@ -25,8 +28,7 @@ export default function useFirestore() {
     email: string,
   }
 
-  const addUserInfo = async ({uid, firstName, lastName, howDoYouKnowUs, email}:IaddUserInfo) => {
-    // const db = getFirestore(firebaseApp);
+  const addUserInfo = async ({ uid, firstName, lastName, howDoYouKnowUs, email }: IaddUserInfo) => {
     try {
       await setDoc(doc(db, 'users', uid), {
         uid,
@@ -35,7 +37,7 @@ export default function useFirestore() {
         howDoYouKnowUs,
         email
       });
-      await updateAuthDisplayName({firstName, lastName});
+      await updateAuthDisplayName({ firstName, lastName });
     } catch (e) {
       // TODO: add snackbar to display the error here
       console.log('Error in addUserInfo to firestore', e);
@@ -57,7 +59,6 @@ export default function useFirestore() {
       return null;
     }
   }
-
   interface ICreateNewCard {
     userId: string,
     recipientName: string,
@@ -68,11 +69,12 @@ export default function useFirestore() {
     photoUrl: string,
   }
 
-  const createNewCard = async ({userId, recipientName, title, hasCagnotte, isPremium, teamName, photoUrl}: ICreateNewCard) => {
-    const cardRef = doc(db, "cards");
+  const createNewCard = async ({ userId, recipientName, title, hasCagnotte, isPremium, teamName, photoUrl="" }: ICreateNewCard) => {
+    const cardRef = doc(collection(db, "cards"));
+    let card;
     const cardUrl = `${window.location.origin}/card/${cardRef.id}`;
     try {
-      await setDoc(cardRef, {
+      card = await setDoc(cardRef, {
         uid: cardRef.id,
         creatorId: userId,
         recipientName,
@@ -98,7 +100,7 @@ export default function useFirestore() {
     isSent: string,
     WhoHasAlreadySeenOnce: string[],
   }
-  const updateCard = async ({userId, recipientName, title, hasCagnotte, isPremium, teamName, cardId, photoUrl, isSent, WhoHasAlreadySeenOnce}: IUpdateCard) => {
+  const updateCard = async ({ userId, recipientName, title, hasCagnotte, isPremium, teamName, cardId, photoUrl, isSent, WhoHasAlreadySeenOnce }: IUpdateCard) => {
     WhoHasAlreadySeenOnce.push(userId);
     const cardRef = doc(db, "cards", cardId);
     const cardUrl = `${window.location.origin}/card/${cardId}`;
@@ -117,10 +119,10 @@ export default function useFirestore() {
         creationDate: serverTimestamp(),
         WhoHasAlreadySeenOnce,
       })
-      console.log("CreateNewCard: Creation sucessfull");
+      console.log("updateCard: Creation sucessfull");
       return cardRef.id;
     } catch (e) {
-      console.log("Error in createNewCard", e);
+      console.log("Error in updateCard", e);
     }
   }
 
@@ -131,13 +133,13 @@ export default function useFirestore() {
       console.log("Delete", uid)
       await deleteDoc(doc(db, "cards", uid));
       // TODO: Add snackbar to display success
-    } catch(e) {
+    } catch (e) {
       console.log("Error in deleteCardInDB", e);
       // TODO: Add snackbar to display fail
     }
   }
 
-  const getCards = async (creatorUid:string) => {
+  const getCards = async (creatorUid: string) => {
     // const db = getFirestore(firebaseApp);
     const cards: DocumentData[] = [];
     const q = query(collection(db, "cards"), where("creatorId", "==", creatorUid));
@@ -147,7 +149,7 @@ export default function useFirestore() {
         cards.push(doc.data());
       });
       return cards;
-    } catch(e: any) {
+    } catch (e: any) {
       throw new Error(e);
     }
   }
@@ -161,7 +163,8 @@ export default function useFirestore() {
     }
   }
 
-  const getMessagesOnCard = async(cardId: string) => {
+  const getMessagesOnCard = async (cardId: string) => {
+    console.log('cardId:', cardId)
     const q = query(collection(db, "messages"), where("cardId", "==", cardId));
     const messages: DocumentData[] = [];
     try {
@@ -169,8 +172,9 @@ export default function useFirestore() {
       querySnapshot.forEach(doc => {
         messages.push(doc.data());
       });
+      console.log('messages:', messages)
       return messages;
-    } catch(e: any) {
+    } catch (e: any) {
       throw new Error(e);
     }
   }
@@ -179,12 +183,72 @@ export default function useFirestore() {
     try {
       await deleteDoc(doc(db, "messages", uid));
       // TODO: Add snackbar to display success
-    } catch(e) {
+    } catch (e) {
       console.log("Error in deleteMessage", e);
       // TODO: Add snackbar to display fail
     }
   }
-  
+
+  const getVideoUrl = async (storageUrl: string) => {
+    try {
+      const url = await getDownloadURL(ref(storage, storageUrl));
+      console.log('url:', url)
+      return url;
+    } catch(err) {
+      console.log("getVideoUrl", err);
+    }
+  }
+
+  interface CreateMessage {
+    docName?: string,
+    docType?: "gif" | "audio" | 'image' | "video",
+    file?: File,
+    creatorId: string,
+    message: string,
+    userId: string,
+    mediaUrl: string,
+    creator: { name: string, familyName: string, email: string },
+    cardId: string,
+  }
+
+  const createMessage = async ({ docName, docType, file, creatorId = "1234test", message, mediaUrl="", creator, cardId }: CreateMessage) => {
+    const MessageRef = doc(collection(db, "messages"));
+    const storageRef = ref(storage, `${docType}/${docName}`);
+    console.log('storageRef:', storageRef.fullPath)
+    try {
+      console.log('mediaUrl:', mediaUrl)
+      if (mediaUrl !== "" && !file) {
+        await setDoc(MessageRef, {
+          cardId,
+          media: { url: mediaUrl, type: docType },
+          uid: MessageRef.id,
+          creatorId: creatorId,
+          creationDate: serverTimestamp(),
+          messageContent: message,
+          creator, 
+        })
+      } else {
+        const snapshot = await uploadBytes(storageRef, file!);
+        const fullUrl =  await getDownloadURL(storageRef);
+        console.log('Snapshot was uploaded !:', snapshot)
+        await setDoc(MessageRef, {
+          cardId,
+          media: { url: fullUrl, type: docType },
+          uid: MessageRef.id,
+          creatorId: creatorId,
+          creationDate: serverTimestamp(),
+          messageContent: message,
+          creator, 
+        })
+      }
+      console.log("CreateNewMessage: Creation sucessfull");
+      return MessageRef.id;
+    } catch (e) {
+      console.log("Error in createNewMessage", e);
+    }
+  }
+
+
   /** 
    * Check subcollections
    * User access: Create a different collection with users role or create a subcollection on the card 
@@ -200,6 +264,8 @@ export default function useFirestore() {
     getCards,
     getCard,
     getMessagesOnCard,
-    deleteMessage
+    deleteMessage,
+    createMessage,
+    getVideoUrl
   }
 }

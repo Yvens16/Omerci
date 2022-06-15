@@ -83,7 +83,7 @@ test("User is Anonymous and create a card", async () => {
   await user.click(createBtn);
   //todo: delete the not in the test once I trully want to redirect 
   await waitFor(() => {
-    expect(Router.push).not.toHaveBeenCalledWith("/card/fake_uid");
+    expect(Router.push).toHaveBeenCalledWith("/card/fake_uid");
   })
   expect(mockCreateNewCard).toHaveBeenCalledWith({"hasCagnotte": false, "isPremium": false, "recipientName": "Recipient Test", "teamName": "Toute l'équipe Compta", "title": "Merci pour tout Fake User", "userId": "fake_anonymous_uid"});
 })
@@ -112,7 +112,7 @@ test("User is Anonymous but has an account", async () => {
   await user.type(emailInput, fakeUserEmail);
   await user.type(teamName, "Toute l'équipe Compta");
   await user.click(createBtn);
-  expect(screen.queryByText("Souhaitez-vous vous connecter ?")).toBeInTheDocument();
+  expect(screen.getByText("Souhaitez-vous vous connecter ?")).toBeInTheDocument();
   // const cancelBtn = screen.getAllByText("Annuler")[1];
   const connectionBtn = screen.getByText("Me connecter");
   await user.click(connectionBtn);
@@ -125,7 +125,7 @@ test("User is Anonymous but has an account", async () => {
   // expect(screen.getByText("un compte Omerci")).toBeInTheDocument();
   const modalLink = screen.getByText("un compte Omerci");
   await user.click(modalLink);
-  expect(screen.queryByText("Souhaitez-vous vous connecter ?")).toBeInTheDocument();
+  expect(screen.getByText("Souhaitez-vous vous connecter ?")).toBeInTheDocument();
 })
 
 

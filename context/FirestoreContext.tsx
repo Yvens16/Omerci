@@ -43,6 +43,18 @@ type TMessages = {
   mediaUrl: string,
   text: string,
 }
+interface CreateMessage {
+  docName?: string,
+  docType?: "gif" | "audio" | 'image' | "video",
+  file?: File,
+  creatorId: string,
+  message: string,
+  gifyUrl?: string,
+  unsplashUrl?: string,
+  mediaUrl?: string,
+  creator: { name: string, familyName: string, email: string },
+  cardId: string,
+}
 interface IfirestoreContext {
   addUserInfo: ({ uid, firstName, lastName, howDoYouKnowUs, email }: { uid: string, firstName: string, lastName: string, howDoYouKnowUs: string, email: string }) => Promise<void>,
   getUserInfo: (uid: string) => Promise<TResul>,
@@ -53,6 +65,8 @@ interface IfirestoreContext {
   getCards: (creatorUid: string) => Promise<TcardsData>,
   getCard: (cardId: string) => Promise<Tcard>,
   getMessagesOnCard: (cardId: string) => Promise<TMessages>,
+  createMessage: ({docName, docType, file, creatorId, message, mediaUrl, creator, cardId}: CreateMessage) =>Promise<void>,
+  getVideoUrl: (storageUrl: string) => Promise<void>,
 }
 
 export const FirestoreCtx = createContext<IfirestoreContext>({
@@ -65,6 +79,8 @@ export const FirestoreCtx = createContext<IfirestoreContext>({
   getCards: (creatorUid: string) => new Promise<TcardsData>(() => {}),
   getCard: (cardId: string) => new Promise<Tcard>(() => {}),
   getMessagesOnCard: (creatorUid: string) => new Promise<TMessages>(() => {}),
+  createMessage: ({docName, docType, file, creatorId, message, mediaUrl, creator, cardId}: CreateMessage) => new Promise(() => {}),
+  getVideoUrl: (storageUrl: string) => new Promise(() => {})
 })
 
 

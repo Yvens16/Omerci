@@ -7,9 +7,9 @@ import { IInfoModal } from "@components/modal/interfaces";
 //   GOD = "GOD"
 // }
 export interface IMessage {
-  mediaUrl: string,
+  media: {type: string, url: string},
   editRight: "modifyAndDelete" | "delete" | "nothing" | "",
-  ownerName: string,
+  owner: { familyName: string, name: string, email: string },
   createdDate: string,
   message: string,
   toggleModal: () => void,

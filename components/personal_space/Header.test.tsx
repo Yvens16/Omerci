@@ -1,14 +1,15 @@
-import { render } from "@testing-library/react";
+import { screen, waitFor } from '@testing-library/react';
+import { customRender } from "../../test-utils";
 import React from "react";
 import Header from './Header';
 
 
 describe("Test Header", () => {
   it("Check initials and Greeting", () => {
-    const { getByText } = render(<Header firstName="Yvens" lastName="Belaston"/>)
-    const initails = getByText('YB');
+    customRender(<Header firstName="Yvens" lastName="Belaston"/>)
+    const initails = screen.getByText('YB');
     expect(initails).toHaveTextContent('YB');
-    const greeting = getByText("Bonjour, Yvens");
+    const greeting = screen.getByText("Bonjour, Yvens");
     expect(greeting).toHaveTextContent("Bonjour, Yvens");
   })
 })

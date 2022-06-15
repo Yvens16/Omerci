@@ -1,10 +1,12 @@
 import React from 'react';
 import type { NextPage } from 'next'
+// import SnackbarProvider from 'react-simple-snackbar';
 import Head from 'next/head'
 import Input from '../components/inputs/Input';
 import Navbar from '@components/navigation/Navbar';
 import Header from '@components/space_card_custom/header/Header';
 import Card from '@components/space_card_custom/messages/Message';
+import GifySearch from '@components/create_msg/media_search/GifySearch';
 // import Ba from '../public/icons/menu/hamburger.svg';
 
 const Home: NextPage = () => {

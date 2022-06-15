@@ -31,8 +31,8 @@ type TCards = {
 const PersonalSpace: NextPage = () => {
   const { deleteCardInDB, getCards, getUserInfo } = useFirestoreDb();
   const { authUser, loading } = useAuth();
-  let { execute:loadcardsInfo, status, value: cardsValues, error } = useAsync(getCards, false, authUser && authUser["uid"] ? authUser['uid'] : "");
-  let { execute:loadUserInfo, status: statusUserInfo, value: userInfo, error: errUserInfo } = useAsync(getUserInfo, false, authUser && authUser["uid"] ? authUser['uid'] : "");
+  let { execute: loadcardsInfo, status, value: cardsValues, error } = useAsync(getCards, false, authUser && authUser["uid"] ? authUser['uid'] : "");
+  let { execute: loadUserInfo, status: statusUserInfo, value: userInfo, error: errUserInfo } = useAsync(getUserInfo, false, authUser && authUser["uid"] ? authUser['uid'] : "");
   const [cardsData, setCardsData] = useState<any>([]);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const desktopOptionRef = useRef<HTMLDivElement>(null);
@@ -129,7 +129,7 @@ const PersonalSpace: NextPage = () => {
   return (
     <div className="text-black">
       {statusUserInfo === "success" && <Header firstName={userInfo.firstName} lastName={userInfo.lastName} />}
-      
+
       {/* TODO: Add loader when status pending  */}
       {status === "idle" && <div>idle</div>}
       {status === "error" && <div>

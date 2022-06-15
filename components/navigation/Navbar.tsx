@@ -24,14 +24,13 @@ const Navbar = ({ }) => {
   useOnClickOutside(mobileNav, () => setNavOpen(false));
   return (
     <nav className='bg-white'>
-      {console.log(isMoreOpen)}
       <div className='flex justify-between items-center px-16t xl:px-0 py-8t lg:py-10t relative lg:h-[73px] max-w-content mx-auto'>
         <span>LOGO</span>
         <div className='lg:hidden'>
           {isNavOpen
             ? <div ref={mobileNav}>
               <Cross onClick={() => setNavOpen(!isNavOpen)} />
-              <div  className="absolute top-full right-0">
+              <div  className="absolute top-full right-0 z-10">
                 <div className='bg-white p-16t flex flex-col'>
                   <Button myClass='nav font-base mt-8t' type='third' size='' handleClick={() => console.log('button1')}><Link href='/'>Comment ça marche</Link></Button>
                   <Button myClass='nav font-base mt-8t !justify-start' type='third' size='' handleClick={() => console.log('button2')}><Link href='/'>Prix</Link></Button>
@@ -59,7 +58,7 @@ const Navbar = ({ }) => {
                           <span className='text-third text-12t'>{authUser["email"]}</span>
                         </div>
                       </div>
-                      <Button myClass='nav font-base mt-8t !justify-start' type='third' size='' handleClick={() => console.log('button1')}>
+                      <Button myClass='nav font-base mt-8t !justify-start' type='third' size='' handleClick={() => router.push("/personal_space")}>
                         <DashboardIcon className="mr-4t" />
                         <Link href='/'>
                           Dashboard</Link>
@@ -69,7 +68,7 @@ const Navbar = ({ }) => {
                         <Link href='/'>
                           Parametre compte</Link>
                       </Button>
-                      <Button myClass='nav font-base mt-8t !justify-start' type='third' size='' handleClick={() => console.log('button1')}>
+                      <Button myClass='nav font-base mt-8t !justify-start' type='third' size='' handleClick={() => signOutAccount()}>
                         <OffCloseIcon className="mr-4t" />
                         <Link href='/'>
                           Déconnexion</Link>
@@ -87,8 +86,8 @@ const Navbar = ({ }) => {
           {authUser ?
             <div className='relative' ref={moreRef}>
               <UserProfilePicture onClick={() => setMoreOpen((prevstate) => !prevstate)} className="cursor-pointer" />
-              {isMoreOpen ? <div className='absolute grdi justify-center top-[68px] right-0 w-[200px] p-16t rounded-12t grid grip-y-[8px] bg-white border boorder-solid border-secondary_fill'>
-                <Button myClass='nav font-base mt-8t !justify-start' type='third' size='' handleClick={() => console.log('button1')}>
+              {isMoreOpen ? <div className='absolute  justify-center top-[68px] right-0 w-[200px] p-16t rounded-12t grid grid-y-[8px] bg-white border border-solid border-secondary_fill'>
+                <Button myClass='nav font-base mt-8t !justify-start' type='third' size='' handleClick={() => router.push("/personal_space")}>
                   <DashboardIcon className="mr-4t" />
                   <Link href='/'>
                     Dashboard</Link>
@@ -98,7 +97,7 @@ const Navbar = ({ }) => {
                   <Link href='/'>
                     Parametre compte</Link>
                 </Button>
-                <Button myClass='nav font-base mt-8t !justify-start' type='third' size='' handleClick={() => console.log('button1')}>
+                <Button myClass='nav font-base mt-8t !justify-start' type='third' size='' handleClick={() => signOutAccount()}>
                   <OffCloseIcon className="mr-4t" />
                   <Link href='/'>
                     Déconnexion</Link>

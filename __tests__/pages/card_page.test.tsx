@@ -38,21 +38,23 @@ const card = {
 
 const messageText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ultricies ac gravida ante neque, vestibulum arcu, viverra. Eu arcu dui nisi semper. Commodo ";
 const messages = [{
+  creator: {familyName: "Dujardin",  name: "Jean"},
   uid: "messageId",
   cardId: "1234",
-  messageText: messageText,
+  messageContent: messageText,
   ownerName: "Admin",
-  createdDate: "7 avril 2022 à 12:27:17 UTC+2",
+  creationDate: "7 avril 2022 à 12:27:17 UTC+2",
   creatorId: "userId",
-  mediaUrl: "https://media.giphy.com/media/l0HlL2Z9gAJ6ve9sk/giphy.gif"
+  media: {url: "https://media.giphy.com/media/l0HlL2Z9gAJ6ve9sk/giphy.gif", type: 'gif'}
 }, {
+  creator: {familyName: "Dujardin",  name: "Jean"},
   uid: "messageId2",
   cardId: "1234",
-  messageText: messageText,
+  messageContent: messageText,
   ownerName: "Not Admin",
-  createdDate: "7 avril 2022 à 12:27:17 UTC+2",
+  creationDate: "7 avril 2022 à 12:27:17 UTC+2",
   creatorId: "4321",
-  mediaUrl: "https://media.giphy.com/media/FizSVay8SBrEI/giphy.gif"
+  media: {url: "https://media.giphy.com/media/FizSVay8SBrEI/giphy.gif", type: 'gif'}
 },
 ];
 
@@ -163,9 +165,9 @@ test("User sees the card for the first time so the onboarding modal shows itsel"
   const AddMessageBtnCardParams = screen.getAllByText("Ajouter un message")[0];
   const AddMessageBtnCardMsg = screen.getAllByText("Ajouter un message")[1];
   await user.click(AddMessageBtnCardParams);
-  expect(mockPush).toHaveBeenCalledWith("/create_message");
+  expect(mockPush).toHaveBeenCalledWith({pathname: "/create_message", query: {carteid: "1234"}});
   await user.click(AddMessageBtnCardMsg);
-  expect(mockPush).toHaveBeenCalledWith("/create_message");
+  expect(mockPush).toHaveBeenCalledWith({pathname: "/create_message", query: {carteid: "1234"}});
 });
 
 //####################################################################################################################################
@@ -269,6 +271,7 @@ test("Creator of the card sees the icon params in CardParams on the left of the 
   mockedUsedFirestore.mockImplementation(() => {
     return {
       getCard: mockGetCard2,
+      getMessagesOnCard: mockMessages,
     }
   })
   const user = userEvent.setup();
