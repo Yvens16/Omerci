@@ -9,7 +9,7 @@ export default {
   decorators: [withDesign],
 } as ComponentMeta<typeof CreateMsgHeader>
 
-const Template: ComponentStory<typeof CreateMsgHeader> = () => <CreateMsgHeader></CreateMsgHeader>
+const Template: ComponentStory<typeof CreateMsgHeader> = (args) => <CreateMsgHeader {...args}></CreateMsgHeader>
 
 
 export const Head = Template.bind({});

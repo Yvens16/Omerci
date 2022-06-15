@@ -10,7 +10,7 @@ export default {
   args: {}
 } as ComponentMeta<typeof DeviceMedia>
 
-const Template: ComponentStory<typeof DeviceMedia> = (args) => <DeviceMedia {...args}></DeviceMedia>
+const Template: ComponentStory<typeof DeviceMedia> = (args) => <DeviceMedia></DeviceMedia>
 
 
 export const DeviceMdia = Template.bind({});
