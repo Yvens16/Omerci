@@ -15,7 +15,7 @@ const Header = ({ firstName, lastName }: THeader) => {
   const router = useRouter()
   return <div className="bg-white mb-40t">
     <div className="xl:mx-auto xl:max-w-[1240px]">
-      <div className="pt-24t pb-[28px] lg:pt-32t lg:pb-32t px-16t xl:px-0 flex lg:justify-between items-center lg:max-w-[343px]">
+      <div className="pt-24t pb-[28px] lg:pt-32t lg:pb-32t px-16t xl:px-0 flex items-center lg:max-w-[343px]">
         <div className='lg:mr-16t lg'>
           <div className='bg-gradient-to-b from-gradient1 to-gradient2 w-[48px] h-[48px] text-[20px] lg:w-[72px] lg:h-[72px] rounded-full bg-primary flex justify-center items-center text-white lg:text-[30px] font-semibold'>
             {firstName?.toUpperCase().split('')[0]}{lastName?.toUpperCase().split('')[0]}
@@ -23,7 +23,7 @@ const Header = ({ firstName, lastName }: THeader) => {
         </div>
         <h1 className='ml-14t mr-[30px] lg:ml-0 lg:mr-16t text-big font-semibold text-black lg:whitespace-nowrap'>Bonjour, {firstName}</h1>
         <div className='flex justify-between ml-auto mr-0 lg:unset_mx'>
-          <Settings />
+          <Settings className="w=[24px] h-[24px]"/>
           <CaretDown />
         </div>
       </div>

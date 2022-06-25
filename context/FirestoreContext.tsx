@@ -7,7 +7,8 @@ type TResul = {
   lastName: string,
 }
 interface ICreateNewCard {
-  userId: string, recipientName: string, title: string, hasCagnotte: boolean, isPremium: boolean, teamName: string
+  userId: string, recipientName: string, title: string, hasCagnotte: boolean, isPremium: boolean, teamName: string,
+  creatorName: string,
 }
 interface IUpdatecard extends ICreateNewCard {
   cardId: string,
@@ -58,7 +59,7 @@ interface CreateMessage {
 interface IfirestoreContext {
   addUserInfo: ({ uid, firstName, lastName, howDoYouKnowUs, email }: { uid: string, firstName: string, lastName: string, howDoYouKnowUs: string, email: string }) => Promise<void>,
   getUserInfo: (uid: string) => Promise<TResul>,
-  createNewCard: ({ userId, recipientName, title, hasCagnotte, isPremium, teamName }: ICreateNewCard) => Promise<void>,
+  createNewCard: ({ userId, recipientName, title, hasCagnotte, isPremium, teamName, creatorName }: ICreateNewCard) => Promise<void>,
   updateCard: ({ userId, recipientName, title, hasCagnotte, isPremium, teamName, cardId }: IUpdatecard) => Promise<void>,
   deleteCardInDB: (uid: string) => Promise<void>,
   deleteMessage: (uid: string) => Promise<void>,
@@ -72,7 +73,7 @@ interface IfirestoreContext {
 export const FirestoreCtx = createContext<IfirestoreContext>({
   addUserInfo: async () => {},
   getUserInfo: async (uid: string) => new Promise<TResul>(() => { }),
-  createNewCard: async ({userId, recipientName, title, hasCagnotte, isPremium, teamName}: ICreateNewCard) => new Promise<void>(() => { }),
+  createNewCard: async ({userId, recipientName, title, hasCagnotte, isPremium, teamName, creatorName}: ICreateNewCard) => new Promise<void>(() => { }),
   updateCard: async ({userId, recipientName, title, hasCagnotte, isPremium, teamName, cardId}: IUpdatecard) => new Promise<void>(() => { }),
   deleteCardInDB: async(uid:string) => new Promise(() => {}),
   deleteMessage: async(uid:string) => new Promise(() => {}),

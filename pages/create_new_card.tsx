@@ -28,7 +28,7 @@ const Header = ({ cancelCreation }: { cancelCreation: () => void }) => (
     <div onClick={cancelCreation} className='lg:hidden cursor-pointer'>
       <ChevronLeft className='fill-primary stroke-primary mr-16t' />
     </div>
-    <Button handleClick={cancelCreation} myClass='xl:-translate-y-[20%] hidden lg:flex lg:absolute lg:px-10t cursor-pointer' type='third' size=''>
+    <Button handleClick={cancelCreation} myClass='xl:-translate-y-[20%] hidden lg:flex lg:absolute lg:px-10t cursor-pointer lg:!pl-0 lg:!pt-0' type='third' size=''>
       <>
         <LeftArrow className='fill-primary w-[24px] h-[24px]' />
         <span className='text-primary xl:text-mid xl:font-medium'>Retour au tableau de bord</span>
@@ -60,10 +60,10 @@ const WhyThisCard = ({ handleChange, values, togglePremiumModal, toggleCagnotteM
     </div>
     <div className='lg:basis-3/4  lg:max-w-[420px]'>
       <div className='my-8t'>
-        <Input name='name' value={values.name} label='Nom du destinataire' labelClass='font-light' placeholder='Jean Dupont' handleChange={handleChange} infoMessage='' />
+        <Input name='name' value={values.name} label='Nom du destinataire' labelClass='' placeholder='Jean Dupont' handleChange={handleChange} infoMessage='' />
       </div>
       <div>
-        <Input name='title' value={values.title} label='Donnez un titre à votre carte' labelClass='font-light' placeholder='Merci pour tout Thomas !' handleChange={handleChange} infoMessage='' />
+        <Input name='title' value={values.title} label='Donnez un titre à votre carte' labelClass='' placeholder='Merci pour tout Thomas !' handleChange={handleChange} infoMessage='' />
       </div>
       <div className='flex my-8t p-4t '>
         <Checkbox isCheck={values.hasCagnotte} name='hasCagnotte' handleCheck={handleChange} labelText='Ajouter une cagnotte en ligne' type={''} />
@@ -91,7 +91,7 @@ interface IFromWho {
 }
 
 const FromWho = ({ values, handleChange, isAnonymousFlow, emailAlreadyExist, toggleEmailModal }: IFromWho) => (
-  <div className='mt-48t mb-24t lg:flex justify-between'>
+  <div className='mt-48t lg:flex justify-between'>
     <h4 className='font-medium text-black text-mid mb-16t lg:basis-1/4 lg:mr-16t lg:max-w-[140px]'>De la part de... ?</h4>
     <div className="lg:flex lg:flex-col lg:basis-3/4 lg:max-w-[420px]">
       <div className='lg:basis-3/4 lg:max-w-[420px]'>
@@ -167,9 +167,10 @@ const CreateCard: NextPage = () => {
   const createCardKnownUser = async () => {
     const { name, title, hasCagnotte, isPremium, team } = whyValues;
     const userId = authUser && authUser['uid'] ? authUser['uid'] : '';
+    const creatorName = authUser && authUser['firstName'] && authUser['lastName'] ? `${authUser['firstName']} ${authUser['lastName']} `: "" ;
     const recipientName = name;
     const teamName = team;
-    const cardRefId =  await createNewCard({ userId, recipientName, title, hasCagnotte, isPremium, teamName });
+    const cardRefId =  await createNewCard({ userId, recipientName, title, hasCagnotte, isPremium, teamName, creatorName });
     console.log('cardRefId:', cardRefId)
     setWhyValues(initialWhyValues);
     // TODO: Re routing to la carte en question  
@@ -190,7 +191,7 @@ const CreateCard: NextPage = () => {
       // const user = await anonymousSignIn() as unknown as string;
       const userId = user.uid;
       await addUserInfo({uid: userId, firstName:userName, lastName:"", howDoYouKnowUs:"", email})
-      const cardRefId = await createNewCard({ userId, recipientName, title, hasCagnotte, isPremium, teamName });
+      const cardRefId = await createNewCard({ userId, recipientName, title, hasCagnotte, isPremium, teamName, creatorName: userName });
       console.log('cardRefId:', cardRefId)
     // TODO: Re routing to la carte en question   
       Router.push(`/card/${cardRefId}`);
@@ -267,7 +268,7 @@ const CreateCard: NextPage = () => {
       }
     }
     disabledButtons();
-  }, [whyValues]);
+  }, [whyValues,isAnonymousFlow]);
   const [isPremiumModalOpen, setPremiumModal] = useState(false);
   const [isCagnotteModalOpen, setCagnotteModal] = useState(false);
   const togglePremiumModal = (whenOpeningOnly?: boolean) => {
@@ -294,10 +295,10 @@ const CreateCard: NextPage = () => {
           <Info />
         </div>
         <div className='flex justify-center lg:max-w-[687px] lg:mx-auto lg:mt-24t'>
-          <Button isDisabled={false} type='secondary' myClass='grow-1 h-[48px] mr-8t md:mr-16t' handleClick={cancelCreation} size='big'>
+          <Button isDisabled={false} type='secondary' myClass='grow-1  mr-8t md:mr-16t lg:!py-8t lg:!px-16t' handleClick={cancelCreation} size='big'>
             Annuler
           </Button>
-          <Button isDisabled={isDisabled} myClass={'grow-1 flex text-center justify-center h-[48px]'} handleClick={() => validateCreation()} type='primary' size={'big'}>Créer la carte</Button>
+          <Button isDisabled={isDisabled} myClass={'grow-1 flex text-center justify-center  lg:!py-8t lg:!px-16t'} handleClick={() => validateCreation()} type='primary' size={'big'}>Créer la carte</Button>
         </div>
       </div>
 

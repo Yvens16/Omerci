@@ -67,9 +67,10 @@ export default function useFirestore() {
     isPremium: boolean
     teamName: string,
     photoUrl: string,
+    creatorName: string,
   }
 
-  const createNewCard = async ({ userId, recipientName, title, hasCagnotte, isPremium, teamName, photoUrl="" }: ICreateNewCard) => {
+  const createNewCard = async ({ userId, recipientName, title, hasCagnotte, isPremium, teamName, photoUrl="", creatorName }: ICreateNewCard) => {
     const cardRef = doc(collection(db, "cards"));
     let card;
     const cardUrl = `${window.location.origin}/card/${cardRef.id}`;
@@ -85,6 +86,7 @@ export default function useFirestore() {
         photoUrl,
         isSent: false,
         cardUrl,
+        creatorName,
         creationDate: serverTimestamp(),
         WhoHasAlreadySeenOnce: [],
       })
@@ -140,6 +142,7 @@ export default function useFirestore() {
   }
 
   const getCards = async (creatorUid: string) => {
+    console.log('creatorUid:', creatorUid)
     // const db = getFirestore(firebaseApp);
     const cards: DocumentData[] = [];
     const q = query(collection(db, "cards"), where("creatorId", "==", creatorUid));

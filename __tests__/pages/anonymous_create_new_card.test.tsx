@@ -81,11 +81,10 @@ test("User is Anonymous and create a card", async () => {
   await user.type(emailInput, fakeUserEmail);
   await user.type(teamName, "Toute l'équipe Compta");
   await user.click(createBtn);
-  //todo: delete the not in the test once I trully want to redirect 
   await waitFor(() => {
     expect(Router.push).toHaveBeenCalledWith("/card/fake_uid");
   })
-  expect(mockCreateNewCard).toHaveBeenCalledWith({"hasCagnotte": false, "isPremium": false, "recipientName": "Recipient Test", "teamName": "Toute l'équipe Compta", "title": "Merci pour tout Fake User", "userId": "fake_anonymous_uid"});
+  expect(mockCreateNewCard).toHaveBeenCalledWith({"hasCagnotte": false, "isPremium": false, "recipientName": "Recipient Test", "teamName": "Toute l'équipe Compta", "title": "Merci pour tout Fake User", "userId": "fake_anonymous_uid","creatorName": "Fake user",});
 })
 
 test("User is Anonymous but has an account", async () => {
