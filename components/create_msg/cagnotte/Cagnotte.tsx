@@ -19,7 +19,7 @@ import { Elements, CardNumberElement, CardExpiryElement, CardCvcElement, Payment
 // load();
 export function Cagnotte({ isCustomAmount, isAmountSelected, commissionValue, handleCagnotteAmount, stripeOption, handleCustomAmount, cagnotteAmount, stripePromise, onFileUpload, clientSecret, reset }: ICagnotte) {
   return (
-    <div className='rounded-8t border border-solid border-secondary_fill p-16t xl:max-w-laptopContent xl:mx-auto 2xl:max-w-content'>
+    <div className='bg-white rounded-8t border border-solid border-secondary_fill p-16t xl:max-w-laptopContent xl:mx-auto 2xl:max-w-content'>
       <div className="header flex items-center mb-24t">
         <CircleChevron className="fill-primary w-[14px] h-[14px] mr-8t" />
         <h4 className='text-primary text-mid font-medium'>Ajouter à la cagnotte</h4>
