@@ -17202,3 +17202,219 @@ INFO: Detected non-HTTP/2 connection.
 [debug] [2022-06-28T19:34:46.689Z] Jun 28, 2022 9:34:46 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected non-HTTP/2 connection.
  {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:34:46 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:35:46.744Z] Jun 28, 2022 9:35:46 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:35:46 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:37:02.998Z] Jun 28, 2022 9:37:02 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:37:02 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:38:00.058Z] Jun 28, 2022 9:38:00 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:38:00 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:39:00.173Z] Jun 28, 2022 9:39:00 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:39:00 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:40:19.651Z] Jun 28, 2022 9:40:19 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:40:19 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:41:19.752Z] Jun 28, 2022 9:41:19 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:41:19 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:42:19.829Z] Jun 28, 2022 9:42:19 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:42:19 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:43:19.894Z] Jun 28, 2022 9:43:19 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:43:19 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:44:20.008Z] Jun 28, 2022 9:44:20 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:44:20 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:45:20.104Z] Jun 28, 2022 9:45:20 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:45:20 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:46:20.194Z] Jun 28, 2022 9:46:20 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:46:20 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:47:20.310Z] Jun 28, 2022 9:47:20 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:47:20 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:48:20.386Z] Jun 28, 2022 9:48:20 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:48:20 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:49:20.462Z] Jun 28, 2022 9:49:20 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:49:20 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:50:40.105Z] Jun 28, 2022 9:50:40 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:50:40 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:51:32.552Z] Jun 28, 2022 9:51:32 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:51:32 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:52:03.232Z] Jun 28, 2022 9:52:03 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:52:03 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:52:03.658Z] Jun 28, 2022 9:52:03 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:52:03 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:52:03.683Z] Jun 28, 2022 9:52:03 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:52:03 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:52:03.704Z] Jun 28, 2022 9:52:03 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:52:03 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:52:03.862Z] Jun 28, 2022 9:52:03 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:52:03 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:52:11.513Z] Jun 28, 2022 9:52:11 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:52:11 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:52:11.640Z] Jun 28, 2022 9:52:11 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:52:11 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:52:11.661Z] Jun 28, 2022 9:52:11 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:52:11 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:52:11.711Z] Jun 28, 2022 9:52:11 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:52:11 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:52:32.669Z] Jun 28, 2022 9:52:32 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:52:32 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:52:56.827Z] Jun 28, 2022 9:52:56 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:52:56 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:52:56.921Z] Jun 28, 2022 9:52:56 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:52:56 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:52:56.921Z] Jun 28, 2022 9:52:56 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:52:56 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:52:57.049Z] Jun 28, 2022 9:52:57 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:52:57 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:53:17.870Z] Jun 28, 2022 9:53:17 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:53:17 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:53:18.078Z] Jun 28, 2022 9:53:18 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:53:18 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:53:18.224Z] Jun 28, 2022 9:53:18 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:53:18 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:53:18.264Z] Jun 28, 2022 9:53:18 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:53:18 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:53:32.755Z] Jun 28, 2022 9:53:32 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:53:32 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:53:48.301Z] Jun 28, 2022 9:53:48 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:53:48 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:53:48.786Z] Jun 28, 2022 9:53:48 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:53:48 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:53:48.931Z] Jun 28, 2022 9:53:48 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:53:48 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:53:49.137Z] Jun 28, 2022 9:53:49 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:53:49 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:53:49.160Z] Jun 28, 2022 9:53:49 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:53:49 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:53:58.080Z] Jun 28, 2022 9:53:58 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:53:58 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:53:58.750Z] Jun 28, 2022 9:53:58 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:53:58 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:53:58.838Z] Jun 28, 2022 9:53:58 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:53:58 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:53:58.858Z] Jun 28, 2022 9:53:58 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:53:58 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:53:58.901Z] Jun 28, 2022 9:53:58 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:53:58 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:53:58.943Z] Jun 28, 2022 9:53:58 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:53:58 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:54:24.151Z] Jun 28, 2022 9:54:24 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:54:24 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:54:24.321Z] Jun 28, 2022 9:54:24 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:54:24 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:54:24.351Z] Jun 28, 2022 9:54:24 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:54:24 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:54:24.429Z] Jun 28, 2022 9:54:24 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:54:24 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:54:32.833Z] Jun 28, 2022 9:54:32 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:54:32 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:54:54.498Z] Jun 28, 2022 9:54:54 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:54:54 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[warn] ⚠  canHandleCodeInApp is unsupported in Auth Emulator. All OOB operations will complete via web. {"metadata":{"emulator":{"name":"auth"},"message":"canHandleCodeInApp is unsupported in Auth Emulator. All OOB operations will complete via web."}}
+[info] i  To sign in as fake_user@gmail.com, follow this link: http://localhost:9099/emulator/action?mode=signIn&lang=en&oobCode=j7s5wkVKR7p94jaaOBKPO0jE7WRpfgIPBKhX9IAeAZcGahb6voB80M&apiKey=fake-api-key&continueUrl=http%3A%2F%2Flocalhost%3A3000%2Flogin%2F%3Femail%3Dfake_user%40gmail.com {"metadata":{"emulator":{"name":"auth"},"message":"To sign in as fake_user@gmail.com, follow this link: http://localhost:9099/emulator/action?mode=signIn&lang=en&oobCode=j7s5wkVKR7p94jaaOBKPO0jE7WRpfgIPBKhX9IAeAZcGahb6voB80M&apiKey=fake-api-key&continueUrl=http%3A%2F%2Flocalhost%3A3000%2Flogin%2F%3Femail%3Dfake_user%40gmail.com"}}
+[warn] ⚠  canHandleCodeInApp is unsupported in Auth Emulator. All OOB operations will complete via web. {"metadata":{"emulator":{"name":"auth"},"message":"canHandleCodeInApp is unsupported in Auth Emulator. All OOB operations will complete via web."}}
+[info] i  To sign in as fake_user@gmail.com, follow this link: http://localhost:9099/emulator/action?mode=signIn&lang=en&oobCode=HnUIRCrIuO7Xj240huMGhxOAugHYw1HhNnNo6H2ddym2Qmd0NS4yq6&apiKey=fake-api-key&continueUrl=http%3A%2F%2Flocalhost%3A3000%2Flogin%2F%3Femail%3Dfake_user%40gmail.com {"metadata":{"emulator":{"name":"auth"},"message":"To sign in as fake_user@gmail.com, follow this link: http://localhost:9099/emulator/action?mode=signIn&lang=en&oobCode=HnUIRCrIuO7Xj240huMGhxOAugHYw1HhNnNo6H2ddym2Qmd0NS4yq6&apiKey=fake-api-key&continueUrl=http%3A%2F%2Flocalhost%3A3000%2Flogin%2F%3Femail%3Dfake_user%40gmail.com"}}
+[warn] ⚠  canHandleCodeInApp is unsupported in Auth Emulator. All OOB operations will complete via web. {"metadata":{"emulator":{"name":"auth"},"message":"canHandleCodeInApp is unsupported in Auth Emulator. All OOB operations will complete via web."}}
+[info] i  To sign in as fake_user@gmail.com, follow this link: http://localhost:9099/emulator/action?mode=signIn&lang=en&oobCode=iqTgz5zh0b68ggIMgKvyuUazK-24C9ifTfS-2RHAgP4EXs8ZSciMJK&apiKey=fake-api-key&continueUrl=http%3A%2F%2Flocalhost%3A3000%2Flogin%2F%3Femail%3Dfake_user%40gmail.com {"metadata":{"emulator":{"name":"auth"},"message":"To sign in as fake_user@gmail.com, follow this link: http://localhost:9099/emulator/action?mode=signIn&lang=en&oobCode=iqTgz5zh0b68ggIMgKvyuUazK-24C9ifTfS-2RHAgP4EXs8ZSciMJK&apiKey=fake-api-key&continueUrl=http%3A%2F%2Flocalhost%3A3000%2Flogin%2F%3Femail%3Dfake_user%40gmail.com"}}
+[warn] ⚠  canHandleCodeInApp is unsupported in Auth Emulator. All OOB operations will complete via web. {"metadata":{"emulator":{"name":"auth"},"message":"canHandleCodeInApp is unsupported in Auth Emulator. All OOB operations will complete via web."}}
+[info] i  To sign in as fake_user@gmail.com, follow this link: http://localhost:9099/emulator/action?mode=signIn&lang=en&oobCode=6uoY0bzHAqSBXmCN-RRAqNfM4jhNvr7xwZNb1zLQq-kNGx7by43znZ&apiKey=fake-api-key&continueUrl=http%3A%2F%2Flocalhost%3A3000%2Flogin%2F%3Femail%3Dfake_user%40gmail.com {"metadata":{"emulator":{"name":"auth"},"message":"To sign in as fake_user@gmail.com, follow this link: http://localhost:9099/emulator/action?mode=signIn&lang=en&oobCode=6uoY0bzHAqSBXmCN-RRAqNfM4jhNvr7xwZNb1zLQq-kNGx7by43znZ&apiKey=fake-api-key&continueUrl=http%3A%2F%2Flocalhost%3A3000%2Flogin%2F%3Femail%3Dfake_user%40gmail.com"}}
+[debug] [2022-06-28T19:55:24.435Z] Jun 28, 2022 9:55:24 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:55:24 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:55:24.518Z] Jun 28, 2022 9:55:24 PM com.google.cloud.datastore.emulator.firestore.webchannel.FirestoreV1WebChannelAdapter$FirestoreListenHandler onClose
+INFO: channel closed
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:55:24 PM com.google.cloud.datastore.emulator.firestore.webchannel.FirestoreV1WebChannelAdapter$FirestoreListenHandler onClose\nINFO: channel closed\n"}}
+[debug] [2022-06-28T19:55:32.907Z] Jun 28, 2022 9:55:32 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:55:32 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:56:32.981Z] Jun 28, 2022 9:56:32 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:56:32 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:57:48.757Z] Jun 28, 2022 9:57:48 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:57:48 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[warn] ⚠  canHandleCodeInApp is unsupported in Auth Emulator. All OOB operations will complete via web. {"metadata":{"emulator":{"name":"auth"},"message":"canHandleCodeInApp is unsupported in Auth Emulator. All OOB operations will complete via web."}}
+[info] i  To sign in as fake_user@gmail.com, follow this link: http://localhost:9099/emulator/action?mode=signIn&lang=en&oobCode=sQV3q-FlUQsM4aTsokJqnSpzIDlEfUBQKupcAlurGfE9klYL_QONj8&apiKey=fake-api-key&continueUrl=http%3A%2F%2Flocalhost%3A3000%2Flogin%2F%3Femail%3Dfake_user%40gmail.com {"metadata":{"emulator":{"name":"auth"},"message":"To sign in as fake_user@gmail.com, follow this link: http://localhost:9099/emulator/action?mode=signIn&lang=en&oobCode=sQV3q-FlUQsM4aTsokJqnSpzIDlEfUBQKupcAlurGfE9klYL_QONj8&apiKey=fake-api-key&continueUrl=http%3A%2F%2Flocalhost%3A3000%2Flogin%2F%3Femail%3Dfake_user%40gmail.com"}}
+[warn] ⚠  canHandleCodeInApp is unsupported in Auth Emulator. All OOB operations will complete via web. {"metadata":{"emulator":{"name":"auth"},"message":"canHandleCodeInApp is unsupported in Auth Emulator. All OOB operations will complete via web."}}
+[info] i  To sign in as fake_user@gmail.com, follow this link: http://localhost:9099/emulator/action?mode=signIn&lang=en&oobCode=qqd8YRXZyf-I6mpw5Yk0aAlvjEOhxQprRSSSI8HacuarO8LXXjjlnz&apiKey=fake-api-key&continueUrl=http%3A%2F%2Flocalhost%3A3000%2Flogin%2F%3Femail%3Dfake_user%40gmail.com {"metadata":{"emulator":{"name":"auth"},"message":"To sign in as fake_user@gmail.com, follow this link: http://localhost:9099/emulator/action?mode=signIn&lang=en&oobCode=qqd8YRXZyf-I6mpw5Yk0aAlvjEOhxQprRSSSI8HacuarO8LXXjjlnz&apiKey=fake-api-key&continueUrl=http%3A%2F%2Flocalhost%3A3000%2Flogin%2F%3Femail%3Dfake_user%40gmail.com"}}
+[warn] ⚠  canHandleCodeInApp is unsupported in Auth Emulator. All OOB operations will complete via web. {"metadata":{"emulator":{"name":"auth"},"message":"canHandleCodeInApp is unsupported in Auth Emulator. All OOB operations will complete via web."}}
+[info] i  To sign in as fake_user@gmail.com, follow this link: http://localhost:9099/emulator/action?mode=signIn&lang=en&oobCode=LXRcUExjbDJMtQKD78XNsVgD0PskBfRmDPidVRdUembY78A22hFJ9H&apiKey=fake-api-key&continueUrl=http%3A%2F%2Flocalhost%3A3000%2Flogin%2F%3Femail%3Dfake_user%40gmail.com {"metadata":{"emulator":{"name":"auth"},"message":"To sign in as fake_user@gmail.com, follow this link: http://localhost:9099/emulator/action?mode=signIn&lang=en&oobCode=LXRcUExjbDJMtQKD78XNsVgD0PskBfRmDPidVRdUembY78A22hFJ9H&apiKey=fake-api-key&continueUrl=http%3A%2F%2Flocalhost%3A3000%2Flogin%2F%3Femail%3Dfake_user%40gmail.com"}}
+[warn] ⚠  canHandleCodeInApp is unsupported in Auth Emulator. All OOB operations will complete via web. {"metadata":{"emulator":{"name":"auth"},"message":"canHandleCodeInApp is unsupported in Auth Emulator. All OOB operations will complete via web."}}
+[info] i  To sign in as fake_user@gmail.com, follow this link: http://localhost:9099/emulator/action?mode=signIn&lang=en&oobCode=W5IvwoYlsY0qzdyzNjDTj-9P2RhmwTKQ6IX9mpNlrB15-nE5JPxvfK&apiKey=fake-api-key&continueUrl=http%3A%2F%2Flocalhost%3A3000%2Flogin%2F%3Femail%3Dfake_user%40gmail.com {"metadata":{"emulator":{"name":"auth"},"message":"To sign in as fake_user@gmail.com, follow this link: http://localhost:9099/emulator/action?mode=signIn&lang=en&oobCode=W5IvwoYlsY0qzdyzNjDTj-9P2RhmwTKQ6IX9mpNlrB15-nE5JPxvfK&apiKey=fake-api-key&continueUrl=http%3A%2F%2Flocalhost%3A3000%2Flogin%2F%3Femail%3Dfake_user%40gmail.com"}}
+[debug] [2022-06-28T19:58:48.839Z] Jun 28, 2022 9:58:48 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:58:48 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T19:59:48.957Z] Jun 28, 2022 9:59:48 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 9:59:48 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T20:00:49.022Z] Jun 28, 2022 10:00:49 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 10:00:49 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T20:01:49.136Z] Jun 28, 2022 10:01:49 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 10:01:49 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T20:02:49.215Z] Jun 28, 2022 10:02:49 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 10:02:49 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[warn] ⚠  canHandleCodeInApp is unsupported in Auth Emulator. All OOB operations will complete via web. {"metadata":{"emulator":{"name":"auth"},"message":"canHandleCodeInApp is unsupported in Auth Emulator. All OOB operations will complete via web."}}
+[info] i  To sign in as fake_user@gmail.com, follow this link: http://localhost:9099/emulator/action?mode=signIn&lang=en&oobCode=BELYt6i0NqiV8YgQ7rKRLi0Sb-NqqtUgQP_v4h5hhkBagcd3B39mcC&apiKey=fake-api-key&continueUrl=http%3A%2F%2Flocalhost%3A3000%2Flogin%2F%3Femail%3Dfake_user%40gmail.com {"metadata":{"emulator":{"name":"auth"},"message":"To sign in as fake_user@gmail.com, follow this link: http://localhost:9099/emulator/action?mode=signIn&lang=en&oobCode=BELYt6i0NqiV8YgQ7rKRLi0Sb-NqqtUgQP_v4h5hhkBagcd3B39mcC&apiKey=fake-api-key&continueUrl=http%3A%2F%2Flocalhost%3A3000%2Flogin%2F%3Femail%3Dfake_user%40gmail.com"}}
+[warn] ⚠  canHandleCodeInApp is unsupported in Auth Emulator. All OOB operations will complete via web. {"metadata":{"emulator":{"name":"auth"},"message":"canHandleCodeInApp is unsupported in Auth Emulator. All OOB operations will complete via web."}}
+[info] i  To sign in as fake_user@gmail.com, follow this link: http://localhost:9099/emulator/action?mode=signIn&lang=en&oobCode=IDk8n6IEmh3Y4PDViaknVM5dOzGR2JFHCR4zu3z9-9UQTc9RuX_3g0&apiKey=fake-api-key&continueUrl=http%3A%2F%2Flocalhost%3A3000%2Flogin%2F%3Femail%3Dfake_user%40gmail.com {"metadata":{"emulator":{"name":"auth"},"message":"To sign in as fake_user@gmail.com, follow this link: http://localhost:9099/emulator/action?mode=signIn&lang=en&oobCode=IDk8n6IEmh3Y4PDViaknVM5dOzGR2JFHCR4zu3z9-9UQTc9RuX_3g0&apiKey=fake-api-key&continueUrl=http%3A%2F%2Flocalhost%3A3000%2Flogin%2F%3Femail%3Dfake_user%40gmail.com"}}
+[warn] ⚠  canHandleCodeInApp is unsupported in Auth Emulator. All OOB operations will complete via web. {"metadata":{"emulator":{"name":"auth"},"message":"canHandleCodeInApp is unsupported in Auth Emulator. All OOB operations will complete via web."}}
+[info] i  To sign in as fake_user@gmail.com, follow this link: http://localhost:9099/emulator/action?mode=signIn&lang=en&oobCode=C0EBvGDBA_xybkrzTuQvoffWqt2DaAsjQOBtvm1_q_ojqx_nFSqZvB&apiKey=fake-api-key&continueUrl=http%3A%2F%2Flocalhost%3A3000%2Flogin%2F%3Femail%3Dfake_user%40gmail.com {"metadata":{"emulator":{"name":"auth"},"message":"To sign in as fake_user@gmail.com, follow this link: http://localhost:9099/emulator/action?mode=signIn&lang=en&oobCode=C0EBvGDBA_xybkrzTuQvoffWqt2DaAsjQOBtvm1_q_ojqx_nFSqZvB&apiKey=fake-api-key&continueUrl=http%3A%2F%2Flocalhost%3A3000%2Flogin%2F%3Femail%3Dfake_user%40gmail.com"}}
+[warn] ⚠  canHandleCodeInApp is unsupported in Auth Emulator. All OOB operations will complete via web. {"metadata":{"emulator":{"name":"auth"},"message":"canHandleCodeInApp is unsupported in Auth Emulator. All OOB operations will complete via web."}}
+[info] i  To sign in as fake_user@gmail.com, follow this link: http://localhost:9099/emulator/action?mode=signIn&lang=en&oobCode=VB4Xjf6-xzbUaKS7_hoMIqxcUr81Oujmr8WADsXRThUd-qdy2yPqJI&apiKey=fake-api-key&continueUrl=http%3A%2F%2Flocalhost%3A3000%2Flogin%2F%3Femail%3Dfake_user%40gmail.com {"metadata":{"emulator":{"name":"auth"},"message":"To sign in as fake_user@gmail.com, follow this link: http://localhost:9099/emulator/action?mode=signIn&lang=en&oobCode=VB4Xjf6-xzbUaKS7_hoMIqxcUr81Oujmr8WADsXRThUd-qdy2yPqJI&apiKey=fake-api-key&continueUrl=http%3A%2F%2Flocalhost%3A3000%2Flogin%2F%3Femail%3Dfake_user%40gmail.com"}}
+[debug] [2022-06-28T20:03:49.279Z] Jun 28, 2022 10:03:49 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 10:03:49 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-28T20:04:49.333Z] Jun 28, 2022 10:04:49 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 28, 2022 10:04:49 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}

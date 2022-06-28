@@ -8,7 +8,7 @@ function Header({ backToCard }: IHeader) {
   return (
     <div className='lg:bg-white'>
       <div className='flex items-baseline mt-32t lg:mt-0 mb-24t  xl:max-w-laptopContent xl:mx-auto 2xl:max-w-content relative'>
-        <ChevronIcon className="fill-primary stroke-primary stroke-[2px] mr-16t xl:hidden"/>
+        <ChevronIcon  onClick={() => backToCard()} className="fill-primary stroke-primary stroke-[2px] mr-16t xl:hidden"/>
         <div className="hidden xl:block absolute top-12t -left-[200px]">
           <Button myClass="text-primary" handleClick={backToCard} type="third" size="big" >
           <ShortArrowLeftIcon className="w-[17px] h-[17px] fill-primary mr-8t"/>

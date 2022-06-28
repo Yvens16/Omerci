@@ -37,7 +37,7 @@ function GifySearch({showModal, onClose, selectGif, mediaRef} : IGifySearch) {
 
   return (
     <>
-    <div className='w-full md:w-screen md:h-screen md:bg-modal md:fixed md:top-0 md:left-0 flex justify-center' data-testid="gifySearch">
+    <div className='w-screen h-screen bg-white md:bg-modal fixed top-0 left-0 flex justify-center' data-testid="gifySearch">
       <div ref={mediaRef} onClick={(e) => e.stopPropagation()} className="w-full md:bg-white md:w-[570px] md:h-[634px] rounded-12t md:flex md:flex-col md:mt-[6%] md:pb-16t">
         <div className='hidden md:flex w-full md:justify-between md:items-center p-24t'>
           <h3 className='text-title font-medium'>Rechercher un GIF</h3>

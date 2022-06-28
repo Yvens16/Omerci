@@ -14,6 +14,12 @@ import CreateMessage from "@pages/create_message";
 
 
 test("User is creating a message", async() => {
+
+  // Add an element to jest dom that is empty by default
+  const root = document.createElement('div');
+  root.id="myportal"
+  document.body.appendChild(root);
+
   customRender(<CreateMessage/>)
   const user = userEvent.setup();
   const textArea = await screen.findByPlaceholderText("Tapez votre message...");
