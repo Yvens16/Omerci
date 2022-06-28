@@ -9,6 +9,7 @@ import CloseIcon from '../../../public/icons/menu/close_big.svg';
 import { IGifySearch } from './interfaces';
 import { useOnClickOutside } from '@components/utils/hooks/useClickOutside';
 
+
 declare module "react" {
   function forwardRef<T, P = {}>(
     render: (props: P, ref: React.Ref<T>) => React.ReactElement | null
@@ -35,6 +36,7 @@ function GifySearch({showModal, onClose, selectGif, mediaRef} : IGifySearch) {
   if (!showModal) return null;
 
   return (
+    <>
     <div className='w-full md:w-screen md:h-screen md:bg-modal md:fixed md:top-0 md:left-0 flex justify-center' data-testid="gifySearch">
       <div ref={mediaRef} onClick={(e) => e.stopPropagation()} className="w-full md:bg-white md:w-[570px] md:h-[634px] rounded-12t md:flex md:flex-col md:mt-[6%] md:pb-16t">
         <div className='hidden md:flex w-full md:justify-between md:items-center p-24t'>
@@ -43,8 +45,8 @@ function GifySearch({showModal, onClose, selectGif, mediaRef} : IGifySearch) {
         </div>
         <div className="header flex items-center justify-between shadow-gif_header_shadow md:shadow-none p-16t">
           <ShortArrowLeft onClick={onClose} className="w-[24px] h-[24px] text-black mr-16t md:hidden cursor-pointer" />
-          <div className="input border border-solid border-primary rounded-8t p-12t flex justify-between items-center grow bg-white">
-            <input onChange={(e) => handleSearchGifs(e)} type="text" className='caret-primary text-mid focus:outline-none mr-8t' />
+          <div className="input border border-solid border-primary rounded-8t p-12t flex justify-between items-center grow bg-white ">
+            <input onChange={(e) => handleSearchGifs(e)} type="text" className='caret-primary text-mid focus:outline-none mr-8t w-[80%]' />
             <GifyIcon />
           </div>
         </div>
@@ -57,6 +59,7 @@ function GifySearch({showModal, onClose, selectGif, mediaRef} : IGifySearch) {
         </div>
       </div>
     </div>
+    </>
   )
 }
 

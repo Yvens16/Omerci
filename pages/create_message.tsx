@@ -3,10 +3,11 @@ import dynamic from 'next/dynamic';
 import type { NextPage } from "next";
 import { IGif } from "@giphy/js-types";
 import { useRouter } from 'next/router';
-import { IHeader, IMessageCreation } from "@components/create_msg/interfaces";
+import { IHeader, IInfo, IMessageCreation } from "@components/create_msg/interfaces";
 import { ICagnotte } from '@components/create_msg/cagnotte/interfaces';
 import { useFirestoreDb } from '../context/FirestoreContext';
 import Button from '@components/buttons/Button';
+import Portal from '@components/Portal';
 import { useOnClickOutside } from '@components/utils/hooks/useClickOutside';
 import { useAuth } from '../context/AuthUserContext';
 import useSWR from 'swr'
@@ -24,7 +25,7 @@ const stripePromise = loadStripe(stripekey!);
 
 const Header = dynamic<IHeader>(() => import("@components/create_msg/header/Header"));
 const MessageCreation = dynamic<IMessageCreation>(() => import("@components/create_msg/createMessage/CreateMessage"));
-const Infos = dynamic(() => import("@components/create_msg/Infos/Information"));
+const Infos = dynamic<IInfo>(() => import("@components/create_msg/Infos/Information"));
 const Cagnotte = dynamic<ICagnotte>(() => (import("@components/create_msg/cagnotte/Cagnotte")).then((mod) => mod.Cagnotte));
 const GifyModal = dynamic(() => import('@components/create_msg/media_search/GifySearch'));
 const UnsplashModal = dynamic(() => import('@components/create_msg/media_search/UnpslashSearch'));
@@ -32,7 +33,7 @@ const UnsplashModal = dynamic(() => import('@components/create_msg/media_search/
 
 const CreateMessage: NextPage = () => {
   const router = useRouter();
-  
+
   const [stripeMessage, setMessage] = useState(null);
   const [stripeIsLoading, setStripeIsLoading] = useState(false);
 
@@ -113,7 +114,7 @@ const CreateMessage: NextPage = () => {
     setCagnotteAmount(0);
     setIsAmountSelected(false);
     setFiles(undefined);
-    setFileToShowURL({  type:"", url:"" });
+    setFileToShowURL({ type: "", url: "" });
     setIsCustomAmount(false);
     // router.push(`/card/${router.query.carteid}`);
   }
@@ -157,7 +158,17 @@ const CreateMessage: NextPage = () => {
   return (
     <>
       <div className="px-16t xl:px-0">
-        <Header backToCard={backToCard}/>
+        {showView === "gify" &&
+          <Portal>
+            <GifyModal mediaRef={MediasModalRef} showModal={true} onClose={() => showWhichView("default")} selectGif={selectGif} />
+          </Portal>
+        }
+        {showView === "unsplash" &&
+          <Portal>
+            <UnsplashModal mediaRef={MediasModalRef} showModal={true} onClose={() => showWhichView("default")} selectPhoto={selectPhoto} />
+          </Portal>
+        }
+        <Header backToCard={backToCard} />
         <div className='mb-24t'>
           <MessageCreation fileUrlToShow={fileUrlToShow} deleteMediaState={deleteMediaState} fileChange={onFileChange} showWhichView={showWhichView} handleMessage={handleMessage} messageContent={messageContent} mediaUrl={unsplashUrl.length ? unsplashUrl : gifUrl} />
         </div>
@@ -182,12 +193,10 @@ const CreateMessage: NextPage = () => {
           }
         </div> */}
         <div className="buttons grid grid-cols-2 mb-12t xl:max-w-laptopContent xl:mx-auto 2xl:max-w-content">
-            <Button myClass={'mr-12t'} handleClick={reset} type={'secondary'} size={'big'}>Annuler</Button>
-            <Button myClass={''} handleClick={onFileUpload} type={'primary'} size={'big'}>Ajouter le message</Button>
-          </div>
+          <Button myClass={'mr-12t'} handleClick={reset} type={'secondary'} size={'big'}>Annuler</Button>
+          <Button myClass={''} handleClick={onFileUpload} type={'primary'} size={'big'}>Ajouter le message</Button>
+        </div>
       </div>
-      {showView === "gify" && <GifyModal mediaRef={MediasModalRef} showModal={true} onClose={() => showWhichView("default")} selectGif={selectGif} />}
-      {showView === "unsplash" && <UnsplashModal mediaRef={MediasModalRef} showModal={true} onClose={() => showWhichView("default")} selectPhoto={selectPhoto} />}
     </>
   )
 }

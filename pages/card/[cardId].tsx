@@ -197,9 +197,9 @@ const CardPage: NextPage = () => {
       <div className='px-16t xl:px-0 xl:grid xl:grid-cols-[30%_70%]'>
         {/* <CardParams teamName={"card.teamName"} goToCreateMessage={goToCreateMessage} isAdmin={isAdmin} photoUrl={'/avatars/girl.jpg'} backgroundUrl={"'/images/card_params_bg.jpg'"}
           cardTitle={"card.cardTitle"} receiverName={"card.recipientName"} messageNumber={12} moneyCount={13} /> */}
-          {console.log('cardStatus:', cardStatus, messagesStatus)}
+          {/* {console.log('cardStatus:', cardStatus, messagesStatus)} */}
         {cardStatus === "success" && messagesStatus === "success" && <CardParams toggleParamsModal={toggleParamsModal} teamName={card.teamName} goToCreateMessage={goToCreateMessage} isAdmin={isAdmin} photoUrl={card.photoUrl || '/avatars/girl.jpg'} backgroundUrl={"'/images/card_params_bg.jpg'"}
-          cardTitle={card.cardTitle} receiverName={card.recipientName} messageNumber={messages.length} moneyCount={card.moneyCount} />}
+          cardTitle={card.title} receiverName={card.recipientName} messageNumber={messages.length} moneyCount={card.moneyCount} />}
         {cardStatus === "error" && <div className="bg-danger text-white mb-36t flex flex-col xl:max-w-[350px] h-max">
           <div className={`card mb-24t bg-cover p-24t rounded-12t`}>
             Il y{"'"} a une erreur:<br></br>{cardError.message}
@@ -221,9 +221,9 @@ const CardPage: NextPage = () => {
             </div>
           </div>
           <div className={`desktop_view colum_grid hidden md:grid ${messagesStatus === "success" && messages.length < 2 ? "md:flex md:flex-col" : "md:grid-cols-[1fr_1fr] md:gap-24t"}`}>
-            <div className={`col_left ${messagesStatus === "success" && messages.length < 2 ? "lg:flex lg:flex-row lg:justify-between" : ""}`}>
+            <div className={`col_left ${messagesStatus === "success" && messages.length < 2 ? "lg:flex lg:flex-row" : ""}`}>
               {messagesStatus === "success" && messages.length > 0 && pair(messages).map((message: any, idx: any) => (
-                <div key={idx} className="mb-24t md:mr-8t xl:min-w-[369px]">
+                <div key={idx} className="mb-24t xl:min-w-[369px]">
                   <Message message={message.messageContent} toggleDeleteModal={() => toggleDeleteModal(message.uid)} toggleModal={() => toggleDesktopOptionModal(message.uid)} messageId={message.uid} media={message.media} editRight={getEditRight(authUser!["uid"], message["creatorId"], card["creatorId"])} owner={message.creator} createdDate={message.createdDate}></Message>
                   {showDesktopOption && selectedMessageId === message.uid
                     && <DesktopOption toggleDeleteModal={() => toggleDeleteModal(message.uid)} modifyMessage={() => modifyMessage(selectedMessageId)} />}

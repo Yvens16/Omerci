@@ -6,6 +6,13 @@
   }],
   ["@babel/preset-env", {"targets": {"node": "current"}}], "@babel/preset-typescript"],
   "plugins": [
-    "inline-react-svg"
+    [
+      "babel-plugin-inline-react-svg",
+      {
+        "svgo": {
+          "plugins": [{ "name": "cleanupIDs", "params": { "remove": false, "minify": false } }]
+        }
+      }
+    ]
   ]
 }

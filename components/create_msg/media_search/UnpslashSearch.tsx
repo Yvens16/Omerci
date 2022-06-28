@@ -59,7 +59,7 @@ function UnsplashSearch({showModal, onClose, selectPhoto, mediaRef}: IUnsplashSe
               if (e.key === "Enter") {
                 loadData();
               }
-            }} onChange={(e) => handleSearchPictures(e)} type="text" className='caret-primary text-mid focus:outline-none mr-8t' />
+            }} onChange={(e) => handleSearchPictures(e)} type="text" className='caret-primary text-mid focus:outline-none mr-8t w-[80%]' />
             <UnsplashIcon />
           </div>
         </div>

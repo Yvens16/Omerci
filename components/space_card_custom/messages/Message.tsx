@@ -20,7 +20,7 @@ import useFirestore from "../../../firebase/useFirestore";
 
 const Message = ({ media, editRight, owner, createdDate, message, toggleModal, toggleDeleteModal }: IMessage) => {
   const { getVideoUrl } = useFirestore();
-  return <div data-testid="message-card" className={`xl:max-w-[417px] flex flex-col text-center border border-solid border-dashed_third rounded-12t`}>
+  return <div data-testid="message-card" className={`shadow-message_shadow xl:w-[417px] flex flex-col text-center border border-solid border-message_border rounded-12t bg-white`}>
     <div className="header flex justify-between mb-32t px-24t pt-24t">
       <div className="left flex items-center">
         <div className="text-white font-semibold text-12t flex items-center justify-center circle bg-gradient-to-br from-[#E2415E] to-[#E241DC] rounded-[50%] w-[32px] h-[32px] mr-8t">HO</div>
@@ -40,11 +40,11 @@ const Message = ({ media, editRight, owner, createdDate, message, toggleModal, t
       {/* {editRight === "nothing"
         && null} */}
     </div>
-    <div className="mb-24t w-[90%] md:max-w-[369px] h-auto mx-auto">
+    <div className="mb-24t w-[90%] md:w-[369px] h-auto mx-auto">
       {/* width={369} height={295} */}
       {/* <Image className="rounded-12t" width="100%" height="100%" src={mediaUrl} layout='responsive' objectFit="cover" alt="gif" /> */}
-      {(media.type === "image" || media.type === "gif") && <img className="h-auto rounded-12t mx-auto" src={media.url} alt="my gif" />}
-      {media.type === "video" && <video className="h-auto rounded-12t mx-auto"  autoPlay={true} loop muted>
+      {(media.type === "image" || media.type === "gif") && <img className="h-auto rounded-12t mx-auto md:w-[369px]" src={media.url} alt="my gif" />}
+      {media.type === "video" && <video className="h-auto rounded-12t mx-auto md:w-[369px]"  autoPlay={true} loop muted>
         <source type="video/mp4" src={media.url}/>
         </video>}
     </div>

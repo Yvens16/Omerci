@@ -13,7 +13,7 @@ function CreateMessage({ fileChange, showWhichView, handleMessage, messageConten
     <div className='container xl:max-w-laptopContent xl:mx-auto 2xl:max-w-content'>
       <div className="message bg-primary border border-secondary_fill border-solid rounded-12t p-24t">
         <div className="icon_title flex items-center mb-24t">
-          <div className='&rounded-8t mr-8t lg:mr-16t p-12t bg-msgHug w-[44px]'>
+          <div className='rounded-8t mr-8t lg:mr-16t p-12t bg-msgHug w-[44px]'>
             <ChatIcon className="fill-white w-[24px]" />
           </div>
           <h4 className='text-white text-mid font-semibold'>Votre message</h4>

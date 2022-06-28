@@ -40,6 +40,7 @@ module.exports = {
       msgHug:"rgba(255, 255, 255, 0.2)",
       shape_bg: "rgba(119, 13, 255, 0.07)",
       dashed_third: "rgba(106, 103, 116, 0.33)",
+      message_border: "#F5F5F5",
       profile_card_gradient: "linear-gradient(153deg, #E2415E 16.87%, #E241DC 78.3%)",
     },
     extend: {
@@ -54,6 +55,7 @@ module.exports = {
         card_box_shadow: '0px 5px 12px rgba(0, 0, 0, 0.05)',
         shape_shadow: 'inset 0px 0px 45px rgba(24, 133, 242, 0.1)',
         gif_header_shadow: "0px 4px 4px rgba(0, 0, 0, 0.05)",
+        message_shadow: "0px 10px 8px rgba(0, 0, 0, 0.02)",
       },
       spacing: {
         '4t': '4px',

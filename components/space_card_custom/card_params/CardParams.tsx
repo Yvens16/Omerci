@@ -35,11 +35,11 @@ const CardParams = ({ isAdmin, backgroundUrl, photoUrl, cardTitle, teamName, rec
       <div className='flex justify-between items-center w-full text-white max-w-[50%]'>
         <div className='p-8t bg-iconsParams backdrop-blur-[44px] rounded-8t mr-12t flex items-center justify-center flex-1'>
           <ChatIcon className='mr-4t fill-white' />
-          <span>{messageNumber}</span>
+          <span>{messageNumber || 0}</span>
         </div>
         <div className='p-8t bg-iconsParams backdrop-blur-[44px] rounded-8t flex items-center justify-center  whitespace-nowrap flex-1'>
           <BillIcon className='mr-4t fill-white' />
-          <span>{moneyCount} €</span>
+          <span>{moneyCount || 0} €</span>
         </div>
       </div>
     </div>
