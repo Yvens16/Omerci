@@ -7,7 +7,9 @@ export default {
   title: "Message Informations",
   component: Information,
   decorators: [withDesign],
-  args: {}
+  args: {
+    messageCreatorInfo: {name: "john", familyName: "Doe", email: "johnDoe@gmail.com"} 
+  }
 } as ComponentMeta<typeof Information>
 
 const Template: ComponentStory<typeof Information> = (args) => <Information {...args}></Information>

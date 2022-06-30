@@ -4,6 +4,7 @@ import Input from '@components/inputs/Input'
 import { IInfo } from '../interfaces'
 
 function Information({ handleInfo, messageCreatorInfo }: IInfo) {
+  console.log('messageCreatorInfo:', messageCreatorInfo)
   return (
     <div className='bg-white rounded-8t border border-solid border-secondary_fill p-16t xl:max-w-laptopContent xl:mx-auto 2xl:max-w-content'>
       <div className="header flex items-center mb-24t">

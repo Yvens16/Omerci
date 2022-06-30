@@ -21,17 +21,36 @@ export const MessageCardIsParticipantOwnCard = Template.bind({});
 export const MessageCardIsParticipantNotOwnCard = Template.bind({});
 
 MessageCardIsAdminNotOwnCard.args = {
-  editRight: "delete"
+  editRight: "delete",
+  media: { type: "image", url: "https://media.giphy.com/media/H47n1FPuoK8aPmxq6c/giphy.gif" },
+  owner: { familyName: "Doe", name: "John", email: "j@gmail.com" },
+  createdDate: "",
+  message: "",
+  // toggleModal: () => void,
+  // toggleDeleteModal: () => void,
+  // messageId: string,
 }
 MessageCardIsAdminOwnCard.args = {
-  editRight: "modifyAndDelete"
+  editRight: "modifyAndDelete",
+  media: { type: "image", url: "https://media.giphy.com/media/H47n1FPuoK8aPmxq6c/giphy.gif" },
+  owner: { familyName: "Doe", name: "John", email: "j@gmail.com" },
+  createdDate: "",
+  message: "",
 }
 MessageCardIsParticipantOwnCard.args = {
-  editRight: "modifyAndDelete"
+  editRight: "modifyAndDelete",
+  media: { type: "image", url: "https://media.giphy.com/media/H47n1FPuoK8aPmxq6c/giphy.gif" },
+  owner: { familyName: "Doe", name: "John", email: "j@gmail.com" },
+  createdDate: "",
+  message: "",
 }
 
 MessageCardIsParticipantNotOwnCard.args = {
   // editRight: "nothing"
+  media: { type: "image", url: "https://media.giphy.com/media/H47n1FPuoK8aPmxq6c/giphy.gif" },
+  owner: { familyName: "Doe", name: "John", email: "j@gmail.com" },
+  createdDate: "",
+  message: "",
 }
 
 MessageCardIsAdminNotOwnCard.parameters = {

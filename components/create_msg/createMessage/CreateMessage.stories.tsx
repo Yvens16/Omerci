@@ -7,7 +7,15 @@ export default {
   title: "CreateMessage",
   component: CreateMessage,
   decorators: [withDesign],
-  args: {}
+  args: {
+    // fileChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    // showWhichView: (view: "default" | "gify" | "unsplash") => void,
+    // handleMessage: (e:any) => void,
+    messageContent: "",
+    mediaUrl: "",
+    // deleteMediaState: () => void,
+    fileUrlToShow: {}, // {type: "image", url: ""}
+  }
 } as ComponentMeta<typeof CreateMessage>
 
 const Template: ComponentStory<typeof CreateMessage> = (args) => <CreateMessage {...args}></CreateMessage>
