@@ -21,7 +21,7 @@ const inputs = [
 function EmailSettings({ settings, handleInputs }: IEmailSettings) {
   return (
     <div
-      className='email_settings border border-solid border-secondary_fill rounded-8t p-16t m-16t xl:max-w-laptopContent mx-auto'>
+      className='bg-white email_settings border border-solid border-secondary_fill rounded-8t p-16t xl:max-w-laptopContent mx-auto mb-32t xl:mb-40t'>
       <div className='text-primary flex items-center mb-24t text-mid font-semibold'>
         <StreamIcon className="w-[14px] h-[14px] mr-8t" />
         Envoyez moi un email pour...

@@ -1,12 +1,12 @@
 export interface Information {
-  handleInputs: () => void,
+  handleInputs: (e:  React.ChangeEvent<HTMLInputElement>) => void,
   handlePhoto: () => void,
   name: string,
   email: string,
 }
 
 export interface IEmailSettings {
-  handleInputs: () => void,
+  handleInputs: (event: React.ChangeEvent<HTMLInputElement>) => void,
   settings: {
     [key: string]: boolean,
   },

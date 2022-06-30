@@ -10,14 +10,14 @@ function Header({title, handleback, subtitle, buttonContent}: Interface) {
     <div className='lg:bg-white'>
       <div className='flex items-baseline mt-32t lg:mt-0 mb-24t xl:w-[687px]  xl:max-w-laptopContent xl:mx-auto 2xl:max-w-content relative'>
         <ChevronIcon onClick={handleback} className="fill-primary stroke-primary stroke-[2px] mr-16t xl:hidden"/>
-        <div className="hidden xl:block xl:absolute xl:-left-[237px] top-12t" ref={returnRef}>
-          <Button myClass="text-primary" handleClick={handleback} type="third" size="big" >
+        <div className="hidden xl:block xl:absolute xl:-left-[275px] top-12t" ref={returnRef}>
+          <Button myClass="text-primary !p-8t" handleClick={handleback} type="third" size="big" >
           <ShortArrowLeftIcon className="w-[17px] h-[17px] fill-primary mr-8t"/>
           <span>{buttonContent}</span>
           </Button>
         </div>
-        <div className="header_container lg:my-24t">
-          <h2 className='text-black text-title font-semibold'>{title}</h2>
+        <div className="header_container lg:my-24t leading-[32px]">
+          <h1 className='text-black text-[28px] font-semibold'>{title}</h1>
           <span className="text-third text-mid">{subtitle}</span>
         </div>
       </div>
