@@ -18,6 +18,22 @@ import {
   where
 } from "firebase/firestore";
 
+export interface IUpdateSettings {
+  uid: string,
+  instructions: boolean,
+  new_message: boolean,
+  card_opened: boolean,
+  card_not_sent: boolean,
+  card_sent: boolean,
+  news: boolean,
+  name: string,
+  email: string
+}
+
+export interface IUpdatePhoto {
+  uid: string, name: string, file?: File,
+}
+
 export default function useFirestore() {
   const { updateAuthDisplayName } = useFirebaseAuth();
   interface IaddUserInfo {
@@ -35,7 +51,16 @@ export default function useFirestore() {
         firstName,
         lastName,
         howDoYouKnowUs,
-        email
+        email,
+        settings: {
+          uid: false,
+          instructions: false,
+          new_message: false,
+          card_opened: false,
+          card_not_sent: false,
+          card_sent: false,
+          news: false,
+        }
       });
       await updateAuthDisplayName({ firstName, lastName });
     } catch (e) {
@@ -70,7 +95,7 @@ export default function useFirestore() {
     creatorName: string,
   }
 
-  const createNewCard = async ({ userId, recipientName, title, hasCagnotte, isPremium, teamName, photoUrl="", creatorName }: ICreateNewCard) => {
+  const createNewCard = async ({ userId, recipientName, title, hasCagnotte, isPremium, teamName, photoUrl = "", creatorName }: ICreateNewCard) => {
     const cardRef = doc(collection(db, "cards"));
     let card;
     const cardUrl = `${window.location.origin}/card/${cardRef.id}`;
@@ -197,7 +222,7 @@ export default function useFirestore() {
       const url = await getDownloadURL(ref(storage, storageUrl));
       console.log('url:', url)
       return url;
-    } catch(err) {
+    } catch (err) {
       console.log("getVideoUrl", err);
     }
   }
@@ -214,7 +239,24 @@ export default function useFirestore() {
     cardId: string,
   }
 
-  const createMessage = async ({ docName, docType, file, creatorId = "1234test", message, mediaUrl="", creator, cardId }: CreateMessage) => {
+  const updatePhoto = async ({ uid, name, file }: IUpdatePhoto) => {
+    console.log('file:', file)
+    if (file) {
+      const UserRef = doc(db, "users", uid);
+      const storageRef = ref(storage, `image/${name}_profile_picture`)
+      try {
+        const snapshot = await uploadBytes(storageRef, file!)
+        const fullUrl = await getDownloadURL(storageRef);
+        await setDoc(UserRef, {
+          profileImage: fullUrl,
+        }, { merge: true })
+      } catch (err) {
+        console.log("Error in updatePhoto", err);
+      }
+    }
+  }
+
+  const createMessage = async ({ docName, docType, file, creatorId = "1234test", message, mediaUrl = "", creator, cardId }: CreateMessage) => {
     const MessageRef = doc(collection(db, "messages"));
     const storageRef = ref(storage, `${docType}/${docName}`);
     console.log('storageRef:', storageRef.fullPath)
@@ -228,11 +270,11 @@ export default function useFirestore() {
           creatorId: creatorId,
           creationDate: serverTimestamp(),
           messageContent: message,
-          creator, 
+          creator,
         })
       } else {
         const snapshot = await uploadBytes(storageRef, file!);
-        const fullUrl =  await getDownloadURL(storageRef);
+        const fullUrl = await getDownloadURL(storageRef);
         console.log('Snapshot was uploaded !:', snapshot)
         await setDoc(MessageRef, {
           cardId,
@@ -241,13 +283,40 @@ export default function useFirestore() {
           creatorId: creatorId,
           creationDate: serverTimestamp(),
           messageContent: message,
-          creator, 
+          creator,
         })
       }
       console.log("CreateNewMessage: Creation sucessfull");
       return MessageRef.id;
     } catch (e) {
       console.log("Error in createNewMessage", e);
+    }
+  }
+
+
+
+  const updateSettings = async ({ uid, instructions, new_message, card_opened, card_not_sent, card_sent, news, name, email }: IUpdateSettings) => {
+    const userRef = doc(db, "users", uid);
+    const firstName = name.split(" ")[0];
+    const lastName = name.split(" ")[1];
+    try {
+      setDoc(userRef, {
+        firstName,
+        lastName,
+        email,
+        settings: {
+          uid,
+          instructions,
+          new_message,
+          card_opened,
+          card_not_sent,
+          card_sent,
+          news,
+          name,
+        }
+      }, { merge: true })
+    } catch (err) {
+      console.log("Error in updateSettings", err);
     }
   }
 
@@ -269,6 +338,8 @@ export default function useFirestore() {
     getMessagesOnCard,
     deleteMessage,
     createMessage,
-    getVideoUrl
+    getVideoUrl,
+    updateSettings,
+    updatePhoto
   }
 }

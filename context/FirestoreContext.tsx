@@ -1,7 +1,16 @@
 import { createContext, useContext } from 'react';
-import useFirestore from '../firebase/useFirestore';
+import useFirestore, {IUpdateSettings, IUpdatePhoto} from '../firebase/useFirestore';
 
 type TResul = {
+  profileImage: string;
+  settings: {
+    instructions: boolean;
+    new_message: boolean;
+    card_opened: boolean;
+    card_not_sent: boolean;
+    card_sent: boolean;
+    news: boolean;
+  };
   firstName: string,
   email: string,
   lastName: string,
@@ -68,6 +77,8 @@ interface IfirestoreContext {
   getMessagesOnCard: (cardId: string) => Promise<TMessages>,
   createMessage: ({docName, docType, file, creatorId, message, mediaUrl, creator, cardId}: CreateMessage) =>Promise<void>,
   getVideoUrl: (storageUrl: string) => Promise<void>,
+  updateSettings: ({ uid, instructions, new_message, card_opened, card_not_sent, card_sent, news, name, email }: IUpdateSettings) => Promise<void>
+  updatePhoto: ({uid, name, file}: IUpdatePhoto) => Promise<void>,
 }
 
 export const FirestoreCtx = createContext<IfirestoreContext>({
@@ -81,7 +92,9 @@ export const FirestoreCtx = createContext<IfirestoreContext>({
   getCard: (cardId: string) => new Promise<Tcard>(() => {}),
   getMessagesOnCard: (creatorUid: string) => new Promise<TMessages>(() => {}),
   createMessage: ({docName, docType, file, creatorId, message, mediaUrl, creator, cardId}: CreateMessage) => new Promise(() => {}),
-  getVideoUrl: (storageUrl: string) => new Promise(() => {})
+  getVideoUrl: (storageUrl: string) => new Promise(() => {}),
+  updateSettings: ({ uid, instructions, new_message, card_opened, card_not_sent, card_sent, news, name, email }: IUpdateSettings) => new Promise(() => {}),
+  updatePhoto: ({uid, name, file}: IUpdatePhoto) => new Promise(() => {}),
 })
 
 
