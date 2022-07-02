@@ -67,3 +67,8 @@ export interface IOnboardingModal extends IInfoModal {
   photoUrl: string,
   recipientName: string,
 }
+
+export interface IHeader {
+  goTo : () => void,
+  goBack: () => void,
+}

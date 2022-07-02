@@ -16,4 +16,5 @@ export interface IButtonSet {
   validate: () => void,
   cancelText: string,
   validateText: string,
+  isDisabled: boolean,
 }
