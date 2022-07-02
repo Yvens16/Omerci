@@ -62,7 +62,7 @@ export default function useFirestore() {
           news: false,
         }
       });
-      await updateAuthDisplayName({ firstName, lastName });
+      await updateAuthDisplayName({ firstName, lastName, email });
     } catch (e) {
       // TODO: add snackbar to display the error here
       console.log('Error in addUserInfo to firestore', e);

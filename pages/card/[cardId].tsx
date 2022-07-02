@@ -121,9 +121,7 @@ const CardPage: NextPage = () => {
   }, [executeGetMessages, cardStatus, cardId])
   useEffect(() => {
     const showTheOnboardingModal = async () => {
-      console.log('authUser:', authUser)
       if (authUser && authUser["uid"] && card) {
-        console.log('authUser["uid"]:', authUser["uid"], card)
         if (!card.WhoHasAlreadySeenOnce.includes(authUser["uid"])) {
           setShowOnboardingModal(true)
           await updateCard({ ...card, userId: authUser["uid"], cardId: card.uid })
@@ -134,8 +132,6 @@ const CardPage: NextPage = () => {
     }
     const checkIfUserIsAdmin = () => {
       if (authUser && authUser["uid"] && card && authUser["uid"] === card.creatorId) {
-        console.log('111111card.creatorId:', card.creatorId)
-        console.log('11111111authUser["uid"]:', authUser["uid"])
         setIsAdmin(true);
       }
     }

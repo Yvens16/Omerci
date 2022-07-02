@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { auth } from './index';
-import { sendSignInLinkToEmail, onAuthStateChanged, isSignInWithEmailLink, signOut, signInAnonymously, signInWithEmailLink, updateProfile, fetchSignInMethodsForEmail } from 'firebase/auth';
+import { sendSignInLinkToEmail, onAuthStateChanged, isSignInWithEmailLink, signOut, signInAnonymously, signInWithEmailLink, updateProfile, fetchSignInMethodsForEmail, updateEmail } from 'firebase/auth';
 
 interface authUserParams {
   uid: string | null,
@@ -202,12 +202,14 @@ export default function useFirebaseAuth() {
   interface IupdateName {
     firstName: string,
     lastName: string,
+    email: string,
   }
-  const updateAuthDisplayName = async ({ firstName, lastName }: IupdateName) => {
+  const updateAuthDisplayName = async ({ firstName, lastName, email }: IupdateName) => {
     // const auth = getAuth(firebaseApp);
     try {
       if (auth && auth.currentUser)
         await updateProfile(auth.currentUser, { displayName: `${firstName} ${lastName}` });
+        await updateEmail(auth.currentUser, email);
       console.log('updateAuthDisplayName: Profile updated');
     } catch (e) {
       //TODO: Snackbar for eroor to user
