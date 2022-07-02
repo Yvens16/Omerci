@@ -71,4 +71,5 @@ export interface IOnboardingModal extends IInfoModal {
 export interface IHeader {
   goTo : () => void,
   goBack: () => void,
+  isAdmin: boolean,
 }

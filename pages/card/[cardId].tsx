@@ -121,6 +121,7 @@ const CardPage: NextPage = () => {
   }, [executeGetMessages, cardStatus, cardId])
   useEffect(() => {
     const showTheOnboardingModal = async () => {
+      console.log('authUser:', authUser)
       if (authUser && authUser["uid"] && card) {
         console.log('authUser["uid"]:', authUser["uid"], card)
         if (!card.WhoHasAlreadySeenOnce.includes(authUser["uid"])) {
@@ -133,6 +134,8 @@ const CardPage: NextPage = () => {
     }
     const checkIfUserIsAdmin = () => {
       if (authUser && authUser["uid"] && card && authUser["uid"] === card.creatorId) {
+        console.log('111111card.creatorId:', card.creatorId)
+        console.log('11111111authUser["uid"]:', authUser["uid"])
         setIsAdmin(true);
       }
     }
@@ -192,7 +195,7 @@ const CardPage: NextPage = () => {
   return (
     <div className=" lg:max-w-[1240px] mx-auto">
       <div className="py-8t bg-white md:!bg-default_bg md:my-24t px-16t xl:px-0 mb-16t xl:my-24t">
-        <Header goTo={() => router.push({pathname: "/send_card", query: {cardTitle: card.title, recipient: card.recipientName}})} goBack={() => router.push({pathname: "/personal_space"})}/>
+        <Header goTo={() => router.push({pathname: "/send_card", query: {cardTitle: card.title, recipient: card.recipientName}})} goBack={() => router.push({pathname: "/personal_space"})} isAdmin={isAdmin}/>
       </div>
       <div className='px-16t xl:px-0 xl:grid xl:grid-cols-[30%_70%]'>
         {/* <CardParams teamName={"card.teamName"} goToCreateMessage={goToCreateMessage} isAdmin={isAdmin} photoUrl={'/avatars/girl.jpg'} backgroundUrl={"'/images/card_params_bg.jpg'"}
