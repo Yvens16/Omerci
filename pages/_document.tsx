@@ -15,7 +15,7 @@ class MyDocument extends Document {
           <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;800&display=swap" rel="stylesheet" />
         </Head>
-        <body id='myportal' className='font-poppins text-base bg-default_bg text-black'>
+        <body id='myportal' className='font-poppins text-base bg-default_bg text-black add-scrollbar'>
           <Main />
           <NextScript />
         </body>

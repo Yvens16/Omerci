@@ -7,7 +7,6 @@ import ButtonSet from "@components/reusables/buttons_set/ButtonSet";
 import { useFirestoreDb } from 'context/FirestoreContext';
 import { useAuth } from 'context/AuthUserContext';
 import { useRouter } from 'next/router';
-import { auth } from 'firebase';
 
 
 const AccountSettings: NextPage = () => {
@@ -82,16 +81,16 @@ const AccountSettings: NextPage = () => {
       const getUserData = async () => {
         const user = await getUserInfo(authUser['uid']);
         setInputs({
-          name: `${user.firstName} ${user.lastName}`,
-          email: user.email
+          name: `${user.firstName} ${user.lastName}` || "",
+          email: user.email || ""
         })
         setEmailSettings({
-          instructions: user.settings.instructions,
-          new_message: user.settings.new_message,
-          card_opened: user.settings.card_opened,
-          card_not_sent: user.settings.card_not_sent,
-          card_sent: user.settings.card_sent,
-          news: user.settings.news,
+          instructions: user.settings.instructions || false,
+          new_message: user.settings.new_message || false,
+          card_opened: user.settings.card_opened || false,
+          card_not_sent: user.settings.card_not_sent || false,
+          card_sent: user.settings.card_sent || false,
+          news: user.settings.news || false,
         })
         setFileToShowURL(user.profileImage)
       }

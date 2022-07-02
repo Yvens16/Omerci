@@ -53,7 +53,7 @@ const CardPage: NextPage = () => {
   const goToCreateMessage = () => {
     router.push({
       pathname: "/create_message",
-      query: { carteid: cardId }
+      query: { carteid: cardId, cardTtitle: card.title}
     })
   }
 

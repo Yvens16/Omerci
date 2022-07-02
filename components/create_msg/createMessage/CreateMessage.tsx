@@ -10,7 +10,7 @@ import { IMessageCreation } from '../interfaces';
 
 function CreateMessage({ fileChange, showWhichView, handleMessage, messageContent, mediaUrl, deleteMediaState, fileUrlToShow }: IMessageCreation) {
   return (
-    <div className='container xl:max-w-laptopContent xl:mx-auto 2xl:max-w-content'>
+    <div className='container xl:max-w-laptopContent xl:mx-auto'>
       <div className="message bg-primary border border-secondary_fill border-solid rounded-12t p-24t">
         <div className="icon_title flex items-center mb-24t">
           <div className='rounded-8t mr-8t lg:mr-16t p-12t bg-msgHug w-[44px]'>

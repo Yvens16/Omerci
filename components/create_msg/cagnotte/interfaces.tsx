@@ -4,10 +4,13 @@ export interface ICagnotte {
   commissionValue: number,
   handleCagnotteAmount: (e: any) => void,
   handleCustomAmount: () => void,
-  stripeOption: { clientSecret: string },
+  stripeOption?: { clientSecret: string },
   cagnotteAmount: number,
-  stripePromise: any,
+  stripePromise?: any,
   onFileUpload: () => void,
-  clientSecret: string,
+  clientSecret?: string,
   reset: () => void,
+  isBtnSelected: {
+    [key: string]: boolean,
+  }
 }

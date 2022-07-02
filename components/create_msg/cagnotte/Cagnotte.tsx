@@ -17,22 +17,22 @@ import { Elements, CardNumberElement, CardExpiryElement, CardCvcElement, Payment
 //   console.log('stripePromise:', stripePromise)
 // }
 // load();
-export function Cagnotte({ isCustomAmount, isAmountSelected, commissionValue, handleCagnotteAmount, stripeOption, handleCustomAmount, cagnotteAmount, stripePromise, onFileUpload, clientSecret, reset }: ICagnotte) {
+export function Cagnotte({ isBtnSelected, isCustomAmount, isAmountSelected, commissionValue, handleCagnotteAmount, stripeOption, handleCustomAmount, cagnotteAmount, stripePromise, onFileUpload, clientSecret, reset }: ICagnotte) {
   return (
-    <div className='bg-white rounded-8t border border-solid border-secondary_fill p-16t xl:max-w-laptopContent xl:mx-auto 2xl:max-w-content'>
+    <div className='bg-white rounded-8t border border-solid border-secondary_fill p-16t xl:max-w-laptopContent xl:mx-auto'>
       <div className="header flex items-center mb-24t">
         <CircleChevron className="fill-primary w-[14px] h-[14px] mr-8t" />
         <h4 className='text-primary text-mid font-medium'>Ajouter à la cagnotte</h4>
       </div>
       <div className="prices flex w-[100%] mb-8t">
         <div className='flex lg:basis-1/2 grow'>
-          <Button myClass={'focus:bg-primary focus:text-white'} handleClick={() => handleCagnotteAmount(5)} type='secondary' size={''}>
+          <Button myClass={`${isBtnSelected.five ? "bg-primary text-white" : ""} `} handleClick={() => handleCagnotteAmount(5)} type='secondary' size={''}>
             5 €
           </Button>
-          <Button myClass={'mx-8t focus:bg-primary focus:text-white'} handleClick={() => handleCagnotteAmount(10)} type='secondary' size={''}>
+          <Button myClass={`mx-8t ${isBtnSelected.ten ? "bg-primary text-white" : ""}`} handleClick={() => handleCagnotteAmount(10)} type='secondary' size={''}>
             10 €
           </Button>
-          <Button myClass={'mr-8t focus:bg-primary focus:text-white'} handleClick={() => handleCagnotteAmount(20)} type='secondary' size={''}>
+          <Button myClass={`mr-8t ${isBtnSelected.twenty ? "bg-primary text-white" : ""}`} handleClick={() => handleCagnotteAmount(20)} type='secondary' size={''}>
             20 €
           </Button>
         </div>
@@ -59,13 +59,13 @@ export function Cagnotte({ isCustomAmount, isAmountSelected, commissionValue, ha
             <CheckoutForm isAmountSelected={isAmountSelected} onFileUpload={onFileUpload} clientSecret={clientSecret} />
           </div>
         </Elements> */}
-        <div className="buttons w-full flex justify-between mb-12t xl:max-w-laptopContent xl:mx-auto 2xl:max-w-content">
+        {/* <div className="buttons w-full flex justify-between mb-12t xl:max-w-laptopContent xl:mx-auto 2xl:max-w-content">
           <Button myClass={'mr-12t'} handleClick={reset} type={'secondary'} size={'big'}>Annuler</Button>
           <Button myClass={''} handleClick={() => {
             // acceptPayment();
             onFileUpload();
           }} type={'primary'} size={'big'}>Ajouter le message</Button>
-        </div>
+        </div> */}
       </div>
 
     </div>

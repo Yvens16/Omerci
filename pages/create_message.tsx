@@ -11,19 +11,18 @@ import Portal from '@components/Portal';
 import { useOnClickOutside } from '@components/utils/hooks/useClickOutside';
 import { useAuth } from '../context/AuthUserContext';
 import useSWR from 'swr'
-import {
-  PaymentElement,
-  useStripe,
-  useElements
-} from "@stripe/react-stripe-js";
-import { loadStripe } from '@stripe/stripe-js';
-let environment = process.env.NEXT_PUBLIC_VERCEL_ENV;
-let stripekey = environment === "development" ? process.env.NEXT_PUBLIC_STRIPE_SECRET_PUBLIC_TEST : process.env.NEXT_PUBLIC_STRIPE_SECRET_PUBLIC;
-const stripePromise = loadStripe(stripekey!);
+// import {
+//   PaymentElement,
+//   useStripe,
+//   useElements
+// } from "@stripe/react-stripe-js";
+// import { loadStripe } from '@stripe/stripe-js';
+// let environment = process.env.NEXT_PUBLIC_VERCEL_ENV;
+// let stripekey = environment === "development" ? process.env.NEXT_PUBLIC_STRIPE_SECRET_PUBLIC_TEST : process.env.NEXT_PUBLIC_STRIPE_SECRET_PUBLIC;
+// const stripePromise = loadStripe(stripekey!);
 
 
-
-const Header = dynamic<IHeader>(() => import("@components/create_msg/header/Header"));
+const Header = dynamic(() => import("@components/reusables/header/Header"));
 const MessageCreation = dynamic<IMessageCreation>(() => import("@components/create_msg/createMessage/CreateMessage"));
 const Infos = dynamic<IInfo>(() => import("@components/create_msg/Infos/Information"));
 const Cagnotte = dynamic<ICagnotte>(() => (import("@components/create_msg/cagnotte/Cagnotte")).then((mod) => mod.Cagnotte));
@@ -36,6 +35,15 @@ const CreateMessage: NextPage = () => {
 
   const [stripeMessage, setMessage] = useState(null);
   const [stripeIsLoading, setStripeIsLoading] = useState(false);
+  const [isOkBtnDisabled, setIsOkBtnDisabled] = useState(true);
+
+  const initialBtns = {
+    five: false,
+    ten: false,
+    twenty: false,
+  }
+
+  const [isBtnSelected, setIsBtnSelected] = useState<{ [key: string]: boolean }>(initialBtns)
 
   const { authUser } = useAuth();
   const [messageCreatorInfo, setInfo] = useState<{ name: string, familyName: string, email: string }>({
@@ -64,6 +72,30 @@ const CreateMessage: NextPage = () => {
     })
 
   }
+
+
+  useEffect(() => {
+    const checkDisabledBtn = () => {
+      let disableInfoState = false;
+      Object.values(messageCreatorInfo).map(prop => {
+        if (prop.length === 0) disableInfoState = true;
+      })
+      if (isCustomAmount) {
+        if (Number(cagnotteAmount) > 0 && messageContent.length !== 0 && disableInfoState === false) {
+          setIsOkBtnDisabled(false);
+        } else {
+          setIsOkBtnDisabled(true);
+        }
+      } else {
+        if (isCustomAmount === false && messageContent.length !== 0 && disableInfoState === false) {
+          setIsOkBtnDisabled(false);
+        }
+      }
+
+    }
+    checkDisabledBtn();
+  }, [messageContent, messageCreatorInfo, isCustomAmount, cagnotteAmount])
+
   const onFileChange = (e: any) => {
     setGifUrl("");
     setUnsplashUrl("");
@@ -116,6 +148,7 @@ const CreateMessage: NextPage = () => {
     setFiles(undefined);
     setFileToShowURL({ type: "", url: "" });
     setIsCustomAmount(false);
+    setIsBtnSelected(initialBtns);
     // router.push(`/card/${router.query.carteid}`);
   }
 
@@ -124,6 +157,13 @@ const CreateMessage: NextPage = () => {
   }
 
   const handleCagnotteAmount = (e: any | number) => {
+    const dicAmount: { [key: number]: string } = { 5: "five", 10: "ten", 20: "twenty" };
+    if (typeof e === "number") {
+      const newState: { [key: string]: boolean } = { ...initialBtns };
+      newState[dicAmount[e]] = true;
+      setIsBtnSelected(newState);
+    }
+
     if (!isAmountSelected) setIsAmountSelected(true);
     const amount = e && e.target ? e.target.value : e;
     setCagnotteAmount(Number(amount));
@@ -131,6 +171,7 @@ const CreateMessage: NextPage = () => {
 
   const handleCustomAmount = () => {
     setIsCustomAmount(true);
+    setIsBtnSelected(initialBtns);
   }
 
   const deleteMediaState = () => {
@@ -140,23 +181,24 @@ const CreateMessage: NextPage = () => {
     setFileToShowURL({ type: "", url: "" });
   }
 
-  const fetcher = (url: string) => fetch(url, {
-    method: "POST",
-    body: JSON.stringify({ amount: 1400 })
-  }).then((res) => {
-    return res.json();
-  })
-  const { data, error } = useSWR('/api/pay_card', fetcher)
-  const options = {
-    // passing the client secret obtained from the server
-    clientSecret: data && data.clientSecret ? data.clientSecret : "",
-  };
+  // const fetcher = (url: string) => fetch(url, {
+  //   method: "POST",
+  //   body: JSON.stringify({ amount: 1400 })
+  // }).then((res) => {
+  //   return res.json();
+  // })
+  // const { data, error } = useSWR('/api/pay_card', fetcher)
+  // const options = {
+  //   // passing the client secret obtained from the server
+  //   clientSecret: data && data.clientSecret ? data.clientSecret : "",
+  // };
   const backToCard = () => {
     router.push(`/card/${router.query.carteid}`);
   }
 
   return (
     <>
+      {console.log("isOkBtnDisabled@@@@@@@", isOkBtnDisabled)}
       <div className="px-16t xl:px-0">
         {showView === "gify" &&
           <Portal>
@@ -168,33 +210,35 @@ const CreateMessage: NextPage = () => {
             <UnsplashModal mediaRef={MediasModalRef} showModal={true} onClose={() => showWhichView("default")} selectPhoto={selectPhoto} />
           </Portal>
         }
-        <Header backToCard={backToCard} />
+        {/* <Header backToCard={backToCard} /> */}
+        <Header buttonContent="Retour à la carte" handleback={backToCard} title="Ajouter un message" subtitle={`À la carte ${router.query.cardTtitle}`} />
         <div className='mb-24t'>
           <MessageCreation fileUrlToShow={fileUrlToShow} deleteMediaState={deleteMediaState} fileChange={onFileChange} showWhichView={showWhichView} handleMessage={handleMessage} messageContent={messageContent} mediaUrl={unsplashUrl.length ? unsplashUrl : gifUrl} />
         </div>
         <div className='mb-24t'>
           <Infos handleInfo={handleInfo} messageCreatorInfo={messageCreatorInfo} />
         </div>
+        <Cagnotte
+          isBtnSelected={isBtnSelected}
+          // stripePromise={stripePromise}
+          cagnotteAmount={cagnotteAmount}
+          handleCustomAmount={handleCustomAmount}
+          // stripeOption={options}
+          handleCagnotteAmount={handleCagnotteAmount}
+          isCustomAmount={isCustomAmount}
+          isAmountSelected={isAmountSelected}
+          onFileUpload={onFileUpload}
+          // clientSecret={data.clientSecret}
+          commissionValue={0}
+          reset={reset}
+        />
         {/* <div className='mb-40t'>
           {data && data.clientSecret &&
-            <Cagnotte
-              stripePromise={stripePromise}
-              cagnotteAmount={cagnotteAmount}
-              handleCustomAmount={handleCustomAmount}
-              stripeOption={options}
-              handleCagnotteAmount={handleCagnotteAmount}
-              isCustomAmount={isCustomAmount}
-              isAmountSelected={isAmountSelected}
-              onFileUpload={onFileUpload}
-              clientSecret={data.clientSecret}
-              commissionValue={0}
-              reset={reset}
-            />
           }
         </div> */}
-        <div className="buttons grid grid-cols-2 mb-12t xl:max-w-laptopContent xl:mx-auto 2xl:max-w-content">
+        <div className="buttons grid grid-cols-2 mb-12t xl:max-w-laptopContent xl:mx-auto mt-40t">
           <Button myClass={'mr-12t'} handleClick={reset} type={'secondary'} size={'big'}>Annuler</Button>
-          <Button myClass={''} handleClick={onFileUpload} type={'primary'} size={'big'}>Ajouter le message</Button>
+          <Button isDisabled={isOkBtnDisabled} myClass={''} handleClick={onFileUpload} type={'primary'} size={'big'}>Ajouter le message</Button>
         </div>
       </div>
     </>
