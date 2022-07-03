@@ -165,9 +165,9 @@ test("User sees the card for the first time so the onboarding modal shows itsel"
   const AddMessageBtnCardParams = screen.getAllByText("Ajouter un message")[0];
   const AddMessageBtnCardMsg = screen.getAllByText("Ajouter un message")[1];
   await user.click(AddMessageBtnCardParams);
-  expect(mockPush).toHaveBeenCalledWith({pathname: "/create_message", query: {carteid: "1234"}});
+  expect(mockPush).toHaveBeenCalledWith({pathname: "/create_message", query: {carteid: "1234", cardTitle: "Yvens's farewell",}});
   await user.click(AddMessageBtnCardMsg);
-  expect(mockPush).toHaveBeenCalledWith({pathname: "/create_message", query: {carteid: "1234"}});
+  expect(mockPush).toHaveBeenCalledWith({pathname: "/create_message", query: {carteid: "1234", cardTitle: "Yvens's farewell",}});
 });
 
 //####################################################################################################################################
@@ -287,9 +287,15 @@ test("Creator of the card sees the icon params in CardParams on the left of the 
   const DestinatorNameInput = screen.getByLabelText("Nom du destinaire");
   const FromWhoInput = screen.getByLabelText("De la part de");
   const hasCagnotteCheckbox = screen.getByText("Ajouter une cagnotte en ligne");
+  await user.clear(titleInput);
   await user.type(titleInput, "Au revoir Thomas !");
+
+  await user.clear(DestinatorNameInput);
   await user.type(DestinatorNameInput, "Thomas Bouchard");
+
+  await user.clear(FromWhoInput);
   await user.type(FromWhoInput, "Toute l’equipe compta !");
+
   await user.click(hasCagnotteCheckbox);
   expect(titleInput).toHaveValue("Au revoir Thomas !");
   expect(DestinatorNameInput).toHaveValue("Thomas Bouchard");

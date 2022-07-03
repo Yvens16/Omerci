@@ -10,9 +10,9 @@ import SimpleModal from "@components/modal/SimpleModal";
 import { IOnboardingModal } from '@components/space_card_custom/interfaces';
 
 
-function OnboardingModal({ show, closeModal, cardTitle, numberOfMsg, moneyCount, cardCreator, isAdmin, photoUrl, recipientName }: IOnboardingModal) {
+function OnboardingModal({ show, closeModal, cardTitle, numberOfMsg, moneyCount, cardCreator, isAdmin, photoUrl, recipientName, customClass }: IOnboardingModal) {
   return (
-    <SimpleModal show={show} closeModal={closeModal} titleHtml={undefined}>
+    <SimpleModal show={show} closeModal={closeModal} titleHtml={undefined} customClass="xl:top-[88px] xl:-translate-y-0">
       <div className="add-scrollbar h-[526px] flex flex-col items-center text-center">
         <span className="mb-8t text-[29px]" >👋</span>
         <h3 className='text-18t text-black font-semibold mb-8t'>Bienvenue dans la carte virtuelle {cardTitle || "titre"}</h3>

@@ -7,13 +7,20 @@ import Router from 'next/router';
 import useFirestore from "../../firebase/useFirestore";
 import CreateMessage from "@pages/create_message";
 
-
+let mockQuery = {
+  cardTitle: 'Merci Jean',
+}
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    query: mockQuery,
+  })
+}));
 /** 
  * 1) Add message, gif, unsplash, custom pic without cagnotte 
 */
 
 
-test("User is creating a message", async() => {
+test.only("User is creating a message", async() => {
 
   // Add an element to jest dom that is empty by default
   const root = document.createElement('div');

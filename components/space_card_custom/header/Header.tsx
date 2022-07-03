@@ -10,7 +10,7 @@ function Header({ goTo, goBack, isAdmin }: IHeader) {
     <div className='navigate flex justify-between items-baseline'>
       <ChevronLeftIcon className='fill-primary md:hidden' />
       <div className="hidden md:block">
-        <Button myClass={'text-primary md:!bg-default_bg xl:pl-0'} handleClick={goBack} type='third' size='big'>
+        <Button myClass={'text-primary md:!bg-default_bg xl:pl-0 font-medium'} handleClick={goBack} type='third' size='big'>
           <ShortArrowIcon className="mr-4t w-[17px] h-[17px] fill-primary" />
           Retour à l’accueil
         </Button>

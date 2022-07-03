@@ -15,7 +15,7 @@ import { useRouter } from 'next/router';
 const CardParams = ({ isAdmin, backgroundUrl, photoUrl, cardTitle, teamName, receiverName, messageNumber, moneyCount, goToCreateMessage, toggleParamsModal }: IParams) => {
   const router = useRouter();
   const { isrecipient } = router.query;
-  return <div className="mb-36t flex flex-col xl:max-w-[350px] h-max">
+  return <div className="mb-36t flex flex-col xl:w-[350px] h-max">
     <div className={`card mb-24t bg-cover p-24t rounded-12t`}>
       <div className="flex justify-between items-center mb-8t">
         <div className='mb-8t w-[55px] h-[55px] relative rounded-16t md:mr-8t md:mb-0 md:min-w-[55px]'>
@@ -29,7 +29,7 @@ const CardParams = ({ isAdmin, backgroundUrl, photoUrl, cardTitle, teamName, rec
       </div>
       <div className="texte text-mid text-white mb-16t">
         <p className="font-semibold">{cardTitle}</p>
-        <p className="">{receiverName}</p>
+        <p className="font-extralight">{receiverName}</p>
         {isrecipient === "true" ? <p>De la part de : {teamName}</p> : null}
       </div>
       <div className='flex justify-between items-center w-full text-white max-w-[50%]'>
@@ -55,11 +55,11 @@ const CardParams = ({ isAdmin, backgroundUrl, photoUrl, cardTitle, teamName, rec
         <span className="text-mid text-primary">Autre options</span>
       </Button>
     </> : <>
-      <Button myClass={"mb-12t"} handleClick={goToCreateMessage} type={"primary"} size={"big"}>
+      <Button myClass={"mb-12t font-light"} handleClick={goToCreateMessage} type={"primary"} size={"big"}>
         <MessageIcon className="fill-white w-[24px] h-[24px] mr-10t" />
         Ajouter un message
       </Button>
-      <Button myClass={"bg-white text-primary"} handleClick={function (): void {
+      <Button myClass={""} handleClick={function (): void {
         throw new Error("Function not implemented.");
       }} type={"secondary"} size={"big"}>
         <ShareIcon className="fill-primary w-[24px] h-[24px] mr-10t" />

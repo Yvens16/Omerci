@@ -35,7 +35,7 @@ const getEditRight = (userUid: string, messageCreatorId: string, cardCreatorId: 
 }
 
 const CardPage: NextPage = () => {
-  const { getCard, getMessagesOnCard, deleteMessage, updateCard } = useFirestoreDb();
+  const { getCard, getMessagesOnCard, deleteMessage, updateCard, updateCardParams } = useFirestoreDb();
   const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
   const { authUser } = useAuth();
@@ -53,7 +53,7 @@ const CardPage: NextPage = () => {
   const goToCreateMessage = () => {
     router.push({
       pathname: "/create_message",
-      query: { carteid: cardId, cardTtitle: card.title}
+      query: { carteid: cardId, cardTitle: card.title }
     })
   }
 
@@ -148,22 +148,30 @@ const CardPage: NextPage = () => {
   }
 
   const paramsInitialValues = {
-    title: "",
-    destinatorName: "",
-    from: "",
+    title: (card && card.title) || "",
+    recipientName: (card && card.recipientName) || "",
+    teamName: (card && card.teamName) || "",
     hasCagnotte: (card && card.hasCagnotte) || false,
+    uid: (card && card.uid) || "",
+    photoUrl: (card && card.photUrl) || ""
+  }
+
+  const reset = () => {
+    setValues({
+      ...paramsInitialValues,
+    });
   }
 
   const [values, setValues] = useState(paramsInitialValues);
   const handleInputChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const { name, value, checked, id } = e.target;
-    const dateSelects = ["day", "month", "year"];
-    if (id && dateSelects.includes(id)) {
-      setValues((prevState) => ({
-        ...prevState,
-        [name]: name === "hasCagnotte" ? checked : value,
-      }))
-    }
+    // const dateSelects = ["day", "month", "year"];
+    // if (id && dateSelects.includes(id)) {
+    //   setValues((prevState) => ({
+    //     ...prevState,
+    //     [name]: name === "hasCagnotte" ? checked : value,
+    //   }))
+    // }
     setValues((prevState) => ({
       ...prevState,
       [name]: name === "hasCagnotte" ? checked : value,
@@ -185,17 +193,50 @@ const CardPage: NextPage = () => {
     }))
   }
 
+  const [selectedPhotoFile, setSelectedPhotoFile] = useState(undefined);
+  const [fileUrlToShow, setFileToShowURL] = useState("");
+  const hiddenFileInput = useRef<HTMLInputElement | null>(null);
+  const updateCardP = async () => {
+    if (authUser && authUser["uid"] && card) {
+      const { title, teamName, recipientName, hasCagnotte, uid } = values;
+      if (selectedPhotoFile) {
+        await updateCardParams({ title, teamName, recipientName, hasCagnotte, cardId: uid, file: selectedPhotoFile });
+      } else {
+        await updateCardParams({ title, teamName, recipientName, hasCagnotte, cardId: uid });
+      }
+      setCardUpdate(!cardUpdate);
+      setShowParamsModal(!showParamsModal);
+    }
+  }
+
+  const handlePhotoCLick = () => hiddenFileInput.current?.click();
+  const fileChange = (e: any) => {
+    setSelectedPhotoFile(e.target.files[0]);
+    if (e.target.files[0].type.includes("image")) setFileToShowURL(URL.createObjectURL(e.target.files[0]));
+  }
   /** ######## option modal ######## */
+
+  useEffect(() => {
+    setValues({
+      ...card,
+    })
+  }, [card])
+  const [cardUpdate, setCardUpdate] = useState(false);
+  useEffect(() => {
+    executeGetCard();
+  }, [cardUpdate])
+
 
 
   return (
     <div className=" lg:max-w-[1240px] mx-auto">
       <div className="py-8t bg-white md:!bg-default_bg md:my-24t px-16t xl:px-0 mb-16t xl:my-24t">
-        <Header goTo={() => router.push({pathname: "/send_card", query: {cardTitle: card.title, recipient: card.recipientName}})} goBack={() => router.push({pathname: "/personal_space"})} isAdmin={isAdmin}/>
+        <Header goTo={() => router.push({ pathname: "/send_card", query: { cardTitle: card.title, recipient: card.recipientName } })} goBack={() => router.push({ pathname: "/personal_space" })} isAdmin={isAdmin} />
       </div>
-      <div className='px-16t xl:px-0 xl:grid xl:grid-cols-[30%_70%]'>
+      <div className='px-16t xl:px-0 xl:flex xl:gap-x-[32px]'>
         {/* <CardParams teamName={"card.teamName"} goToCreateMessage={goToCreateMessage} isAdmin={isAdmin} photoUrl={'/avatars/girl.jpg'} backgroundUrl={"'/images/card_params_bg.jpg'"}
           cardTitle={"card.cardTitle"} receiverName={"card.recipientName"} messageNumber={12} moneyCount={13} /> */}
+        {cardStatus === "success" && console.log("11111", card)}
         {cardStatus === "success" && messagesStatus === "success" && <CardParams toggleParamsModal={toggleParamsModal} teamName={card.teamName} goToCreateMessage={goToCreateMessage} isAdmin={isAdmin} photoUrl={card.photoUrl || '/avatars/girl.jpg'} backgroundUrl={"'/images/card_params_bg.jpg'"}
           cardTitle={card.title} receiverName={card.recipientName} messageNumber={messages.length} moneyCount={card.moneyCount} />}
         {cardStatus === "error" && <div className="bg-danger text-white mb-36t flex flex-col xl:max-w-[350px] h-max">
@@ -203,15 +244,21 @@ const CardPage: NextPage = () => {
             Il y{"'"} a une erreur:<br></br>{cardError.message}
           </div>
         </div>}
-        <div>
+        <div className="xl:grow">
           <div className='flex items-center mb-16t'>
-            <h2 className='text-title font-semibold min-w-fit mr-16t'>Tous les messages</h2>
-            <hr className='w-full block border border-solid border-input_default' />
+            <h2 className='text-title font-medium min-w-fit mr-16t'>Tous les messages</h2>
+            <hr className='w-full block border border-solid border-input_default opacity-50' />
           </div>
           <div className='mobile_view new_message md:hidden'>
-            {messagesStatus === "success" && messages.length ? messages.map((message: any, idx: any) => (
+            {cardStatus === "success" && messagesStatus === "success" && messages.length ? messages.map((message: any, idx: any) => (
               <div key={idx} className="mb-24t md:mr-8t">
-                <Message message={message.messageContent} toggleDeleteModal={() => toggleDeleteModal(message.uid)} toggleModal={() => toggleMobileOptionModal(message.uid)} messageId={message.uid} media={message.media} editRight={getEditRight(authUser!["uid"], message["creatorId"], card["creatorId"])} owner={message.creator} createdDate={message.createdDate}></Message>
+                <Message
+                  message={message.messageContent}
+                  toggleDeleteModal={() => toggleDeleteModal(message.uid)}
+                  toggleModal={() => toggleMobileOptionModal(message.uid)}
+                  messageId={message.uid} media={message.media}
+                  editRight={getEditRight(authUser!["uid"], message["creatorId"], card["creatorId"])}
+                  owner={message.creator} createdDate={message.createdDate}></Message>
               </div>
             )) : null}
             <div className='mb-24t'>
@@ -219,8 +266,8 @@ const CardPage: NextPage = () => {
             </div>
           </div>
           <div className={`desktop_view colum_grid hidden md:grid ${messagesStatus === "success" && messages.length < 2 ? "md:flex md:flex-col" : "md:grid-cols-[1fr_1fr] md:gap-24t"}`}>
-            <div className={`col_left ${messagesStatus === "success" && messages.length < 2 ? "lg:flex lg:flex-row" : ""}`}>
-              {messagesStatus === "success" && messages.length > 0 && pair(messages).map((message: any, idx: any) => (
+            <div className={`col_left ${messagesStatus === "success" && messages.length < 2 ? "xl:flex xl:flex-row xl:grow xl:gap-x-24t" : ""}`}>
+              {cardStatus === "success" && messagesStatus === "success" && messages.length > 0 && pair(messages).map((message: any, idx: any) => (
                 <div key={idx} className="mb-24t xl:min-w-[369px]">
                   <Message message={message.messageContent} toggleDeleteModal={() => toggleDeleteModal(message.uid)} toggleModal={() => toggleDesktopOptionModal(message.uid)} messageId={message.uid} media={message.media} editRight={getEditRight(authUser!["uid"], message["creatorId"], card["creatorId"])} owner={message.creator} createdDate={message.createdDate}></Message>
                   {showDesktopOption && selectedMessageId === message.uid
@@ -232,7 +279,7 @@ const CardPage: NextPage = () => {
               </div>
             </div>
             <div className="col_right">
-              {messagesStatus === "success" && messages.length > 0 && impair(messages).map((message: any, idx: number) => (
+              {cardStatus === "success" && messagesStatus === "success" && messages.length > 0 && impair(messages).map((message: any, idx: number) => (
                 <div key={idx} className="mb-24t md:mr-8t">
                   {console.log('message:', message)}
                   <Message message={message.messageContent} toggleDeleteModal={() => toggleDeleteModal(message.uid)} toggleModal={() => toggleDesktopOptionModal(message.uid)} messageId={message.uid} media={message.media} editRight={getEditRight(authUser!["uid"], message["creatorId"], card["creatorId"])} owner={message.creator} createdDate={message.createdDate}></Message>
@@ -245,15 +292,15 @@ const CardPage: NextPage = () => {
         </div>
       </div>
       {cardStatus === "success" && messagesStatus === "success" && showOnboardingModal
-        && <OnboardingModal recipientName={card.recipientName} photoUrl={card.photoUrl} cardCreator={card.creatorName} cardTitle={card.title}
+        && <OnboardingModal customClass="xl:top-[88px] xl:-translate-y-0" recipientName={card.recipientName} photoUrl={card.photoUrl} cardCreator={card.creatorName} cardTitle={card.title}
           numberOfMsg={messages.length} moneyCount={0} isAdmin={isAdmin} show={showOnboardingModal}
           closeModal={closeOnboardingModal} titleHtml={undefined} />
       }
       {showMobileOption && <MobileOption modifyMessage={() => modifyMessage(selectedMessageId)} toggleDeleteModal={() => toggleDeleteModal(selectedMessageId)} />}
       {showDeleteModal && <DeleteMessageModal deleteMessage={() => deleteSelectedMessage(selectedMessageId)} show={showDeleteModal} closeModal={toggleDeleteModal} />}
-      {showParamsModal && cardStatus == "success" && <ParamsModale dates={dates} values={values} handleChangeInput={handleInputChange} show={showParamsModal} closeModal={toggleParamsModal} photoUrl={card.photoUrl}
+      {showParamsModal && cardStatus == "success" && <ParamsModale cancel={reset} validate={updateCardP} selectedPhotoFile={fileUrlToShow} dates={dates} values={values} handleChangeInput={handleInputChange} show={showParamsModal} closeModal={toggleParamsModal} photoUrl={card.photoUrl}
         backgrounds={[]} cardTitle={card.title} receiverName={card.recipientName} teamName={card.teamName} expirationDay={''}
-        expirationMonth={''} expirationYear={''} handleSelectChange={handleSelectChange} />}
+        expirationMonth={''} expirationYear={''} handleSelectChange={handleSelectChange} handlePhotoCLick={handlePhotoCLick} fileChange={fileChange} ref={hiddenFileInput} />}
     </div>
   )
 }

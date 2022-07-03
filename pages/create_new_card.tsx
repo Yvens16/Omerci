@@ -302,7 +302,7 @@ const CreateCard: NextPage = () => {
         </div>
       </div>
 
-      <InfoModal show={isPremiumModalOpen} titleHtml={<>Passer à l'espace <br /> premium</>} closeModal={togglePremiumModal}>
+      <InfoModal customClass="" show={isPremiumModalOpen} titleHtml={<>Passer à l'espace <br /> premium</>} closeModal={togglePremiumModal}>
         <div className='text-black'>
           <p className='mb-24t'>Faite en sorte que votre collaborateur se sente vraiment spécial ! Activez les fonctionnalité premium !</p>
           <div className='flex justify-start'><div className='mr-10t'>
@@ -322,7 +322,7 @@ const CreateCard: NextPage = () => {
         </div>
       </InfoModal>
 
-      <InfoModal show={isCagnotteModalOpen} titleHtml={<>Collecter de l'argent pour <br /> une cagnotte</>} closeModal={toggleCagnotteModal}>
+      <InfoModal customClass="" show={isCagnotteModalOpen} titleHtml={<>Collecter de l'argent pour <br /> une cagnotte</>} closeModal={toggleCagnotteModal}>
         <div className='text-black text-center'>
           <p className='mb-24t'>Chaque participant à votre carte aura la possibilité de participer financièrement à une cagnotte!</p>
           <p>La quantité réunie pourra être tanrsformé en carte de notre partenaire <span className='text-primary underline'>Weedoogift</span> et être utilisée dans plus de 3000 enseignes partenaire</p>

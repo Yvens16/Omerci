@@ -19,11 +19,11 @@ import useFirestore from "../../../firebase/useFirestore";
  */
 
 const Message = ({ media, editRight, owner, createdDate, message, toggleModal, toggleDeleteModal }: IMessage) => {
-  const { getVideoUrl } = useFirestore();
+  // const { getVideoUrl } = useFirestore();
   return <div data-testid="message-card" className={`shadow-message_shadow xl:w-[417px] flex flex-col text-center border border-solid border-message_border rounded-12t bg-white`}>
     <div className="header flex justify-between mb-32t px-24t pt-24t">
       <div className="left flex items-center">
-        <div className="text-white font-semibold text-12t flex items-center justify-center circle bg-gradient-to-br from-[#E2415E] to-[#E241DC] rounded-[50%] w-[32px] h-[32px] mr-8t">HO</div>
+        <div className="text-white font-semibold text-12t flex items-center justify-center circle bg-gradient-to-br from-[#E2415E] to-[#E241DC] rounded-[50%] w-[32px] h-[32px] mr-8t">{owner.familyName.split("")[0].toUpperCase()}{owner.name.split("")[0].toUpperCase()}</div>
         <div className="b flex flex-col text-left font-medium">
           <p className='text-14t'>{owner.name} {owner.familyName}</p>
           <p className="text-12t text-[#B4B2BB]">{howLongAgo(createdDate)}</p>
@@ -48,7 +48,7 @@ const Message = ({ media, editRight, owner, createdDate, message, toggleModal, t
         <source type="video/mp4" src={media.url}/>
         </video>}
     </div>
-    <p className="p-24t leading-[25px] text-medium text-14t text-third">{message}</p>
+    <p className="p-24t pt-0 leading-[25px] text-medium text-14t text-third text-left">{message}</p>
   </div>
 }
 

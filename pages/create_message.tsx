@@ -211,7 +211,7 @@ const CreateMessage: NextPage = () => {
           </Portal>
         }
         {/* <Header backToCard={backToCard} /> */}
-        <Header buttonContent="Retour à la carte" handleback={backToCard} title="Ajouter un message" subtitle={`À la carte ${router.query.cardTtitle}`} />
+        <Header buttonContent="Retour à la carte" handleback={backToCard} title="Ajouter un message" subtitle={`À la carte ${router.query.cardTitle}`} />
         <div className='mb-24t'>
           <MessageCreation fileUrlToShow={fileUrlToShow} deleteMediaState={deleteMediaState} fileChange={onFileChange} showWhichView={showWhichView} handleMessage={handleMessage} messageContent={messageContent} mediaUrl={unsplashUrl.length ? unsplashUrl : gifUrl} />
         </div>

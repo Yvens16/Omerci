@@ -30,6 +30,15 @@ export interface IUpdateSettings {
   email: string
 }
 
+export interface IUpdateCardParams {
+  title: string,
+  teamName: string,
+  recipientName: string,
+  hasCagnotte: string,
+  cardId: string,
+  file?: File,
+}
+
 export interface IUpdatePhoto {
   uid: string, name: string, file?: File,
 }
@@ -119,6 +128,31 @@ export default function useFirestore() {
       return cardRef.id;
     } catch (e) {
       console.log("Error in createNewCard", e);
+    }
+  }
+
+  const updateCardParams = async ({ title, teamName, recipientName, hasCagnotte, cardId, file }: IUpdateCardParams) => {
+    console.log('cardId:', cardId)
+    let data: {recipientName : string, photoUrl?: string,title : string, hasCagnotte : string, teamName : string} = {recipientName,title,hasCagnotte,teamName};
+    const cardRef = doc(db, "cards", cardId);
+    if (file) {
+      const storageRef = ref(storage, `image/${cardId}_card_picture`);
+      const snapshot = await uploadBytes(storageRef, file!)
+      const fullUrl = await getDownloadURL(storageRef);
+      data = {
+        recipientName,
+        title,
+        hasCagnotte,
+        teamName,
+        photoUrl: fullUrl,
+      }
+    }
+    try {
+      await updateDoc(cardRef, data)
+      console.log("updateCard: Update card Params sucessfull");
+      return cardRef.id;
+    } catch (e) {
+      console.log("Error in updateCard", e);
     }
   }
 
@@ -340,6 +374,7 @@ export default function useFirestore() {
     createMessage,
     getVideoUrl,
     updateSettings,
-    updatePhoto
+    updatePhoto,
+    updateCardParams,
   }
 }

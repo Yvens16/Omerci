@@ -56,6 +56,11 @@ export interface IModalParams {
   handleSelectChange: any,
   dates: any,
   values: any,
+  handlePhotoCLick?: () => void,
+  fileChange?: (e: any) => void,
+  selectedPhotoFile: string,
+  cancel: () => void,
+  validate: () => void
 }
 
 export interface IOnboardingModal extends IInfoModal {

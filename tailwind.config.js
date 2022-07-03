@@ -21,6 +21,7 @@ module.exports = {
       poppins: 'Poppins'
     },
     colors: {
+      transparent: 'transparent',
       beige_bg: "#F9F9FB",
       white: '#fff',
       black: '#181624',

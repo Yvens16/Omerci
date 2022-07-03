@@ -3,6 +3,7 @@ export interface IInfoModal {
   show: boolean,
   closeModal():void,
   titleHtml: React.ReactNode,
+  customClass: string,
 }
 
 export interface IModal {

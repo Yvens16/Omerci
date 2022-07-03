@@ -103,7 +103,7 @@ const AccountSettings: NextPage = () => {
       <Header buttonContent="Retour au dashboard" handleback={() => router.back()} title="Réglages du compte" subtitle="Retrouvez ici vos informations et autorisations" />
       <Informations handleInputs={handleInputs} onFileClick={onFileClick} handlePhoto={onFileChange} name={inputs.name} email={inputs.email} ref={hiddenFileInput} photoUrl={fileUrlToShow}/>
       <EmailSettings handleInputs={handleCheckboxes} settings={emailSettings} />
-      <ButtonSet cancel={reset} validate={update} cancelText={"Annuler"} validateText={"Enregistrer"} />
+      <ButtonSet cancel={reset} validate={update} cancelText={"Annuler"} validateText={"Enregistrer"} isDisabled={false} />
     </div>
   );
 }

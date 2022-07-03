@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import useFirestore, {IUpdateSettings, IUpdatePhoto} from '../firebase/useFirestore';
+import useFirestore, {IUpdateSettings, IUpdatePhoto, IUpdateCardParams} from '../firebase/useFirestore';
 
 type TResul = {
   profileImage: string;
@@ -79,6 +79,7 @@ interface IfirestoreContext {
   getVideoUrl: (storageUrl: string) => Promise<void>,
   updateSettings: ({ uid, instructions, new_message, card_opened, card_not_sent, card_sent, news, name, email }: IUpdateSettings) => Promise<void>
   updatePhoto: ({uid, name, file}: IUpdatePhoto) => Promise<void>,
+  updateCardParams: ({title, teamName, recipientName, hasCagnotte, cardId, file}: IUpdateCardParams) => Promise<void>,
 }
 
 export const FirestoreCtx = createContext<IfirestoreContext>({
@@ -95,6 +96,7 @@ export const FirestoreCtx = createContext<IfirestoreContext>({
   getVideoUrl: (storageUrl: string) => new Promise(() => {}),
   updateSettings: ({ uid, instructions, new_message, card_opened, card_not_sent, card_sent, news, name, email }: IUpdateSettings) => new Promise(() => {}),
   updatePhoto: ({uid, name, file}: IUpdatePhoto) => new Promise(() => {}),
+  updateCardParams: ({title, teamName, recipientName, hasCagnotte, cardId, file}: IUpdateCardParams) => new Promise(() => {})
 })
 
 
