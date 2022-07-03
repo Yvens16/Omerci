@@ -221,8 +221,8 @@ test("User modifyThe his message", async () => {
   const modifyButton = await screen.findByText("Modifier mon message");
   await user.click(modifyButton);
   expect(mockPush).toHaveBeenCalledWith({
-    pathname: `/create_card/[pid]?modify=true`,
-    query: { pid: "messageId2" }
+    pathname: `/create_message`,
+    query: { pid: "messageId2", modify: true }
   })
   const openDeleteModale = screen.getByText("Supprimer mon message");
   await user.click(openDeleteModale);

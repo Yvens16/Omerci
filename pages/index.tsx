@@ -9,6 +9,7 @@ import Card from '@components/space_card_custom/messages/Message';
 import GifySearch from '@components/create_msg/media_search/GifySearch';
 import Header from '@components/settings/header/Header';
 import MD5 from "crypto-js/md5";
+import ShapeIcon from '../public/icons/basic/shape.svg'
 // import Ba from '../public/icons/menu/hamburger.svg';
 
 const Home: NextPage = () => {
@@ -21,6 +22,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
+      <ShapeIcon/>
       {/* <button onClick={() => createAccount()}> Create Account </button> */}
       {/* <button onClick={() => sendRequest()}> Test Lydia API </button> */}
       {/* 

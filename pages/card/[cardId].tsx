@@ -15,6 +15,7 @@ import MobileOption from '@components/space_card_custom/card_options/MobileOptio
 import DesktopOption from '@components/space_card_custom/card_options/Option';
 import DeleteMessageModal from '@components/space_card_custom/params_modal/DeleteMessageModal';
 import ParamsModale from "@components/space_card_custom/params_modal/Modal";
+import { useOnClickOutside } from '@components/utils/hooks/useClickOutside';
 
 const OnboardingModal = dynamic<IOnboardingModal>(() => import('@components/space_card_custom/modals/OnboardingModal'))
 
@@ -35,6 +36,10 @@ const getEditRight = (userUid: string, messageCreatorId: string, cardCreatorId: 
 }
 
 const CardPage: NextPage = () => {
+  const DesktopOptionRef = useRef<HTMLDivElement | null>(null);
+  const MobileOptionRef = useRef<HTMLDivElement | null>(null);
+  useOnClickOutside(DesktopOptionRef, () => setShowDesktopOption(false))
+  useOnClickOutside(MobileOptionRef, () => setShowMobileOption(false))
   const { getCard, getMessagesOnCard, deleteMessage, updateCard, updateCardParams } = useFirestoreDb();
   const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
@@ -69,8 +74,8 @@ const CardPage: NextPage = () => {
   }
   const modifyMessage = (messageId: string) => {
     router.push({
-      pathname: `/create_card/[pid]?modify=true`,
-      query: { pid: messageId }
+      pathname: `/create_message`,
+      query: { pid: messageId, modify:true }
     });
   }
   /** ######## ModifyAndDeleteMessage ######## */
@@ -229,7 +234,7 @@ const CardPage: NextPage = () => {
 
 
   return (
-    <div className=" lg:max-w-[1240px] mx-auto">
+    <div className=" lg:max-w-[1240px] mx-auto relative">
       <div className="py-8t bg-white md:!bg-default_bg md:my-24t px-16t xl:px-0 mb-16t xl:my-24t">
         <Header goTo={() => router.push({ pathname: "/send_card", query: { cardTitle: card.title, recipient: card.recipientName } })} goBack={() => router.push({ pathname: "/personal_space" })} isAdmin={isAdmin} />
       </div>
@@ -269,9 +274,12 @@ const CardPage: NextPage = () => {
             <div className={`col_left ${messagesStatus === "success" && messages.length < 2 ? "xl:flex xl:flex-row xl:grow xl:gap-x-24t" : ""}`}>
               {cardStatus === "success" && messagesStatus === "success" && messages.length > 0 && pair(messages).map((message: any, idx: any) => (
                 <div key={idx} className="mb-24t xl:min-w-[369px]">
-                  <Message message={message.messageContent} toggleDeleteModal={() => toggleDeleteModal(message.uid)} toggleModal={() => toggleDesktopOptionModal(message.uid)} messageId={message.uid} media={message.media} editRight={getEditRight(authUser!["uid"], message["creatorId"], card["creatorId"])} owner={message.creator} createdDate={message.createdDate}></Message>
-                  {showDesktopOption && selectedMessageId === message.uid
-                    && <DesktopOption toggleDeleteModal={() => toggleDeleteModal(message.uid)} modifyMessage={() => modifyMessage(selectedMessageId)} />}
+                  <Message showDesktopOption={showDesktopOption} message={message.messageContent} toggleDeleteModal={() => toggleDeleteModal(message.uid)} toggleModal={() => toggleDesktopOptionModal(message.uid)} messageId={message.uid} media={message.media} editRight={getEditRight(authUser!["uid"], message["creatorId"], card["creatorId"])} owner={message.creator} createdDate={message.createdDate}>
+                    <>
+                      {showDesktopOption && selectedMessageId === message.uid
+                        && <DesktopOption ref={DesktopOptionRef} toggleDeleteModal={() => toggleDeleteModal(message.uid)} modifyMessage={() => modifyMessage(selectedMessageId)} />}
+                    </>
+                  </Message>
                 </div>
               ))}
               <div className='mb-24t'>
@@ -281,10 +289,12 @@ const CardPage: NextPage = () => {
             <div className="col_right">
               {cardStatus === "success" && messagesStatus === "success" && messages.length > 0 && impair(messages).map((message: any, idx: number) => (
                 <div key={idx} className="mb-24t md:mr-8t">
-                  {console.log('message:', message)}
-                  <Message message={message.messageContent} toggleDeleteModal={() => toggleDeleteModal(message.uid)} toggleModal={() => toggleDesktopOptionModal(message.uid)} messageId={message.uid} media={message.media} editRight={getEditRight(authUser!["uid"], message["creatorId"], card["creatorId"])} owner={message.creator} createdDate={message.createdDate}></Message>
-                  {showDesktopOption && selectedMessageId === message.uid
-                    && <DesktopOption toggleDeleteModal={() => toggleDeleteModal(message.uid)} modifyMessage={() => modifyMessage(selectedMessageId)} />}
+                  <Message showDesktopOption={showDesktopOption} message={message.messageContent} toggleDeleteModal={() => toggleDeleteModal(message.uid)} toggleModal={() => toggleDesktopOptionModal(message.uid)} messageId={message.uid} media={message.media} editRight={getEditRight(authUser!["uid"], message["creatorId"], card["creatorId"])} owner={message.creator} createdDate={message.createdDate}>
+                    <>
+                      {showDesktopOption && selectedMessageId === message.uid
+                        && <DesktopOption ref={DesktopOptionRef} toggleDeleteModal={() => toggleDeleteModal(message.uid)} modifyMessage={() => modifyMessage(selectedMessageId)} />}
+                    </>
+                  </Message>
                 </div>
               ))}
             </div>
@@ -296,7 +306,7 @@ const CardPage: NextPage = () => {
           numberOfMsg={messages.length} moneyCount={0} isAdmin={isAdmin} show={showOnboardingModal}
           closeModal={closeOnboardingModal} titleHtml={undefined} />
       }
-      {showMobileOption && <MobileOption modifyMessage={() => modifyMessage(selectedMessageId)} toggleDeleteModal={() => toggleDeleteModal(selectedMessageId)} />}
+      {showMobileOption && <MobileOption ref={MobileOptionRef} modifyMessage={() => modifyMessage(selectedMessageId)} toggleDeleteModal={() => toggleDeleteModal(selectedMessageId)} />}
       {showDeleteModal && <DeleteMessageModal deleteMessage={() => deleteSelectedMessage(selectedMessageId)} show={showDeleteModal} closeModal={toggleDeleteModal} />}
       {showParamsModal && cardStatus == "success" && <ParamsModale cancel={reset} validate={updateCardP} selectedPhotoFile={fileUrlToShow} dates={dates} values={values} handleChangeInput={handleInputChange} show={showParamsModal} closeModal={toggleParamsModal} photoUrl={card.photoUrl}
         backgrounds={[]} cardTitle={card.title} receiverName={card.recipientName} teamName={card.teamName} expirationDay={''}

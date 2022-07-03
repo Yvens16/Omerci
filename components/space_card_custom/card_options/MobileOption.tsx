@@ -1,13 +1,19 @@
+/* eslint-disable react/display-name */
+declare module "react" {
+  function forwardRef<T, P = {}>(
+    render: (props: P, ref: React.Ref<T>) => React.ReactElement | null
+  ): (props: P & React.RefAttributes<T>) => React.ReactElement | null;
+}
 import Button from '@components/buttons/Button';
-import React from 'react'
+import React, {forwardRef, Ref} from 'react'
 import TrashIcon from '../../../public/icons/basic/trash_full.svg'
 import EditIcon from '../../../public/icons/edit/edit.svg';
 import { IOptions } from './interfaces';
 
-function MobileOption({ modifyMessage,toggleDeleteModal}: IOptions) {
+const MobileOption = forwardRef(({ modifyMessage,toggleDeleteModal}: IOptions, ref: Ref<HTMLDivElement>) => {
   return (
-    <div className='lg:hidden w-screen h-screen bg-modal relative'>
-      <div className="w-full flex flex-col modal absolute bottom-0 p-16t bg-white rounded-tr-12t rounded-tl-12t border border-solid border-secondary_fill">
+    <div className='xl:hidden w-screen h-screen bg-modal fixed bottom-0 left-0'>
+      <div ref={ref} className="w-full flex flex-col modal absolute bottom-0 p-16t bg-white rounded-tr-12t rounded-tl-12t border border-solid border-secondary_fill">
       <h3 className='mb-24t text-18t font-semibold'>Options</h3>
       <Button myClass={'mb-16t'} handleClick={modifyMessage} type={'primary'} size={'big'}>
         <EditIcon className="fill-white mr-8t w-[24px] h-[24px]"/>
@@ -19,6 +25,7 @@ function MobileOption({ modifyMessage,toggleDeleteModal}: IOptions) {
       </div>
     </div>
   )
-}
+})
+
 
 export default MobileOption;

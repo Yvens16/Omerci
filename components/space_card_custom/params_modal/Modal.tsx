@@ -35,10 +35,10 @@ const Modal = forwardRef(({ show, closeModal, photoUrl, backgrounds, handleChang
   cancel, validate
 }: IModalParams, ref: Ref<HTMLInputElement>) => {
   return (
-    <SimpleModal show={show} closeModal={closeModal} titleHtml={undefined} customClass="card_parameters xl:top-[88px] xl:-translate-y-0">
-      <h3 className="font-medium text-title md:hidden mb-12t">Information de la carte</h3>
-      <h3 className="font-medium text-title hidden md:block mb-12t">Parametre de la carte</h3>
-      <div className='profil'>
+    <SimpleModal show={show} closeModal={closeModal} titleHtml={undefined} customClass="card_parameters xl:top-[88px] xl:-translate-y-0 !p-24t">
+      <h3 className="font-medium text-18t md:hidden mb-12t">Information de la carte</h3>
+      <h3 className="font-medium text-18t hidden md:block mb-12t">Parametre de la carte</h3>
+      <div className='profil mb-24t'>
         <p className="text-14t font-semibold">Photo de profil</p>
         <div className="cursor-pointer rounded-[50%] w-[69px] h-[69px] relative" onClick={handlePhotoCLick}>
           {selectedPhotoFile.length > 0 ? <Image src={selectedPhotoFile || photoUrl} alt='image de profil' className='img_avatar rounded-[50%]' layout="fill" objectFit="cover"></Image>

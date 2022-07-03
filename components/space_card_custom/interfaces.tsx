@@ -15,6 +15,8 @@ export interface IMessage {
   toggleModal: () => void,
   toggleDeleteModal: () => void,
   messageId: string,
+  children?: React.ReactElement,
+  showDesktopOption?: boolean,
 }
 
 export interface IParams {

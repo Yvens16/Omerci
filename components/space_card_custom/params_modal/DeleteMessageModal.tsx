@@ -6,7 +6,7 @@ import Button from '@components/buttons/Button';
 
 function DeleteMessageModal({ show, deleteMessage, closeModal }: any) {
   return (
-    <SimpleModal show={show} closeModal={closeModal} titleHtml={undefined}>
+    <SimpleModal customClass='' show={show} closeModal={closeModal} titleHtml={undefined}>
       <div className="flex flex-col items-center">
         <div className='flex justify-end w-full mb-16t cursor-pointer' onClick={closeModal}><CloseIcon className="fill-third"/></div>
         <TrashIcon className="fill-danger w-[36px] h-[36px] mb-24t" />

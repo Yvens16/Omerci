@@ -134,8 +134,8 @@ const CreateMessage: NextPage = () => {
     const cardId = router.query.carteid as string;
     if (selectedFile) {
       const fileType: any = selectedFile.type.split("/")[0];
-      await createMessage({ cardId, file: selectedFile, docName: selectedFile.name, docType: fileType, creatorId: "1234", message: messageContent, creator: messageCreatorInfo });
-    } else if (unsplashUrl !== "" || gifUrl !== "") await createMessage({ cardId, docType: unsplashUrl.length ? "image" : "gif", creatorId: "1234", message: messageContent, mediaUrl: unsplashUrl.length ? unsplashUrl : gifUrl, creator: messageCreatorInfo })
+      await createMessage({ cardId, file: selectedFile, docName: selectedFile.name, docType: fileType, creatorId: authUser?.["uid"] as string, message: messageContent, creator: messageCreatorInfo });
+    } else if (unsplashUrl !== "" || gifUrl !== "") await createMessage({ cardId, docType: unsplashUrl.length ? "image" : "gif", creatorId: authUser?.["uid"] as string, message: messageContent, mediaUrl: unsplashUrl.length ? unsplashUrl : gifUrl, creator: messageCreatorInfo })
     router.push(`card/${cardId}`)
   }
   const reset = () => {
