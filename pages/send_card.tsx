@@ -6,10 +6,9 @@ import { useFirestoreDb } from 'context/FirestoreContext';
 import { useAuth } from 'context/AuthUserContext';
 import { useRouter } from 'next/router';
 import Recipient from '@components/send_card/recipient/Recipient';
-
 const SendCardPage: NextPage = () => {
   const router = useRouter();
-  const { cardTitle, recipient } = router.query;
+  const { cardTitle, recipient, cardId } = router.query;
   const [isDisabled, setIsDisabled] = useState(true);
   const [confirmationError, setConfirmationError] = useState<null | string>(null);
   const initialInputs = {
@@ -55,9 +54,7 @@ const SendCardPage: NextPage = () => {
 
   return (
     <div className="px-16t xl:px-0">
-      <Header buttonContent={'Retour à l’accueil'} handleback={function (): void {
-        throw new Error('Function not implemented.');
-      }} title={'Envoyer la carte 🚀 '} subtitle={`La carte “ ${cardTitle} ” à ${recipient}`} />
+      <Header buttonContent={'Retour à l’accueil'} handleback={() => router.push(`/card/${cardId}`)} title={'Envoyer la carte 🚀 '} subtitle={`La carte “ ${cardTitle} ” à ${recipient}`} />
       <Recipient recipient={recipient} handleInputChange={handleInputChange} confirmEmail={confirmEmail}/>
       <ButtonSet isDisabled={isDisabled} cancel={reset} validate={function (): void {
         throw new Error('Function not implemented.');

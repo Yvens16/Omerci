@@ -236,7 +236,7 @@ const CardPage: NextPage = () => {
   return (
     <div className=" lg:max-w-[1240px] mx-auto relative">
       <div className="py-8t bg-white md:!bg-default_bg md:my-24t px-16t xl:px-0 mb-16t xl:my-24t">
-        <Header goTo={() => router.push({ pathname: "/send_card", query: { cardTitle: card.title, recipient: card.recipientName } })} goBack={() => router.push({ pathname: "/personal_space" })} isAdmin={isAdmin} />
+        <Header goTo={() => router.push({ pathname: "/send_card", query: { cardTitle: card.title, recipient: card.recipientName, cardId: card.uid } })} goBack={() => router.push({ pathname: "/personal_space" })} isAdmin={isAdmin} />
       </div>
       <div className='px-16t xl:px-0 xl:flex xl:gap-x-[32px]'>
         {/* <CardParams teamName={"card.teamName"} goToCreateMessage={goToCreateMessage} isAdmin={isAdmin} photoUrl={'/avatars/girl.jpg'} backgroundUrl={"'/images/card_params_bg.jpg'"}
