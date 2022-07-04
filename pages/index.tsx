@@ -23,7 +23,7 @@ const Home: NextPage = () => {
       </Head>
       <Header />
       <ShapeIcon/>
-      {/* <button onClick={() => createAccount()}> Create Account </button> */}
+      {/* <button onClick={() => getToken()}> Get Token </button> */}
       {/* <button onClick={() => sendRequest()}> Test Lydia API </button> */}
       {/* 
       <Card mediaUrl={'https://media.giphy.com/media/PQ0hBydKrAW674uvBm/giphy.gif'} editRight={'modifyAndDelete'}/> */}

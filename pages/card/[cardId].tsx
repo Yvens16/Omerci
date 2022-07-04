@@ -75,7 +75,7 @@ const CardPage: NextPage = () => {
   const modifyMessage = (messageId: string) => {
     router.push({
       pathname: `/create_message`,
-      query: { pid: messageId, modify:true }
+      query: { pid: messageId, modify:true, cardTitle: card.title, cardId: cardId }
     });
   }
   /** ######## ModifyAndDeleteMessage ######## */
@@ -235,7 +235,7 @@ const CardPage: NextPage = () => {
 
   return (
     <div className=" lg:max-w-[1240px] mx-auto relative">
-      <div className="py-8t bg-white md:!bg-default_bg md:my-24t px-16t xl:px-0 mb-16t xl:my-24t">
+      <div className="py-8t bg-white xl:!bg-default_bg xl:my-24t px-16t xl:px-0 mb-16t">
         <Header goTo={() => router.push({ pathname: "/send_card", query: { cardTitle: card.title, recipient: card.recipientName, cardId: card.uid } })} goBack={() => router.push({ pathname: "/personal_space" })} isAdmin={isAdmin} />
       </div>
       <div className='px-16t xl:px-0 xl:flex xl:gap-x-[32px]'>
@@ -252,11 +252,11 @@ const CardPage: NextPage = () => {
         <div className="xl:grow">
           <div className='flex items-center mb-16t'>
             <h2 className='text-title font-medium min-w-fit mr-16t'>Tous les messages</h2>
-            <hr className='w-full block border border-solid border-input_default opacity-50' />
+            <hr className='w-full block border border-solid border-input_default opacity-50 xl:w-[630px]' />
           </div>
-          <div className='mobile_view new_message md:hidden'>
+          <div className='mobile_view new_message xl:hidden'>
             {cardStatus === "success" && messagesStatus === "success" && messages.length ? messages.map((message: any, idx: any) => (
-              <div key={idx} className="mb-24t md:mr-8t">
+              <div key={idx} className="mb-24t xl:mr-8t">
                 <Message
                   message={message.messageContent}
                   toggleDeleteModal={() => toggleDeleteModal(message.uid)}
@@ -270,7 +270,7 @@ const CardPage: NextPage = () => {
               <AddNewMessage goToCreateMessage={goToCreateMessage} />
             </div>
           </div>
-          <div className={`desktop_view colum_grid hidden md:grid ${messagesStatus === "success" && messages.length < 2 ? "md:flex md:flex-col" : "md:grid-cols-[1fr_1fr] md:gap-24t"}`}>
+          <div className={`desktop_view colum_grid hidden xl:grid ${messagesStatus === "success" && messages.length < 2 ? "xl:flex xl:flex-col" : "xl:grid-cols-[1fr_1fr] xl:gap-24t"}`}>
             <div className={`col_left ${messagesStatus === "success" && messages.length < 2 ? "xl:flex xl:flex-row xl:grow xl:gap-x-24t" : ""}`}>
               {cardStatus === "success" && messagesStatus === "success" && messages.length > 0 && pair(messages).map((message: any, idx: any) => (
                 <div key={idx} className="mb-24t xl:min-w-[369px]">
@@ -288,7 +288,7 @@ const CardPage: NextPage = () => {
             </div>
             <div className="col_right">
               {cardStatus === "success" && messagesStatus === "success" && messages.length > 0 && impair(messages).map((message: any, idx: number) => (
-                <div key={idx} className="mb-24t md:mr-8t">
+                <div key={idx} className="mb-24t xl:mr-8t">
                   <Message showDesktopOption={showDesktopOption} message={message.messageContent} toggleDeleteModal={() => toggleDeleteModal(message.uid)} toggleModal={() => toggleDesktopOptionModal(message.uid)} messageId={message.uid} media={message.media} editRight={getEditRight(authUser!["uid"], message["creatorId"], card["creatorId"])} owner={message.creator} createdDate={message.createdDate}>
                     <>
                       {showDesktopOption && selectedMessageId === message.uid

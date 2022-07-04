@@ -30,6 +30,27 @@ export interface IUpdateSettings {
   email: string
 }
 
+export interface ICreateMessage {
+  docName?: string,
+  docType?: "gif" | "audio" | 'image' | "video",
+  file?: File,
+  creatorId: string,
+  message: string,
+  mediaUrl?: string,
+  creator: { name: string, familyName: string, email: string },
+  cardId: string,
+  cagnotteAmount: number
+}
+// interface CreateMessage {
+//   docName?: string,
+//   docType?: "gif" | "audio" | 'image' | "video",
+//   file?: File,
+//   creatorId: string,
+//   message: string,
+//   mediaUrl?: string,
+//   creator: { name: string, familyName: string, email: string },
+//   cardId: string,
+// }
 export interface IUpdateCardParams {
   title: string,
   teamName: string,
@@ -42,7 +63,9 @@ export interface IUpdateCardParams {
 export interface IUpdatePhoto {
   uid: string, name: string, file?: File,
 }
-
+export interface IUpdateMessage extends ICreateMessage {
+  messageId: string,
+}
 export default function useFirestore() {
   const { updateAuthDisplayName } = useFirebaseAuth();
   interface IaddUserInfo {
@@ -226,7 +249,6 @@ export default function useFirestore() {
   }
 
   const getMessagesOnCard = async (cardId: string) => {
-    console.log('cardId:', cardId)
     const q = query(collection(db, "messages"), where("cardId", "==", cardId));
     const messages: DocumentData[] = [];
     try {
@@ -238,6 +260,16 @@ export default function useFirestore() {
       return messages;
     } catch (e: any) {
       throw new Error(e);
+    }
+  }
+
+  const getSingleMessage = async(messageId: string) => {
+    const docRef = doc(db, "messages", messageId);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      return docSnap.data();
+    } else {
+      throw new Error("Ce message n'existe pas");
     }
   }
 
@@ -261,17 +293,7 @@ export default function useFirestore() {
     }
   }
 
-  interface CreateMessage {
-    docName?: string,
-    docType?: "gif" | "audio" | 'image' | "video",
-    file?: File,
-    creatorId: string,
-    message: string,
-    userId: string,
-    mediaUrl: string,
-    creator: { name: string, familyName: string, email: string },
-    cardId: string,
-  }
+
 
   const updatePhoto = async ({ uid, name, file }: IUpdatePhoto) => {
     console.log('file:', file)
@@ -290,7 +312,47 @@ export default function useFirestore() {
     }
   }
 
-  const createMessage = async ({ docName, docType, file, creatorId = "1234test", message, mediaUrl = "", creator, cardId }: CreateMessage) => {
+
+
+  const modifyMessage = async({messageId, docName, docType, file, creatorId = "1234test", message, mediaUrl = "", creator, cardId, cagnotteAmount}: IUpdateMessage) => {
+    const MessageRef = doc(db, "messages", messageId);
+    const storageRef = ref(storage, `${docType}/${docName}`);
+    try {
+      console.log('mediaUrl:', mediaUrl)
+      if (mediaUrl !== "" && !file) {
+        await setDoc(MessageRef, {
+          cagnotteAmount,
+          cardId,
+          media: { url: mediaUrl, type: docType },
+          uid: MessageRef.id,
+          creatorId: creatorId,
+          creationDate: serverTimestamp(),
+          messageContent: message,
+          creator,
+        })
+      } else {
+        const snapshot = await uploadBytes(storageRef, file!);
+        const fullUrl = await getDownloadURL(storageRef);
+        console.log('Snapshot was uploaded !:', snapshot)
+        await updateDoc(MessageRef, {
+          cagnotteAmount,
+          cardId,
+          media: { url: fullUrl, type: docType },
+          uid: MessageRef.id,
+          creatorId: creatorId,
+          creationDate: serverTimestamp(),
+          messageContent: message,
+          creator,
+        })
+      }
+      console.log("UpdateMessage: Creation sucessfull");
+      return MessageRef.id;
+    } catch (e) {
+      console.log("Error in UpdateMessage", e);
+    }
+  }
+
+  const createMessage = async ({ docName, docType, file, creatorId = "1234test", message, mediaUrl = "", creator, cardId, cagnotteAmount }: ICreateMessage) => {
     const MessageRef = doc(collection(db, "messages"));
     const storageRef = ref(storage, `${docType}/${docName}`);
     console.log('storageRef:', storageRef.fullPath)
@@ -298,6 +360,7 @@ export default function useFirestore() {
       console.log('mediaUrl:', mediaUrl)
       if (mediaUrl !== "" && !file) {
         await setDoc(MessageRef, {
+          cagnotteAmount,
           cardId,
           media: { url: mediaUrl, type: docType },
           uid: MessageRef.id,
@@ -311,6 +374,7 @@ export default function useFirestore() {
         const fullUrl = await getDownloadURL(storageRef);
         console.log('Snapshot was uploaded !:', snapshot)
         await setDoc(MessageRef, {
+          cagnotteAmount,
           cardId,
           media: { url: fullUrl, type: docType },
           uid: MessageRef.id,
@@ -376,5 +440,7 @@ export default function useFirestore() {
     updateSettings,
     updatePhoto,
     updateCardParams,
+    getSingleMessage,
+    modifyMessage
   }
 }

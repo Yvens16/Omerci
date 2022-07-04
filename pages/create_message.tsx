@@ -11,6 +11,8 @@ import Portal from '@components/Portal';
 import { useOnClickOutside } from '@components/utils/hooks/useClickOutside';
 import { useAuth } from '../context/AuthUserContext';
 import useSWR from 'swr'
+import { useAsync } from '@components/utils/hooks/useAsync';
+
 // import {
 //   PaymentElement,
 //   useStripe,
@@ -32,7 +34,7 @@ const UnsplashModal = dynamic(() => import('@components/create_msg/media_search/
 
 const CreateMessage: NextPage = () => {
   const router = useRouter();
-
+  const { pid: messageId, modify } = router.query;
   const [stripeMessage, setMessage] = useState(null);
   const [stripeIsLoading, setStripeIsLoading] = useState(false);
   const [isOkBtnDisabled, setIsOkBtnDisabled] = useState(true);
@@ -55,6 +57,7 @@ const CreateMessage: NextPage = () => {
   const [gifUrl, setGifUrl] = useState<string>("");
   const [unsplashUrl, setUnsplashUrl] = useState<string>("");
   const [cagnotteAmount, setCagnotteAmount] = useState<number>(0);
+  //TODO: add cagnotte amout to call && create function to update message
   const [isAmountSelected, setIsAmountSelected] = useState<boolean>(false);
   const [selectedFile, setFiles] = useState<File>();
   const [fileUrlToShow, setFileToShowURL] = useState({ type: "", url: "" });
@@ -62,7 +65,8 @@ const CreateMessage: NextPage = () => {
   const [isCustomAmount, setIsCustomAmount] = useState(false);
   const MediasModalRef = useRef<HTMLDivElement>(null);
   useOnClickOutside(MediasModalRef, () => setShowView("default"));
-  const { createMessage } = useFirestoreDb();
+  const { createMessage, getSingleMessage, modifyMessage } = useFirestoreDb();
+
 
   const handleInfo = (e: any) => {
     const { name, value } = e.target;
@@ -95,13 +99,36 @@ const CreateMessage: NextPage = () => {
     }
     checkDisabledBtn();
   }, [messageContent, messageCreatorInfo, isCustomAmount, cagnotteAmount])
+  const { execute: executeGetSingleMessage, status: messagesStatus, value: singleMessage, error: messagesError } = useAsync(getSingleMessage, false, messageId);
+
+  useEffect(() => {
+    const getMessageInfo = async () => {
+      await executeGetSingleMessage();
+    }
+    if (messageId && messageId.length > 0) {
+      getMessageInfo();
+    }
+  }, [messageId, executeGetSingleMessage, router])
+
+  const setContentTodata = () => {
+    if (messagesStatus === "success") {
+      const { name, familyName, email } = singleMessage.creator;
+      setMessageContent(singleMessage.messageContent);
+      setInfo({ name, familyName, email });
+      if (singleMessage.media.type === "gif") setGifUrl(singleMessage.media.url)
+      else if (singleMessage.media.type === "unsplash") setUnsplashUrl(singleMessage.media.url)
+      else setFileToShowURL({type: singleMessage.media.type , url:singleMessage.media.url});
+    }
+  }
+  useEffect(() => {
+    setContentTodata();
+  }, [messagesStatus])
 
   const onFileChange = (e: any) => {
     setGifUrl("");
     setUnsplashUrl("");
     setFiles(e.target.files[0])
     const selectedFile: File = e.target.files[0];
-    console.log('selectedFile:', selectedFile)
     if (selectedFile.type.includes("image")) setFileToShowURL({ type: "image", url: URL.createObjectURL(e.target.files[0]) });
     if (selectedFile.type.includes("video") || selectedFile.type.includes("audio")) {
       const video = document.createElement('video');
@@ -131,24 +158,35 @@ const CreateMessage: NextPage = () => {
   }
 
   const onFileUpload = async () => {
-    const cardId = router.query.carteid as string;
-    if (selectedFile) {
-      const fileType: any = selectedFile.type.split("/")[0];
-      await createMessage({ cardId, file: selectedFile, docName: selectedFile.name, docType: fileType, creatorId: authUser?.["uid"] as string, message: messageContent, creator: messageCreatorInfo });
-    } else if (unsplashUrl !== "" || gifUrl !== "") await createMessage({ cardId, docType: unsplashUrl.length ? "image" : "gif", creatorId: authUser?.["uid"] as string, message: messageContent, mediaUrl: unsplashUrl.length ? unsplashUrl : gifUrl, creator: messageCreatorInfo })
+    const cardId = router.query.cardId as string;
+    if (router.query.modify) {
+      if (selectedFile) {
+        const fileType: any = selectedFile.type.split("/")[0];
+        await modifyMessage({ messageId: messageId as string, cardId, file: selectedFile, docName: selectedFile.name, docType: fileType, creatorId: authUser?.["uid"] as string, message: messageContent, creator: messageCreatorInfo, cagnotteAmount });
+      } else if (unsplashUrl !== "" || gifUrl !== "") await modifyMessage({ messageId: messageId as string, cardId, docType: unsplashUrl.length ? "image" : "gif", creatorId: authUser?.["uid"] as string, message: messageContent, mediaUrl: unsplashUrl.length ? unsplashUrl : gifUrl, creator: messageCreatorInfo, cagnotteAmount })
+    } else {
+      if (selectedFile) {
+        const fileType: any = selectedFile.type.split("/")[0];
+        await createMessage({ cardId, file: selectedFile, docName: selectedFile.name, docType: fileType, creatorId: authUser?.["uid"] as string, message: messageContent, creator: messageCreatorInfo, cagnotteAmount });
+      } else if (unsplashUrl !== "" || gifUrl !== "") await createMessage({ cardId, docType: unsplashUrl.length ? "image" : "gif", creatorId: authUser?.["uid"] as string, message: messageContent, mediaUrl: unsplashUrl.length ? unsplashUrl : gifUrl, creator: messageCreatorInfo, cagnotteAmount })
+    }
     router.push(`card/${cardId}`)
   }
   const reset = () => {
-    setInfo({ name: "", familyName: "", email: "" })
-    setMessageContent("");
-    setGifUrl("");
-    setUnsplashUrl("");
-    setCagnotteAmount(0);
-    setIsAmountSelected(false);
-    setFiles(undefined);
-    setFileToShowURL({ type: "", url: "" });
-    setIsCustomAmount(false);
-    setIsBtnSelected(initialBtns);
+    if (modify) {
+      setContentTodata();
+    } else {
+      setInfo({ name: "", familyName: "", email: "" })
+      setMessageContent("");
+      setGifUrl("");
+      setUnsplashUrl("");
+      setCagnotteAmount(0);
+      setIsAmountSelected(false);
+      setFiles(undefined);
+      setFileToShowURL({ type: "", url: "" });
+      setIsCustomAmount(false);
+      setIsBtnSelected(initialBtns);
+    }
     // router.push(`/card/${router.query.carteid}`);
   }
 
@@ -198,8 +236,8 @@ const CreateMessage: NextPage = () => {
 
   return (
     <>
-      {console.log("isOkBtnDisabled@@@@@@@", isOkBtnDisabled)}
       <div className="px-16t xl:px-0">
+        {console.log("gif url", gifUrl)}
         {showView === "gify" &&
           <Portal>
             <GifyModal mediaRef={MediasModalRef} showModal={true} onClose={() => showWhichView("default")} selectGif={selectGif} />
@@ -238,7 +276,11 @@ const CreateMessage: NextPage = () => {
         </div> */}
         <div className="buttons grid grid-cols-2 mb-12t xl:max-w-laptopContent xl:mx-auto mt-40t">
           <Button myClass={'mr-12t'} handleClick={reset} type={'secondary'} size={'big'}>Annuler</Button>
-          <Button isDisabled={isOkBtnDisabled} myClass={''} handleClick={onFileUpload} type={'primary'} size={'big'}>Ajouter le message</Button>
+          {modify ?
+            <Button isDisabled={isOkBtnDisabled} myClass={''} handleClick={onFileUpload} type={'primary'} size={'big'}>Modifier le message</Button> :
+            <Button isDisabled={isOkBtnDisabled} myClass={''} handleClick={onFileUpload} type={'primary'} size={'big'}>Ajouter le message</Button>
+          }
+
         </div>
       </div>
     </>

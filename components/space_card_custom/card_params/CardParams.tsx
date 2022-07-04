@@ -55,7 +55,7 @@ const CardParams = ({ isAdmin, backgroundUrl, photoUrl, cardTitle, teamName, rec
         <span className="text-mid text-primary">Autre options</span>
       </Button>
     </> : <>
-      <Button myClass={"mb-12t font-light"} handleClick={goToCreateMessage} type={"primary"} size={"big"}>
+      <Button myClass={"mb-12t font-light xl:!w-[350px]"} handleClick={goToCreateMessage} type={"primary"} size={"big"}>
         <MessageIcon className="fill-white w-[24px] h-[24px] mr-10t" />
         Ajouter un message
       </Button>

@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import useFirestore, {IUpdateSettings, IUpdatePhoto, IUpdateCardParams} from '../firebase/useFirestore';
+import useFirestore, {IUpdateSettings, IUpdatePhoto, IUpdateCardParams, ICreateMessage, IUpdateMessage} from '../firebase/useFirestore';
 
 type TResul = {
   profileImage: string;
@@ -53,18 +53,6 @@ type TMessages = {
   mediaUrl: string,
   text: string,
 }
-interface CreateMessage {
-  docName?: string,
-  docType?: "gif" | "audio" | 'image' | "video",
-  file?: File,
-  creatorId: string,
-  message: string,
-  gifyUrl?: string,
-  unsplashUrl?: string,
-  mediaUrl?: string,
-  creator: { name: string, familyName: string, email: string },
-  cardId: string,
-}
 interface IfirestoreContext {
   addUserInfo: ({ uid, firstName, lastName, howDoYouKnowUs, email }: { uid: string, firstName: string, lastName: string, howDoYouKnowUs: string, email: string }) => Promise<void>,
   getUserInfo: (uid: string) => Promise<TResul>,
@@ -75,11 +63,13 @@ interface IfirestoreContext {
   getCards: (creatorUid: string) => Promise<TcardsData>,
   getCard: (cardId: string) => Promise<Tcard>,
   getMessagesOnCard: (cardId: string) => Promise<TMessages>,
-  createMessage: ({docName, docType, file, creatorId, message, mediaUrl, creator, cardId}: CreateMessage) =>Promise<void>,
+  createMessage: ({docName, docType, file, creatorId, message, mediaUrl, creator, cardId, cagnotteAmount}: ICreateMessage) =>Promise<void>,
+  modifyMessage: ({messageId, docName, docType, file, creatorId, message, mediaUrl, creator, cardId, cagnotteAmount}: IUpdateMessage) =>Promise<void>,
   getVideoUrl: (storageUrl: string) => Promise<void>,
   updateSettings: ({ uid, instructions, new_message, card_opened, card_not_sent, card_sent, news, name, email }: IUpdateSettings) => Promise<void>
   updatePhoto: ({uid, name, file}: IUpdatePhoto) => Promise<void>,
   updateCardParams: ({title, teamName, recipientName, hasCagnotte, cardId, file}: IUpdateCardParams) => Promise<void>,
+  getSingleMessage: ({messageId}: {messageId: string}) => Promise<void>,
 }
 
 export const FirestoreCtx = createContext<IfirestoreContext>({
@@ -92,11 +82,14 @@ export const FirestoreCtx = createContext<IfirestoreContext>({
   getCards: (creatorUid: string) => new Promise<TcardsData>(() => {}),
   getCard: (cardId: string) => new Promise<Tcard>(() => {}),
   getMessagesOnCard: (creatorUid: string) => new Promise<TMessages>(() => {}),
-  createMessage: ({docName, docType, file, creatorId, message, mediaUrl, creator, cardId}: CreateMessage) => new Promise(() => {}),
+  createMessage: ({docName, docType, file, creatorId, message, mediaUrl, creator, cardId, cagnotteAmount}: ICreateMessage) => new Promise(() => {}),
+  modifyMessage: ({messageId, docName, docType, file, creatorId, message, mediaUrl, creator, cardId, cagnotteAmount}: IUpdateMessage) => new Promise(() => {}),
   getVideoUrl: (storageUrl: string) => new Promise(() => {}),
   updateSettings: ({ uid, instructions, new_message, card_opened, card_not_sent, card_sent, news, name, email }: IUpdateSettings) => new Promise(() => {}),
   updatePhoto: ({uid, name, file}: IUpdatePhoto) => new Promise(() => {}),
-  updateCardParams: ({title, teamName, recipientName, hasCagnotte, cardId, file}: IUpdateCardParams) => new Promise(() => {})
+  updateCardParams: ({title, teamName, recipientName, hasCagnotte, cardId, file}: IUpdateCardParams) => new Promise(() => {}),
+  getSingleMessage: ({messageId}: {messageId: string}) => new Promise(() => {}),
+
 })
 
 

@@ -15,7 +15,8 @@ function Header({ goTo, goBack, isAdmin }: IHeader) {
           Retour à l’accueil
         </Button>
       </div>
-      {isAdmin && <Button myClass={'max-w-[193px] !py-8t !px-16t max-w-[300px]'} handleClick={goTo} type='secondary' size='big'> <SendIcon className='fill-primary mr-8t' />Envoyer ou programmer la carte</Button>}
+      {isAdmin && <Button myClass={'hidden xl:flex xl:max-w-[263px] xl:h-[40px] !py-8t !px-16t'} handleClick={goTo} type='secondary' size='big'> <SendIcon className='fill-primary mr-8t' />Envoyer ou programmer</Button>}
+      {isAdmin && <Button myClass={'max-w-[193px] xl:hidden xl:h-[40px] !py-8t !px-16t'} handleClick={goTo} type='secondary' size='big'> <SendIcon className='fill-primary mr-8t' />Envoyer la carte</Button>}
       {/* <div className='hidden xl:block'>
       </div>
       <div className='xl:hidden'>
