@@ -8,7 +8,7 @@ function Modal({ url, show, closeModal }: IShareLinkModal) {
     navigator.clipboard.writeText(textToCopy);
   }
   return (
-    <SimpleModal show={show} closeModal={closeModal} titleHtml={undefined}>
+    <SimpleModal show={show} closeModal={closeModal} titleHtml={undefined} blurClass="backdrop-blur-[7px]">
       <>
         <div className="header flex justify-between mb-16t">
           <h3 className="text-medium text-18t">Votre lien de partage</h3>

@@ -16,6 +16,7 @@ import DesktopOption from '@components/space_card_custom/card_options/Option';
 import DeleteMessageModal from '@components/space_card_custom/params_modal/DeleteMessageModal';
 import ParamsModale from "@components/space_card_custom/params_modal/Modal";
 import { useOnClickOutside } from '@components/utils/hooks/useClickOutside';
+import ShareLinkModal from "@components/space_card_custom/share_link/Modal";
 
 const OnboardingModal = dynamic<IOnboardingModal>(() => import('@components/space_card_custom/modals/OnboardingModal'))
 
@@ -43,6 +44,7 @@ const CardPage: NextPage = () => {
   const { getCard, getMessagesOnCard, deleteMessage, updateCard, updateCardParams } = useFirestoreDb();
   const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
+  console.log('router:', router)
   const { authUser } = useAuth();
   /** ######## CARD ######## */
   const { cardId } = router.query
@@ -75,7 +77,7 @@ const CardPage: NextPage = () => {
   const modifyMessage = (messageId: string) => {
     router.push({
       pathname: `/create_message`,
-      query: { pid: messageId, modify:true, cardTitle: card.title, cardId: cardId }
+      query: { pid: messageId, modify: true, cardTitle: card.title, cardId: cardId }
     });
   }
   /** ######## ModifyAndDeleteMessage ######## */
@@ -114,8 +116,20 @@ const CardPage: NextPage = () => {
   }
   /** ######## DeleteModale ######## */
 
+  /** ######## ShareLinkModale ######## */
+  const [showShareModal, setShowShareModal] = useState(false);
+
+  const closeShareModal = () => {
+    setShowShareModal(false);
+  }
+  const openShareModal = () => {
+    setShowShareModal(true);
+  }
+  /** ######## shareLinkModale ######## */
+
 
   /** ######## DesktopOPtion ######## */
+  const [hostName, setHostName] = useState("");
   useEffect(() => {
     if (cardStatus === "success") {
       const getMessage = async () => {
@@ -123,6 +137,10 @@ const CardPage: NextPage = () => {
       }
       getMessage();
     }
+    if (typeof window !== 'undefined') {
+      const hostname = window.location.origin;
+      setHostName(hostname);
+   }
   }, [executeGetMessages, cardStatus, cardId])
   useEffect(() => {
     const showTheOnboardingModal = async () => {
@@ -241,8 +259,9 @@ const CardPage: NextPage = () => {
       <div className='px-16t xl:px-0 xl:flex xl:gap-x-[32px]'>
         {/* <CardParams teamName={"card.teamName"} goToCreateMessage={goToCreateMessage} isAdmin={isAdmin} photoUrl={'/avatars/girl.jpg'} backgroundUrl={"'/images/card_params_bg.jpg'"}
           cardTitle={"card.cardTitle"} receiverName={"card.recipientName"} messageNumber={12} moneyCount={13} /> */}
-        {cardStatus === "success" && messagesStatus === "success" && <CardParams toggleParamsModal={toggleParamsModal} teamName={card.teamName} goToCreateMessage={goToCreateMessage} isAdmin={isAdmin} photoUrl={card.photoUrl || '/avatars/girl.jpg'} backgroundUrl={"'/images/card_params_bg.jpg'"}
-          cardTitle={card.title} receiverName={card.recipientName} messageNumber={messages.length} moneyCount={card.moneyCount} />}
+        {cardStatus === "success" && messagesStatus === "success"
+          && <CardParams openShareModal={openShareModal} toggleParamsModal={toggleParamsModal} teamName={card.teamName} goToCreateMessage={goToCreateMessage} isAdmin={isAdmin} photoUrl={card.photoUrl || '/avatars/girl.jpg'} backgroundUrl={"'/images/card_params_bg.jpg'"}
+            cardTitle={card.title} receiverName={card.recipientName} messageNumber={messages.length} moneyCount={card.moneyCount} />}
         {cardStatus === "error" && <div className="bg-danger text-white mb-36t flex flex-col xl:max-w-[350px] h-max">
           <div className={`card mb-24t bg-cover p-24t rounded-12t`}>
             Il y{"'"} a une erreur:<br></br>{cardError.message}
@@ -310,6 +329,7 @@ const CardPage: NextPage = () => {
       {showParamsModal && cardStatus == "success" && <ParamsModale cancel={reset} validate={updateCardP} selectedPhotoFile={fileUrlToShow} dates={dates} values={values} handleChangeInput={handleInputChange} show={showParamsModal} closeModal={toggleParamsModal} photoUrl={card.photoUrl}
         backgrounds={[]} cardTitle={card.title} receiverName={card.recipientName} teamName={card.teamName} expirationDay={''}
         expirationMonth={''} expirationYear={''} handleSelectChange={handleSelectChange} handlePhotoCLick={handlePhotoCLick} fileChange={fileChange} ref={hiddenFileInput} />}
+      {showShareModal && <ShareLinkModal url={`${hostName}/${router.asPath}`} show={showShareModal} closeModal={closeShareModal} />}
     </div>
   )
 }

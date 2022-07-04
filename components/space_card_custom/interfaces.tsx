@@ -30,6 +30,7 @@ export interface IParams {
   teamName: string,
   goToCreateMessage: () => void,
   toggleParamsModal: () => void,
+  openShareModal: () => void,
 }
 
 export interface IAddNewMessage {

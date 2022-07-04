@@ -12,7 +12,9 @@ import Button from "../../buttons/Button";
 import { useRouter } from 'next/router';
 
 
-const CardParams = ({ isAdmin, backgroundUrl, photoUrl, cardTitle, teamName, receiverName, messageNumber, moneyCount, goToCreateMessage, toggleParamsModal }: IParams) => {
+const CardParams = ({ isAdmin, backgroundUrl, photoUrl,
+  cardTitle, teamName, receiverName, messageNumber, moneyCount,
+  goToCreateMessage, toggleParamsModal, openShareModal }: IParams) => {
   const router = useRouter();
   const { isrecipient } = router.query;
   return <div className="mb-36t flex flex-col xl:w-[350px] h-max">
@@ -59,9 +61,7 @@ const CardParams = ({ isAdmin, backgroundUrl, photoUrl, cardTitle, teamName, rec
         <MessageIcon className="fill-white w-[24px] h-[24px] mr-10t" />
         Ajouter un message
       </Button>
-      <Button myClass={""} handleClick={function (): void {
-        throw new Error("Function not implemented.");
-      }} type={"secondary"} size={"big"}>
+      <Button myClass={""} handleClick={openShareModal} type={"secondary"} size={"big"}>
         <ShareIcon className="fill-primary w-[24px] h-[24px] mr-10t" />
         <span className="text-mid text-primary">Inviter des participants</span>
       </Button>

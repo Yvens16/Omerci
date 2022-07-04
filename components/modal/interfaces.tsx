@@ -3,7 +3,8 @@ export interface IInfoModal {
   show: boolean,
   closeModal():void,
   titleHtml: React.ReactNode,
-  customClass: string,
+  customClass?: string,
+  blurClass?: string,
 }
 
 export interface IModal {

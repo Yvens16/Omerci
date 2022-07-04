@@ -1,7 +1,7 @@
 import React, { useEffect,useRef } from 'react';
 import { IInfoModal } from './interfaces';
 
-const SimpleModal = ({ customClass, children, show = false, closeModal, titleHtml,  }: IInfoModal) => {
+const SimpleModal = ({ customClass, children, show = false, closeModal, titleHtml,blurClass}: IInfoModal) => {
   const showHideClassName = show ? "block" : "hidden";
   const selectRef = useRef<HTMLDivElement>(null);
   const handleClickOutside = (e: any) => {
@@ -14,7 +14,7 @@ const SimpleModal = ({ customClass, children, show = false, closeModal, titleHtm
     return () => document.removeEventListener('mousedown', handleClickOutside);
   });
   return (
-    <div className={`w-screen h-screen bg-modal fixed top-0 left-0 ${showHideClassName}`}>
+    <div className={`w-screen h-screen bg-modal fixed top-0 left-0 ${showHideClassName} ${blurClass}`}>
       {console.log("customClass", customClass)}
       <div
         ref={selectRef}

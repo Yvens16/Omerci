@@ -35,7 +35,7 @@ const Modal = forwardRef(({ show, closeModal, photoUrl, backgrounds, handleChang
   cancel, validate
 }: IModalParams, ref: Ref<HTMLInputElement>) => {
   return (
-    <SimpleModal show={show} closeModal={closeModal} titleHtml={undefined} customClass="card_parameters xl:top-[88px] xl:-translate-y-0 !p-24t">
+    <SimpleModal show={show} closeModal={closeModal} titleHtml={undefined} customClass="card_parameters xl:top-[88px] xl:-translate-y-0 !p-24t" blurClass='backdrop-blur-[7px]'>
       <h3 className="font-medium text-18t md:hidden mb-12t">Information de la carte</h3>
       <h3 className="font-medium text-18t hidden md:block mb-12t">Parametre de la carte</h3>
       <div className='profil mb-24t'>
