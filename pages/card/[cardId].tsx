@@ -58,7 +58,7 @@ const CardPage: NextPage = () => {
   const goToCreateMessage = () => {
     router.push({
       pathname: "/create_message",
-      query: { carteid: cardId, cardTitle: card.title }
+      query: { cardId: cardId, cardTitle: card.title }
     })
   }
 
@@ -241,7 +241,6 @@ const CardPage: NextPage = () => {
       <div className='px-16t xl:px-0 xl:flex xl:gap-x-[32px]'>
         {/* <CardParams teamName={"card.teamName"} goToCreateMessage={goToCreateMessage} isAdmin={isAdmin} photoUrl={'/avatars/girl.jpg'} backgroundUrl={"'/images/card_params_bg.jpg'"}
           cardTitle={"card.cardTitle"} receiverName={"card.recipientName"} messageNumber={12} moneyCount={13} /> */}
-        {cardStatus === "success" && console.log("11111", card)}
         {cardStatus === "success" && messagesStatus === "success" && <CardParams toggleParamsModal={toggleParamsModal} teamName={card.teamName} goToCreateMessage={goToCreateMessage} isAdmin={isAdmin} photoUrl={card.photoUrl || '/avatars/girl.jpg'} backgroundUrl={"'/images/card_params_bg.jpg'"}
           cardTitle={card.title} receiverName={card.recipientName} messageNumber={messages.length} moneyCount={card.moneyCount} />}
         {cardStatus === "error" && <div className="bg-danger text-white mb-36t flex flex-col xl:max-w-[350px] h-max">

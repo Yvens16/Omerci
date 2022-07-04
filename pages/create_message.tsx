@@ -231,13 +231,12 @@ const CreateMessage: NextPage = () => {
   //   clientSecret: data && data.clientSecret ? data.clientSecret : "",
   // };
   const backToCard = () => {
-    router.push(`/card/${router.query.carteid}`);
+    router.push(`/card/${router.query.cardId}`);
   }
 
   return (
     <>
       <div className="px-16t xl:px-0">
-        {console.log("gif url", gifUrl)}
         {showView === "gify" &&
           <Portal>
             <GifyModal mediaRef={MediasModalRef} showModal={true} onClose={() => showWhichView("default")} selectGif={selectGif} />
