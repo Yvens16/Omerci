@@ -44,7 +44,6 @@ const CardPage: NextPage = () => {
   const { getCard, getMessagesOnCard, deleteMessage, updateCard, updateCardParams } = useFirestoreDb();
   const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
-  console.log('router:', router)
   const { authUser } = useAuth();
   /** ######## CARD ######## */
   const { cardId } = router.query
@@ -280,7 +279,7 @@ const CardPage: NextPage = () => {
                   toggleDeleteModal={() => toggleDeleteModal(message.uid)}
                   toggleModal={() => toggleMobileOptionModal(message.uid)}
                   messageId={message.uid} media={message.media}
-                  editRight={getEditRight(authUser!["uid"], message["creatorId"], card["creatorId"])}
+                  editRight={getEditRight(authUser && authUser!["uid"] ? authUser!["uid"] : "" , message["creatorId"], card["creatorId"])}
                   owner={message.creator} createdDate={message.createdDate}></Message>
               </div>
             )) : null}
@@ -292,7 +291,7 @@ const CardPage: NextPage = () => {
             <div className={`col_left ${messagesStatus === "success" && messages.length < 2 ? "xl:flex xl:flex-row xl:grow xl:gap-x-24t" : ""}`}>
               {cardStatus === "success" && messagesStatus === "success" && messages.length > 0 && pair(messages).map((message: any, idx: any) => (
                 <div key={idx} className="mb-24t xl:min-w-[369px]">
-                  <Message showDesktopOption={showDesktopOption} message={message.messageContent} toggleDeleteModal={() => toggleDeleteModal(message.uid)} toggleModal={() => toggleDesktopOptionModal(message.uid)} messageId={message.uid} media={message.media} editRight={getEditRight(authUser!["uid"], message["creatorId"], card["creatorId"])} owner={message.creator} createdDate={message.createdDate}>
+                  <Message showDesktopOption={showDesktopOption} message={message.messageContent} toggleDeleteModal={() => toggleDeleteModal(message.uid)} toggleModal={() => toggleDesktopOptionModal(message.uid)} messageId={message.uid} media={message.media} editRight={getEditRight(authUser && authUser!["uid"] ? authUser!["uid"] : "" , message["creatorId"], card["creatorId"])} owner={message.creator} createdDate={message.createdDate}>
                     <>
                       {showDesktopOption && selectedMessageId === message.uid
                         && <DesktopOption ref={DesktopOptionRef} toggleDeleteModal={() => toggleDeleteModal(message.uid)} modifyMessage={() => modifyMessage(selectedMessageId)} />}
@@ -307,7 +306,7 @@ const CardPage: NextPage = () => {
             <div className="col_right">
               {cardStatus === "success" && messagesStatus === "success" && messages.length > 0 && impair(messages).map((message: any, idx: number) => (
                 <div key={idx} className="mb-24t xl:mr-8t">
-                  <Message showDesktopOption={showDesktopOption} message={message.messageContent} toggleDeleteModal={() => toggleDeleteModal(message.uid)} toggleModal={() => toggleDesktopOptionModal(message.uid)} messageId={message.uid} media={message.media} editRight={getEditRight(authUser!["uid"], message["creatorId"], card["creatorId"])} owner={message.creator} createdDate={message.createdDate}>
+                  <Message showDesktopOption={showDesktopOption} message={message.messageContent} toggleDeleteModal={() => toggleDeleteModal(message.uid)} toggleModal={() => toggleDesktopOptionModal(message.uid)} messageId={message.uid} media={message.media} editRight={getEditRight(authUser && authUser!["uid"] ? authUser!["uid"] : "" , message["creatorId"], card["creatorId"])} owner={message.creator} createdDate={message.createdDate}>
                     <>
                       {showDesktopOption && selectedMessageId === message.uid
                         && <DesktopOption ref={DesktopOptionRef} toggleDeleteModal={() => toggleDeleteModal(message.uid)} modifyMessage={() => modifyMessage(selectedMessageId)} />}

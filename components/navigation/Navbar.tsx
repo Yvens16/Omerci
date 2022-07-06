@@ -86,7 +86,7 @@ const Navbar = ({ }) => {
           {authUser ?
             <div className='relative' ref={moreRef}>
               <UserProfilePicture onClick={() => setMoreOpen((prevstate) => !prevstate)} className="cursor-pointer ml-36t" />
-              {isMoreOpen ? <div className='absolute  justify-center top-[68px] right-0 w-[200px] p-16t rounded-12t grid grid-y-[8px] bg-white border border-solid border-secondary_fill'>
+              {isMoreOpen ? <div className='absolute  justify-center top-[68px] right-0 w-[200px] p-16t rounded-12t grid z-10 grid-y-[8px] bg-white border border-solid border-secondary_fill'>
                 <Button myClass='nav font-base mt-8t !justify-start' type='third' size='' handleClick={() => router.push("/personal_space")}>
                   <DashboardIcon className="mr-4t" />
                   <Link href='/'>

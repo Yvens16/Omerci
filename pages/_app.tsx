@@ -6,11 +6,12 @@ import Layout from '../components/Layout';
 import type { AppProps } from 'next/app'
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const routesToprotect: string[] = [];
+  const routesAnonymousCanAcess: string[] = ['/card/[cardId]'];
+  const routesToprotect: string[] = ['/card/[cardId]'];
   return <AuthUserProvider>
     <FirestoreProvider>
       <Layout>
-        <ProtectedRoute protectedRoutes={routesToprotect}>
+        <ProtectedRoute protectedRoutes={routesToprotect} routesAnonymousCanAcess={routesAnonymousCanAcess}>
           <Component {...pageProps} />
         </ProtectedRoute>
       </Layout>
