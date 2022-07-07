@@ -20,6 +20,8 @@ interface IAuthContext {
   updateAuthDisplayName:  () => Promise<void>,
   doesEmailAlreadyExist:  (email: string) =>Promise<boolean>,
   anonymousSignIn:  () => Promise<void>,
+  signInAnonymousUser: (email: string, emailLink: string) => Promise<void>,
+  linkAnonymousUser: (email: string, emailLink: string) => Promise<void>,
 }
 const AuthUserContext = createContext<IAuthContext>({
   authUser: null,
@@ -31,6 +33,8 @@ const AuthUserContext = createContext<IAuthContext>({
   updateAuthDisplayName: async () => new Promise(() => {}),
   doesEmailAlreadyExist: async (email: string) => new Promise<boolean>(() => { }),
   anonymousSignIn: async () => new Promise(() => {}),
+  signInAnonymousUser: async (email: string, emailLink: string) => new Promise(() => {}),
+  linkAnonymousUser: async (email: string, emailLink: string) => new Promise(() => {}),
 })
 
 interface ChildrenParams {

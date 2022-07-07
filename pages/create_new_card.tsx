@@ -184,7 +184,6 @@ const CreateCard: NextPage = () => {
     const doesEmailExist = await doesEmailAlreadyExist(email);
     setEmailAlreadyExist(doesEmailExist);
     if (doesEmailExist) {
-      //todo : open modal
       setEmailModal(true);
     } else {
       const user = await anonymousSignIn() as any;

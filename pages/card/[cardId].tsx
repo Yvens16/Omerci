@@ -24,6 +24,9 @@ const pair = (messages: string[]) => messages.filter((el, idx) => idx % 2 === 0)
 const impair = (messages: string[]) => messages.filter((el, idx) => idx % 2 !== 0);
 
 const getEditRight = (userUid: string, messageCreatorId: string, cardCreatorId: string) => {
+  console.log('messageCreatorId:', messageCreatorId)
+  console.log('cardCreatorId:', cardCreatorId)
+  console.log('userUid:', userUid)
   // Admin peut supprimer mais pas modifier les autres messages et peut supprimer et modifier son message
   // Participant peut modifier et supprimer son msg, peut rien faire sur les autres messages
   // Admin if cardCreatorId === userUid
@@ -252,6 +255,7 @@ const CardPage: NextPage = () => {
 
   return (
     <div className=" lg:max-w-[1240px] mx-auto relative">
+      {console.log("authUser", authUser)}
       <div className="py-8t bg-white xl:!bg-default_bg xl:my-24t px-16t xl:px-0 mb-16t">
         <Header goTo={() => router.push({ pathname: "/send_card", query: { cardTitle: card.title, recipient: card.recipientName, cardId: card.uid } })} goBack={() => router.push({ pathname: "/personal_space" })} isAdmin={isAdmin} />
       </div>

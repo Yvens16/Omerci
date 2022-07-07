@@ -191,7 +191,6 @@ export default function useFirestore() {
     try {
       await updateDoc(cardRef, {
         uid: cardId,
-        creatorId: userId,
         recipientName,
         title,
         hasCagnotte,

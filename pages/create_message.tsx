@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import type { NextPage } from "next";
 import { IGif } from "@giphy/js-types";
+import Modal from '@components/modal/Modal';
 import { useRouter } from 'next/router';
 import { IHeader, IInfo, IMessageCreation } from "@components/create_msg/interfaces";
 import { ICagnotte } from '@components/create_msg/cagnotte/interfaces';
@@ -12,6 +13,12 @@ import { useOnClickOutside } from '@components/utils/hooks/useClickOutside';
 import { useAuth } from '../context/AuthUserContext';
 import useSWR from 'swr'
 import { useAsync } from '@components/utils/hooks/useAsync';
+import LetterIllustration from '../public/icons/undraw/undraw_mail_sent_re_0ofv 1.svg';
+import Group from '../public/icons/user/group.svg';
+import { isSignInWithEmailLink } from 'firebase/auth';
+import { auth } from '../firebase/index';
+
+
 
 // import {
 //   PaymentElement,
@@ -38,7 +45,8 @@ const CreateMessage: NextPage = () => {
   const [stripeMessage, setMessage] = useState(null);
   const [stripeIsLoading, setStripeIsLoading] = useState(false);
   const [isOkBtnDisabled, setIsOkBtnDisabled] = useState(true);
-
+  const [isEmailModalOpen, setEmailModal] = useState(false);
+  const [isEmailSentModalOpen, setEmailSentModal] = useState(false)
   const initialBtns = {
     five: false,
     ten: false,
@@ -47,7 +55,8 @@ const CreateMessage: NextPage = () => {
 
   const [isBtnSelected, setIsBtnSelected] = useState<{ [key: string]: boolean }>(initialBtns)
 
-  const { authUser } = useAuth();
+  const { authUser, doesEmailAlreadyExist, anonymousSignIn, magicSignInUp, signInAnonymousUser, linkAnonymousUser, signOutAccount } = useAuth();
+
   const [messageCreatorInfo, setInfo] = useState<{ name: string, familyName: string, email: string }>({
     name: "",
     familyName: "",
@@ -65,7 +74,7 @@ const CreateMessage: NextPage = () => {
   const [isCustomAmount, setIsCustomAmount] = useState(false);
   const MediasModalRef = useRef<HTMLDivElement>(null);
   useOnClickOutside(MediasModalRef, () => setShowView("default"));
-  const { createMessage, getSingleMessage, modifyMessage } = useFirestoreDb();
+  const { createMessage, getSingleMessage, modifyMessage, addUserInfo } = useFirestoreDb();
 
 
   const handleInfo = (e: any) => {
@@ -117,12 +126,25 @@ const CreateMessage: NextPage = () => {
       setInfo({ name, familyName, email });
       if (singleMessage.media.type === "gif") setGifUrl(singleMessage.media.url)
       else if (singleMessage.media.type === "unsplash") setUnsplashUrl(singleMessage.media.url)
-      else setFileToShowURL({type: singleMessage.media.type , url:singleMessage.media.url});
+      else setFileToShowURL({ type: singleMessage.media.type, url: singleMessage.media.url });
     }
   }
   useEffect(() => {
     setContentTodata();
   }, [messagesStatus])
+
+  useEffect(() => {
+    if (isSignInWithEmailLink(auth, window.location.href)) {
+      const urlSearchParams = new URLSearchParams(window.location.search);
+      const params = Object.fromEntries(urlSearchParams.entries());
+      let email = params.email;
+      linkAnonymousUser(email, window.location.href);
+      setInfo({
+        ...messageCreatorInfo,
+        email,
+      })
+    }
+  }, [messageCreatorInfo, linkAnonymousUser])
 
   const onFileChange = (e: any) => {
     setGifUrl("");
@@ -157,6 +179,46 @@ const CreateMessage: NextPage = () => {
     showWhichView("default");
   }
 
+  const createKnownUserMessage = async () => {
+    const cardId = router.query.cardId as string;
+    if (selectedFile) {
+      const fileType: any = selectedFile.type.split("/")[0];
+      await createMessage({ cardId, file: selectedFile, docName: selectedFile.name, docType: fileType, creatorId: authUser?.["uid"] as string, message: messageContent, creator: messageCreatorInfo, cagnotteAmount });
+    } else if (unsplashUrl !== "" || gifUrl !== "") await createMessage({ cardId, docType: unsplashUrl.length ? "image" : "gif", creatorId: authUser?.["uid"] as string, message: messageContent, mediaUrl: unsplashUrl.length ? unsplashUrl : gifUrl, creator: messageCreatorInfo, cagnotteAmount })
+    router.push(`card/${cardId}`)
+  }
+
+  const sendEmailLink = async () => {
+    const { email } = messageCreatorInfo;
+    await signOutAccount();
+    await magicSignInUp(email);
+    setEmailModal(false);
+    setEmailSentModal(true);
+  }
+
+  const createAnonymousUserMessage = async () => {
+    const { name, email } = messageCreatorInfo;
+    const cardId = router.query.cardId as string;
+    let userId = "";
+    const doesEmailExist = await doesEmailAlreadyExist(messageCreatorInfo.email);
+    console.log('messageCreatorInfo.email:', messageCreatorInfo.email)
+    console.log('doesEmailExist:', doesEmailExist)
+    if (doesEmailExist) {
+      setEmailModal(true);
+    } else {
+      const user = await anonymousSignIn() as any;
+      console.log('anonymous user:', user)
+      userId = user.uid;
+      if (selectedFile) {
+        // const user = await anonymousSignIn() as unknown as string;
+        await addUserInfo({ uid: userId, firstName: name.split("")[0], lastName: name.split("")[1], howDoYouKnowUs: "", email })
+        const fileType: any = selectedFile.type.split("/")[0];
+        await createMessage({ cardId, file: selectedFile, docName: selectedFile.name, docType: fileType, creatorId: userId, message: messageContent, creator: messageCreatorInfo, cagnotteAmount });
+      } else if (unsplashUrl !== "" || gifUrl !== "") await createMessage({ cardId, docType: unsplashUrl.length ? "image" : "gif", creatorId: userId, message: messageContent, mediaUrl: unsplashUrl.length ? unsplashUrl : gifUrl, creator: messageCreatorInfo, cagnotteAmount });
+      router.push(`card/${cardId}`)
+    }
+  }
+
   const onFileUpload = async () => {
     const cardId = router.query.cardId as string;
     if (router.query.modify) {
@@ -164,13 +226,14 @@ const CreateMessage: NextPage = () => {
         const fileType: any = selectedFile.type.split("/")[0];
         await modifyMessage({ messageId: messageId as string, cardId, file: selectedFile, docName: selectedFile.name, docType: fileType, creatorId: authUser?.["uid"] as string, message: messageContent, creator: messageCreatorInfo, cagnotteAmount });
       } else if (unsplashUrl !== "" || gifUrl !== "") await modifyMessage({ messageId: messageId as string, cardId, docType: unsplashUrl.length ? "image" : "gif", creatorId: authUser?.["uid"] as string, message: messageContent, mediaUrl: unsplashUrl.length ? unsplashUrl : gifUrl, creator: messageCreatorInfo, cagnotteAmount })
+      router.push(`card/${cardId}`);
     } else {
-      if (selectedFile) {
-        const fileType: any = selectedFile.type.split("/")[0];
-        await createMessage({ cardId, file: selectedFile, docName: selectedFile.name, docType: fileType, creatorId: authUser?.["uid"] as string, message: messageContent, creator: messageCreatorInfo, cagnotteAmount });
-      } else if (unsplashUrl !== "" || gifUrl !== "") await createMessage({ cardId, docType: unsplashUrl.length ? "image" : "gif", creatorId: authUser?.["uid"] as string, message: messageContent, mediaUrl: unsplashUrl.length ? unsplashUrl : gifUrl, creator: messageCreatorInfo, cagnotteAmount })
+      if (!authUser || (authUser && authUser.isAnonymous)) {
+        await createAnonymousUserMessage();
+      } else {
+        await createKnownUserMessage();
+      }
     }
-    router.push(`card/${cardId}`)
   }
   const reset = () => {
     if (modify) {
@@ -237,6 +300,7 @@ const CreateMessage: NextPage = () => {
   return (
     <>
       <div className="px-16t xl:px-0">
+        {console.log("authUser", authUser)}
         {showView === "gify" &&
           <Portal>
             <GifyModal mediaRef={MediasModalRef} showModal={true} onClose={() => showWhichView("default")} selectGif={selectGif} />
@@ -282,6 +346,31 @@ const CreateMessage: NextPage = () => {
 
         </div>
       </div>
+      <Modal show={isEmailModalOpen} closeModal={() => setEmailModal(false)} customClass=''>
+        <div className="container">
+          <div className="flex justify-center mb-24t mt-36t"><Group className="fill-black w-[36px] h-[36px]" /></div>
+          <h2 className="text-title font-semibold text-center mb-8t">Souhaitez-vous vous connecter ?</h2>
+          <p className="text-base text-center font-normal leading-[21px] mb-40t text-third">Il semble que cette addresse mail possède déja un compte. Nous vous enverrons un lien magique de connexion à l’adresse
+            <span className='font-semibold'> {messageCreatorInfo.email}</span></p>
+          <div className='flex justify-center'>
+            <Button isDisabled={false} type='secondary' myClass='grow-1 h-[48px] mr-8t md:mr-16t' handleClick={() => setEmailModal(false)} size='big'>
+              Annuler
+            </Button>
+            <Button isDisabled={false} myClass={'grow-1 flex text-center justify-center h-[48px]'} handleClick={sendEmailLink} type='primary' size={'big'}>Me connecter</Button>
+          </div>
+        </div>
+      </Modal>
+      <Modal show={isEmailSentModalOpen} closeModal={() => setEmailSentModal(false)} customClass='' whichIcon='return'>
+        <div className="container">
+          <h2 className="text-base font-normal text-center text-black mb-24t">Un email avec un lien de connexion a été envoyé à l’adresse {messageCreatorInfo.email}</h2>
+          <div className='flex justify-center mt-[24px] mb-16t'>
+            <LetterIllustration />
+          </div>
+          <div onClick={sendEmailLink} className='flex justify-center underline cursor-pointer'>
+            Vous n’avez pas reçu d’email ?
+          </div>
+        </div>
+      </Modal>
     </>
   )
 }

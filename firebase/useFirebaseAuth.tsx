@@ -1,6 +1,11 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import { auth } from './index';
-import { sendSignInLinkToEmail, onAuthStateChanged, isSignInWithEmailLink, signOut, signInAnonymously, signInWithEmailLink, updateProfile, fetchSignInMethodsForEmail, updateEmail } from 'firebase/auth';
+import {
+  sendSignInLinkToEmail, onAuthStateChanged, isSignInWithEmailLink,
+  signOut, signInAnonymously, signInWithEmailLink,
+  updateProfile, fetchSignInMethodsForEmail, updateEmail,
+  EmailAuthProvider, linkWithCredential
+} from 'firebase/auth';
 
 interface authUserParams {
   uid: string | null,
@@ -126,6 +131,7 @@ export default function useFirebaseAuth() {
   }
 
   const afterGettingLink = () => {
+    console.log('afterGettingLink: @@@@@@@@@@@@@@@@',)
     // const auth = getAuth(firebaseApp);
     let isNewUser, isAnonymous, emailVerified, uid;
     if (isSignInWithEmailLink(auth, window.location.href)) {
@@ -188,6 +194,49 @@ export default function useFirebaseAuth() {
     }
   }
 
+  const signInAnonymousUser = async (email: string, emailLink: string) => {
+    // Example oof emailLink: /card/[cardId]
+    let link = '';
+    switch (process.env.NEXT_PUBLIC_VERCEL_ENV) {
+      case 'development':
+        link = `http://localhost:3000${emailLink}?email=${email}&isAnonymous=true`;
+        break;
+      case 'preview':
+        link = `https://${process.env.NEXT_PUBLIC_VERCEL_URL}${emailLink}?email=${email}&isAnonymous=true`;
+        break;
+      case 'production':
+        // TODO change to prod domain and add the domain in firebase settings too: https://console.firebase.google.com/project/omerci/authentication/providers
+        link = `https://omerci.vercel.app${emailLink}?email=${email}&isAnonymous=true`;
+        break;
+    }
+    const actionCodeSettings = {
+      url: link,
+      handleCodeInApp: true,
+    };
+
+    // const auth = getAuth(firebaseApp);
+    try {
+      await sendSignInLinkToEmail(auth, email, actionCodeSettings)
+      console.log("Sign in anonymousUser SUCCESS")
+    }catch(err) {
+      console.log("Err in signinAnonymousUser")
+    }
+  }
+
+
+  const linkAnonymousUser = async(email: string, emailLink: string) => {
+    const credential = EmailAuthProvider.credentialWithLink(email, emailLink);
+    try {
+      const user = await linkWithCredential(auth.currentUser, credential);
+      console.log("Account linking success", user);
+      return user;
+    }catch(err) {
+      console.log("Account linking error", err);
+    }
+  }
+
+
+
   const doesEmailAlreadyExist = async (email: string) => {
     const providers = await fetchSignInMethodsForEmail(auth, email);
     return providers.length > 0;
@@ -209,7 +258,7 @@ export default function useFirebaseAuth() {
     try {
       if (auth && auth.currentUser)
         await updateProfile(auth.currentUser, { displayName: `${firstName} ${lastName}` });
-        await updateEmail(auth.currentUser, email);
+      await updateEmail(auth.currentUser, email);
       console.log('updateAuthDisplayName: Profile updated');
     } catch (e) {
       //TODO: Snackbar for eroor to user
@@ -244,6 +293,8 @@ export default function useFirebaseAuth() {
     signOut,
     afterGettingLink,
     updateAuthDisplayName,
-    doesEmailAlreadyExist
+    doesEmailAlreadyExist,
+    signInAnonymousUser,
+    linkAnonymousUser,
   };
 }
