@@ -9,7 +9,11 @@ export default {
   decorators: [withDesign],
 } as ComponentMeta<typeof Header>;
 
-export const MessagesHeader = () => <Header/>
+export const MessagesHeader = () => <Header goTo={function (): void {
+  throw new Error('Function not implemented.');
+} } goBack={function (): void {
+  throw new Error('Function not implemented.');
+} } isAdmin={false}/>
 
 MessagesHeader.parameters = {
   design: {

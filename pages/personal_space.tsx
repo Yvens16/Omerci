@@ -130,7 +130,8 @@ const PersonalSpace: NextPage = () => {
     <div className="text-black">
       {authUser && authUser.isAnonymous
         && <div className='bg-primary text-white flex flex-col xl:flex-row justify-center items-center xl:h-[48px]'>
-          <span className="font-semibold">Votre adresse email n’est pas encore verifiée.</span> Nous vous avons envoyé un email à l’adresse &nbsp;<span className='font-semibold'>{authUser.email}</span>. &nbsp;<span className='font-light underline'>Revoyez le mail</span>&nbsp; ou &nbsp;<span className='font-light underline'>modifier l’adresse mail</span>
+          {/* TODO:  Add functionnality after discussing with Fadel  */}
+          <span className="font-medium">Votre adresse email n’est pas encore verifiée.</span> Nous vous avons envoyé un email à l’adresse &nbsp;<span className='font-semibold'>{authUser.email}</span>. &nbsp;<span className='font-light underline'>Revoyez le mail</span>&nbsp; ou &nbsp;<span className='font-light underline'>modifier l’adresse mail</span>
         </div>}
       {statusUserInfo === "success" && <Header firstName={userInfo.firstName} lastName={userInfo.lastName} />}
 

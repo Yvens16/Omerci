@@ -142,7 +142,7 @@ const CardPage: NextPage = () => {
     if (typeof window !== 'undefined') {
       const hostname = window.location.origin;
       setHostName(hostname);
-   }
+    }
   }, [executeGetMessages, cardStatus, cardId])
   useEffect(() => {
     const showTheOnboardingModal = async () => {
@@ -254,86 +254,92 @@ const CardPage: NextPage = () => {
 
 
   return (
-    <div className=" lg:max-w-[1240px] mx-auto relative">
-      {console.log("authUser", authUser)}
-      <div className="py-8t bg-white xl:!bg-default_bg xl:my-24t px-16t xl:px-0 mb-16t">
-        <Header goTo={() => router.push({ pathname: "/send_card", query: { cardTitle: card.title, recipient: card.recipientName, cardId: card.uid } })} goBack={() => router.push({ pathname: "/personal_space" })} isAdmin={isAdmin} />
-      </div>
-      <div className='px-16t xl:px-0 xl:flex xl:gap-x-[32px]'>
-        {/* <CardParams teamName={"card.teamName"} goToCreateMessage={goToCreateMessage} isAdmin={isAdmin} photoUrl={'/avatars/girl.jpg'} backgroundUrl={"'/images/card_params_bg.jpg'"}
-          cardTitle={"card.cardTitle"} receiverName={"card.recipientName"} messageNumber={12} moneyCount={13} /> */}
-        {cardStatus === "success" && messagesStatus === "success"
-          && <CardParams openShareModal={openShareModal} toggleParamsModal={toggleParamsModal} teamName={card.teamName} goToCreateMessage={goToCreateMessage} isAdmin={isAdmin} photoUrl={card.photoUrl || '/avatars/girl.jpg'} backgroundUrl={"'/images/card_params_bg.jpg'"}
-            cardTitle={card.title} receiverName={card.recipientName} messageNumber={messages.length} moneyCount={card.moneyCount} />}
-        {cardStatus === "error" && <div className="bg-danger text-white mb-36t flex flex-col xl:max-w-[350px] h-max">
-          <div className={`card mb-24t bg-cover p-24t rounded-12t`}>
-            Il y{"'"} a une erreur:<br></br>{cardError.message}
-          </div>
+    <>
+      {authUser && authUser.isAnonymous
+        && <div className='bg-primary text-white flex flex-col xl:flex-row justify-center items-center xl:h-[48px]'>
+          <span className="font-medium">Votre adresse email n’est pas encore verifiée.</span> Nous vous avons envoyé un email à l’adresse &nbsp;<span className='font-semibold'>{authUser.email}</span>. &nbsp;<span className='font-light underline'>Revoyez le mail</span>&nbsp; ou &nbsp;<span className='font-light underline'>modifier l’adresse mail</span>
         </div>}
-        <div className="xl:grow">
-          <div className='flex items-center mb-16t'>
-            <h2 className='text-title font-medium min-w-fit mr-16t'>Tous les messages</h2>
-            <hr className='w-full block border border-solid border-input_default opacity-50 xl:w-[630px]' />
-          </div>
-          <div className='mobile_view new_message xl:hidden'>
-            {cardStatus === "success" && messagesStatus === "success" && messages.length ? messages.map((message: any, idx: any) => (
-              <div key={idx} className="mb-24t xl:mr-8t">
-                <Message
-                  message={message.messageContent}
-                  toggleDeleteModal={() => toggleDeleteModal(message.uid)}
-                  toggleModal={() => toggleMobileOptionModal(message.uid)}
-                  messageId={message.uid} media={message.media}
-                  editRight={getEditRight(authUser && authUser!["uid"] ? authUser!["uid"] : "" , message["creatorId"], card["creatorId"])}
-                  owner={message.creator} createdDate={message.createdDate}></Message>
-              </div>
-            )) : null}
-            <div className='mb-24t'>
-              <AddNewMessage goToCreateMessage={goToCreateMessage} />
+      <div className=" lg:max-w-[1240px] mx-auto relative">
+        {console.log("authUser", authUser)}
+        <div className="py-8t bg-white xl:!bg-default_bg xl:my-24t px-16t xl:px-0 mb-16t">
+          <Header goTo={() => router.push({ pathname: "/send_card", query: { cardTitle: card.title, recipient: card.recipientName, cardId: card.uid } })} goBack={() => router.push({ pathname: "/personal_space" })} isAdmin={isAdmin} />
+        </div>
+        <div className='px-16t xl:px-0 xl:flex xl:gap-x-[32px]'>
+          {/* <CardParams teamName={"card.teamName"} goToCreateMessage={goToCreateMessage} isAdmin={isAdmin} photoUrl={'/avatars/girl.jpg'} backgroundUrl={"'/images/card_params_bg.jpg'"}
+          cardTitle={"card.cardTitle"} receiverName={"card.recipientName"} messageNumber={12} moneyCount={13} /> */}
+          {cardStatus === "success" && messagesStatus === "success"
+            && <CardParams openShareModal={openShareModal} toggleParamsModal={toggleParamsModal} teamName={card.teamName} goToCreateMessage={goToCreateMessage} isAdmin={isAdmin} photoUrl={card.photoUrl || '/avatars/girl.jpg'} backgroundUrl={"'/images/card_params_bg.jpg'"}
+              cardTitle={card.title} receiverName={card.recipientName} messageNumber={messages.length} moneyCount={card.moneyCount} />}
+          {cardStatus === "error" && <div className="bg-danger text-white mb-36t flex flex-col xl:max-w-[350px] h-max">
+            <div className={`card mb-24t bg-cover p-24t rounded-12t`}>
+              Il y{"'"} a une erreur:<br></br>{cardError.message}
             </div>
-          </div>
-          <div className={`desktop_view colum_grid hidden xl:grid ${messagesStatus === "success" && messages.length < 2 ? "xl:flex xl:flex-col" : "xl:grid-cols-[1fr_1fr] xl:gap-24t"}`}>
-            <div className={`col_left ${messagesStatus === "success" && messages.length < 2 ? "xl:flex xl:flex-row xl:grow xl:gap-x-24t" : ""}`}>
-              {cardStatus === "success" && messagesStatus === "success" && messages.length > 0 && pair(messages).map((message: any, idx: any) => (
-                <div key={idx} className="mb-24t xl:min-w-[369px]">
-                  <Message showDesktopOption={showDesktopOption} message={message.messageContent} toggleDeleteModal={() => toggleDeleteModal(message.uid)} toggleModal={() => toggleDesktopOptionModal(message.uid)} messageId={message.uid} media={message.media} editRight={getEditRight(authUser && authUser!["uid"] ? authUser!["uid"] : "" , message["creatorId"], card["creatorId"])} owner={message.creator} createdDate={message.createdDate}>
-                    <>
-                      {showDesktopOption && selectedMessageId === message.uid
-                        && <DesktopOption ref={DesktopOptionRef} toggleDeleteModal={() => toggleDeleteModal(message.uid)} modifyMessage={() => modifyMessage(selectedMessageId)} />}
-                    </>
-                  </Message>
+          </div>}
+          <div className="xl:grow">
+            <div className='flex items-center mb-16t'>
+              <h2 className='text-title font-medium min-w-fit mr-16t'>Tous les messages</h2>
+              <hr className='w-full block border border-solid border-input_default opacity-50 xl:w-[630px]' />
+            </div>
+            <div className='mobile_view new_message xl:hidden'>
+              {cardStatus === "success" && messagesStatus === "success" && messages.length ? messages.map((message: any, idx: any) => (
+                <div key={idx} className="mb-24t xl:mr-8t">
+                  <Message
+                    message={message.messageContent}
+                    toggleDeleteModal={() => toggleDeleteModal(message.uid)}
+                    toggleModal={() => toggleMobileOptionModal(message.uid)}
+                    messageId={message.uid} media={message.media}
+                    editRight={getEditRight(authUser && authUser!["uid"] ? authUser!["uid"] : "", message["creatorId"], card["creatorId"])}
+                    owner={message.creator} createdDate={message.createdDate}></Message>
                 </div>
-              ))}
+              )) : null}
               <div className='mb-24t'>
                 <AddNewMessage goToCreateMessage={goToCreateMessage} />
               </div>
             </div>
-            <div className="col_right">
-              {cardStatus === "success" && messagesStatus === "success" && messages.length > 0 && impair(messages).map((message: any, idx: number) => (
-                <div key={idx} className="mb-24t xl:mr-8t">
-                  <Message showDesktopOption={showDesktopOption} message={message.messageContent} toggleDeleteModal={() => toggleDeleteModal(message.uid)} toggleModal={() => toggleDesktopOptionModal(message.uid)} messageId={message.uid} media={message.media} editRight={getEditRight(authUser && authUser!["uid"] ? authUser!["uid"] : "" , message["creatorId"], card["creatorId"])} owner={message.creator} createdDate={message.createdDate}>
-                    <>
-                      {showDesktopOption && selectedMessageId === message.uid
-                        && <DesktopOption ref={DesktopOptionRef} toggleDeleteModal={() => toggleDeleteModal(message.uid)} modifyMessage={() => modifyMessage(selectedMessageId)} />}
-                    </>
-                  </Message>
+            <div className={`desktop_view colum_grid hidden xl:grid ${messagesStatus === "success" && messages.length < 2 ? "xl:flex xl:flex-col" : "xl:grid-cols-[1fr_1fr] xl:gap-24t"}`}>
+              <div className={`col_left ${messagesStatus === "success" && messages.length < 2 ? "xl:flex xl:flex-row xl:grow xl:gap-x-24t" : ""}`}>
+                {cardStatus === "success" && messagesStatus === "success" && messages.length > 0 && pair(messages).map((message: any, idx: any) => (
+                  <div key={idx} className="mb-24t xl:min-w-[369px]">
+                    <Message showDesktopOption={showDesktopOption} message={message.messageContent} toggleDeleteModal={() => toggleDeleteModal(message.uid)} toggleModal={() => toggleDesktopOptionModal(message.uid)} messageId={message.uid} media={message.media} editRight={getEditRight(authUser && authUser!["uid"] ? authUser!["uid"] : "", message["creatorId"], card["creatorId"])} owner={message.creator} createdDate={message.createdDate}>
+                      <>
+                        {showDesktopOption && selectedMessageId === message.uid
+                          && <DesktopOption ref={DesktopOptionRef} toggleDeleteModal={() => toggleDeleteModal(message.uid)} modifyMessage={() => modifyMessage(selectedMessageId)} />}
+                      </>
+                    </Message>
+                  </div>
+                ))}
+                <div className='mb-24t'>
+                  <AddNewMessage goToCreateMessage={goToCreateMessage} />
                 </div>
-              ))}
+              </div>
+              <div className="col_right">
+                {cardStatus === "success" && messagesStatus === "success" && messages.length > 0 && impair(messages).map((message: any, idx: number) => (
+                  <div key={idx} className="mb-24t xl:mr-8t">
+                    <Message showDesktopOption={showDesktopOption} message={message.messageContent} toggleDeleteModal={() => toggleDeleteModal(message.uid)} toggleModal={() => toggleDesktopOptionModal(message.uid)} messageId={message.uid} media={message.media} editRight={getEditRight(authUser && authUser!["uid"] ? authUser!["uid"] : "", message["creatorId"], card["creatorId"])} owner={message.creator} createdDate={message.createdDate}>
+                      <>
+                        {showDesktopOption && selectedMessageId === message.uid
+                          && <DesktopOption ref={DesktopOptionRef} toggleDeleteModal={() => toggleDeleteModal(message.uid)} modifyMessage={() => modifyMessage(selectedMessageId)} />}
+                      </>
+                    </Message>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
+        {cardStatus === "success" && messagesStatus === "success" && showOnboardingModal
+          && <OnboardingModal customClass="xl:top-[88px] xl:-translate-y-0" recipientName={card.recipientName} photoUrl={card.photoUrl} cardCreator={card.creatorName} cardTitle={card.title}
+            numberOfMsg={messages.length} moneyCount={0} isAdmin={isAdmin} show={showOnboardingModal}
+            closeModal={closeOnboardingModal} titleHtml={undefined} />
+        }
+        {showMobileOption && <MobileOption ref={MobileOptionRef} modifyMessage={() => modifyMessage(selectedMessageId)} toggleDeleteModal={() => toggleDeleteModal(selectedMessageId)} />}
+        {showDeleteModal && <DeleteMessageModal deleteMessage={() => deleteSelectedMessage(selectedMessageId)} show={showDeleteModal} closeModal={toggleDeleteModal} />}
+        {showParamsModal && cardStatus == "success" && <ParamsModale cancel={reset} validate={updateCardP} selectedPhotoFile={fileUrlToShow} dates={dates} values={values} handleChangeInput={handleInputChange} show={showParamsModal} closeModal={toggleParamsModal} photoUrl={card.photoUrl}
+          backgrounds={[]} cardTitle={card.title} receiverName={card.recipientName} teamName={card.teamName} expirationDay={''}
+          expirationMonth={''} expirationYear={''} handleSelectChange={handleSelectChange} handlePhotoCLick={handlePhotoCLick} fileChange={fileChange} ref={hiddenFileInput} />}
+        {showShareModal && <ShareLinkModal url={`${hostName}/${router.asPath}`} show={showShareModal} closeModal={closeShareModal} />}
       </div>
-      {cardStatus === "success" && messagesStatus === "success" && showOnboardingModal
-        && <OnboardingModal customClass="xl:top-[88px] xl:-translate-y-0" recipientName={card.recipientName} photoUrl={card.photoUrl} cardCreator={card.creatorName} cardTitle={card.title}
-          numberOfMsg={messages.length} moneyCount={0} isAdmin={isAdmin} show={showOnboardingModal}
-          closeModal={closeOnboardingModal} titleHtml={undefined} />
-      }
-      {showMobileOption && <MobileOption ref={MobileOptionRef} modifyMessage={() => modifyMessage(selectedMessageId)} toggleDeleteModal={() => toggleDeleteModal(selectedMessageId)} />}
-      {showDeleteModal && <DeleteMessageModal deleteMessage={() => deleteSelectedMessage(selectedMessageId)} show={showDeleteModal} closeModal={toggleDeleteModal} />}
-      {showParamsModal && cardStatus == "success" && <ParamsModale cancel={reset} validate={updateCardP} selectedPhotoFile={fileUrlToShow} dates={dates} values={values} handleChangeInput={handleInputChange} show={showParamsModal} closeModal={toggleParamsModal} photoUrl={card.photoUrl}
-        backgrounds={[]} cardTitle={card.title} receiverName={card.recipientName} teamName={card.teamName} expirationDay={''}
-        expirationMonth={''} expirationYear={''} handleSelectChange={handleSelectChange} handlePhotoCLick={handlePhotoCLick} fileChange={fileChange} ref={hiddenFileInput} />}
-      {showShareModal && <ShareLinkModal url={`${hostName}/${router.asPath}`} show={showShareModal} closeModal={closeShareModal} />}
-    </div>
+    </>
   )
 }
 
