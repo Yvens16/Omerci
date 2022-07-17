@@ -417,6 +417,22 @@ export default function useFirestore() {
     }
   }
 
+  const sendCustomEmail = async() => {
+    const emailRef = doc(collection(db, "mail"));
+    try {
+      await setDoc(emailRef, {
+        message: {
+          subject: "Test from code",
+          text: "body of test from code",
+        },
+        to: "yvensbelaston@gmail.com"
+      })
+      console.log("Message sent with success")
+    } catch(err) {
+      console.log("Error in sendCustomEmail", err);
+    }
+  }
+
 
   /** 
    * Check subcollections
@@ -440,6 +456,7 @@ export default function useFirestore() {
     updatePhoto,
     updateCardParams,
     getSingleMessage,
-    modifyMessage
+    modifyMessage,
+    sendCustomEmail,
   }
 }

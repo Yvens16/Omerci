@@ -70,6 +70,7 @@ interface IfirestoreContext {
   updatePhoto: ({uid, name, file}: IUpdatePhoto) => Promise<void>,
   updateCardParams: ({title, teamName, recipientName, hasCagnotte, cardId, file}: IUpdateCardParams) => Promise<void>,
   getSingleMessage: ({messageId}: {messageId: string}) => Promise<void>,
+  sendCustomEmail: () => Promise<void>,
 }
 
 export const FirestoreCtx = createContext<IfirestoreContext>({
@@ -89,7 +90,7 @@ export const FirestoreCtx = createContext<IfirestoreContext>({
   updatePhoto: ({uid, name, file}: IUpdatePhoto) => new Promise(() => {}),
   updateCardParams: ({title, teamName, recipientName, hasCagnotte, cardId, file}: IUpdateCardParams) => new Promise(() => {}),
   getSingleMessage: ({messageId}: {messageId: string}) => new Promise(() => {}),
-
+  sendCustomEmail: () => new Promise(() => {}),
 })
 
 

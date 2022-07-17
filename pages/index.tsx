@@ -11,9 +11,10 @@ import Header from '@components/settings/header/Header';
 import MD5 from "crypto-js/md5";
 import ShapeIcon from '../public/icons/basic/shape.svg'
 // import Ba from '../public/icons/menu/hamburger.svg';
+import useFirestore from '../firebase/useFirestore';
 
 const Home: NextPage = () => {
-
+  const { sendCustomEmail } = useFirestore();
   return (
     <>
       <Head>
@@ -23,6 +24,8 @@ const Home: NextPage = () => {
       </Head>
       <Header />
       <ShapeIcon/>
+
+      <button onClick={() => sendCustomEmail()}>Send email</button>
       {/* <button onClick={() => getToken()}> Get Token </button> */}
       {/* <button onClick={() => sendRequest()}> Test Lydia API </button> */}
       {/* 
